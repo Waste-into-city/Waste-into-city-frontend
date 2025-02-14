@@ -1,4 +1,7 @@
-import { YMapLocationRequest } from '@yandex/ymaps3-types';
+import {
+	VectorCustomizationItem,
+	YMapLocationRequest,
+} from '@yandex/ymaps3-types';
 import {
 	YMap,
 	YMapDefaultFeaturesLayer,
@@ -10,11 +13,20 @@ const defaultLocation: YMapLocationRequest = {
 	zoom: 18,
 };
 
+const test: VectorCustomizationItem = {
+	tags: {
+		all: ['poi'],
+	},
+	stylers: {
+		visibility: 'off',
+	},
+};
+
 export const App = () => {
 	return (
 		<div style={{ width: '100%', height: '100vh' }}>
-			<YMap location={defaultLocation} theme="dark">
-				<YMapDefaultSchemeLayer />
+			<YMap location={defaultLocation}>
+				<YMapDefaultSchemeLayer customization={[test]} theme='dark' />
 				<YMapDefaultFeaturesLayer />
 			</YMap>
 		</div>

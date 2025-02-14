@@ -49,7 +49,7 @@ export default tseslint.config(
 				{
 					printWidth: 80,
 					singleQuote: true,
-					jsxSingleQuote: false,
+					jsxSingleQuote: true,
 					trailingComma: 'es5',
 					semi: true,
 				},
