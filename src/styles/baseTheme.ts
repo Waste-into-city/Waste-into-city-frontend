@@ -17,6 +17,7 @@ export const baseTheme: IBaseTheme = {
 	},
 	heights: {
 		dropdownList: '125px',
+		fullScreen: '100vh',
 	},
 	indent: {
 		inputIconPadding: '50px',
@@ -73,6 +74,7 @@ export interface IBaseTheme {
 	};
 	heights: {
 		dropdownList: string;
+		fullScreen: string;
 	};
 	indent: {
 		inputIconPadding: string;
