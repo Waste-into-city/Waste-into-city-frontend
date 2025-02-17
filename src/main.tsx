@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client';
 
 import { YMapComponentsProvider } from 'ymap3-components';
 
+import ThemeProvider from '@/components/providers/ThemeProvider/index.tsx';
+
 import '@/styles/index.css';
 
 import { App } from './App.tsx';
@@ -10,10 +12,12 @@ import { App } from './App.tsx';
 createRoot(document.getElementById('root')!).render(
 	<YMapComponentsProvider
 		apiKey={import.meta.env.VITE_YANDEX_MAP_API_KEY}
-		lang="en_EN"
+		lang='en_EN'
 	>
 		<StrictMode>
-			<App />
+			<ThemeProvider>
+				<App />
+			</ThemeProvider>
 		</StrictMode>
 	</YMapComponentsProvider>
 );
