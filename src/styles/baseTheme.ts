@@ -31,6 +31,9 @@ export const baseTheme: IBaseTheme = {
 		smallPhone: '(max-width: 350px)',
 		tablet: '(max-width: 768px)',
 	},
+	sizes: {
+		loader: '48px',
+	},
 	tops: {
 		dropdownDropButton: '6px',
 		dropdownList: '70px',
@@ -83,6 +86,9 @@ export interface IBaseTheme {
 		phone: string;
 		smallPhone: string;
 		tablet: string;
+	};
+	sizes: {
+		loader: string;
 	};
 	tops: {
 		dropdownDropButton: string;

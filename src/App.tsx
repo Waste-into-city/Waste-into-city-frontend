@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/Button';
 import { Dropdown } from '@/components/ui/Dropdown';
 import { Input } from '@/components/ui/Input';
 import { PasswordInput } from '@/components/ui/PasswordInput';
+import { Test } from '@/styles/common/loader';
 
 const defaultLocation: YMapLocationRequest = {
 	center: [27.5947648, 53.9108842],
@@ -43,6 +44,7 @@ export const App = () => {
 			<Button variant='primary'>
 				<img src={profile} />
 			</Button>
+			<Test />
 			<Input label='Test label' placeholder='Test placeholder' />
 			<PasswordInput placeholder='Password' label='Password' />
 		</div>

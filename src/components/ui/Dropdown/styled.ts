@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { scrollbarCSS } from '@/styles/scrollbar';
+import { scrollbarCSS } from '@/styles/common/scrollbar';
 
 export const Container = styled.div`
 	${({ theme }) => css`
