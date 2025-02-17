@@ -2,8 +2,6 @@ import styled, { css } from 'styled-components';
 
 export const loaderCSS = (color?: string) => css`
 	${({ theme }) => css`
-		width: ${theme.sizes.loader};
-		height: ${theme.sizes.loader};
 		border-radius: ${theme.borderRadius.circle};
 		background:
 			radial-gradient(
@@ -30,5 +28,7 @@ export const loaderCSS = (color?: string) => css`
 
 export const Test = styled.div`
 	display: block;
+	width: 48px;
+	height: 48px;
 	${loaderCSS()}
 `;
