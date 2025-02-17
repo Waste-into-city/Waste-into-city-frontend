@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import { css } from 'styled-components';
 
 export const loaderCSS = (color?: string) => css`
 	${({ theme }) => css`
@@ -24,11 +24,4 @@ export const loaderCSS = (color?: string) => css`
 			}
 		}
 	`}
-`;
-
-export const Test = styled.div`
-	display: block;
-	width: 48px;
-	height: 48px;
-	${loaderCSS()}
 `;
