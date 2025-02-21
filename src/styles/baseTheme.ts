@@ -7,6 +7,9 @@ export const baseTheme: IBaseTheme = {
 	borders: {
 		small: '2px solid',
 	},
+	boxShadows: {
+		medium: '0 0 10px 1px',
+	},
 	fontSizes: {
 		control: '24px',
 		h1: '48px',
@@ -18,10 +21,11 @@ export const baseTheme: IBaseTheme = {
 	heights: {
 		dropdownList: '125px',
 		fullScreen: '100vh',
+		logInBackgroundImage: '60%',
 	},
 	indent: {
 		inputIconPadding: '50px',
-		large: '25px',
+		large: '35px',
 		medium: '15px',
 		scrollbar: '4px',
 		small: '10px',
@@ -29,11 +33,14 @@ export const baseTheme: IBaseTheme = {
 	media: {
 		laptop: '(max-width: 1024px)',
 		phone: '(max-width: 425px)',
+		smallHeight: '(max-height: 550px)',
 		smallPhone: '(max-width: 350px)',
 		tablet: '(max-width: 768px)',
 	},
 	sizes: {
+		buttonLoader: '36px',
 		loader: '48px',
+		logsFormLogo: '72px',
 	},
 	tops: {
 		dropdownDropButton: '6px',
@@ -47,6 +54,7 @@ export const baseTheme: IBaseTheme = {
 	},
 	widths: {
 		full: '100%',
+		logsForm: '760px',
 		scrollbar: '13px',
 	},
 	zIndexes: {
@@ -64,6 +72,9 @@ export interface IBaseTheme {
 	borders: {
 		small: string;
 	};
+	boxShadows: {
+		medium: string;
+	};
 	fontSizes: {
 		control: string;
 		h1: string;
@@ -75,6 +86,7 @@ export interface IBaseTheme {
 	heights: {
 		dropdownList: string;
 		fullScreen: string;
+		logInBackgroundImage: string;
 	};
 	indent: {
 		inputIconPadding: string;
@@ -86,11 +98,14 @@ export interface IBaseTheme {
 	media: {
 		laptop: string;
 		phone: string;
+		smallHeight: string;
 		smallPhone: string;
 		tablet: string;
 	};
 	sizes: {
+		buttonLoader: string;
 		loader: string;
+		logsFormLogo: string;
 	};
 	tops: {
 		dropdownDropButton: string;
@@ -104,6 +119,7 @@ export interface IBaseTheme {
 	};
 	widths: {
 		full: string;
+		logsForm: string;
 		scrollbar: string;
 	};
 	zIndexes: {

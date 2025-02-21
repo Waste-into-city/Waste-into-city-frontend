@@ -1,5 +1,5 @@
-import { MainMap } from '@/components/map/MainMap';
+import { LoginPage } from '@/pages/LoginPage';
 
 export const App = () => {
-	return <MainMap />;
+	return <LoginPage />;
 };

@@ -2,10 +2,11 @@ import styled, { css } from 'styled-components';
 
 import { scrollbarCSS } from '@/styles/common/scrollbar';
 
+import { Input } from '../Input';
+
 export const Container = styled.div`
 	${({ theme }) => css`
 		position: relative;
-		width: fit-content;
 
 		input {
 			padding-right: ${theme.indent.inputIconPadding};
@@ -66,5 +67,11 @@ export const DropButton = styled.button<{ $isDropped: boolean }>`
 		filter: ${$isDropped
 			? theme.colors.iconPrimary
 			: theme.colors.iconContrast};
+	`}
+`;
+
+export const ItemInput = styled(Input)`
+	${({ theme }) => css`
+		width: ${theme.widths.full};
 	`}
 `;

@@ -17,8 +17,10 @@ export const CommonButton = styled.button`
 		cursor: pointer;
 		line-height: normal;
 
-		&:hover {
+		&:hover,
+		&:focus-visible {
 			background-color: ${theme.colors.smallContrast};
+			outline: none;
 		}
 
 		img {
@@ -62,8 +64,10 @@ export const PrimaryButton = styled(CommonButton)`
 			filter: ${theme.colors.iconPrimaryContrast};
 		}
 
-		&:hover {
+		&:hover,
+		&:focus-visible {
 			background-color: ${theme.colors.primaryHover};
+			outline: none;
 		}
 	`}
 `;

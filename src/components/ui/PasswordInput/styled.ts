@@ -1,9 +1,10 @@
 import styled, { css } from 'styled-components';
 
+import { Input } from '../Input';
+
 export const PasswordInputContainer = styled.div`
 	${({ theme }) => css`
 		position: relative;
-		width: fit-content;
 
 		input {
 			padding-right: ${theme.indent.inputIconPadding};
@@ -26,5 +27,16 @@ export const SwitchTypeButton = styled.button<{ $isShowingPassword: boolean }>`
 				? theme.colors.iconContrast
 				: theme.colors.iconSmallContrast};
 		}
+
+		&:focus-visible {
+			filter: ${theme.colors.iconPositive};
+			outline: none;
+		}
+	`}
+`;
+
+export const InputField = styled(Input)`
+	${({ theme }) => css`
+		width: ${theme.widths.full};
 	`}
 `;
