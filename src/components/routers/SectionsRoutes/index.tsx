@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { MainMap } from '@/components/map/MainMap';
 
-export const SectionsRouter = () => {
+export const SectionsRoutes = () => {
 	return (
 		<>
 			<Routes>

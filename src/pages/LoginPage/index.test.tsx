@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { act, fireEvent, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 import { renderWithProviders } from '@/utils/renderWithProviders';
@@ -6,7 +6,7 @@ import { renderWithProviders } from '@/utils/renderWithProviders';
 import { config } from './config';
 import { LoginPage } from '.';
 
-const { FIELD_ERRORS, LOG_IN_BUTTON_LABEL, PLACEHOLDERS } = config;
+const { LOG_IN_BUTTON_LABEL, PLACEHOLDERS } = config;
 
 describe('Login Page', () => {
 	beforeEach(() => {
@@ -36,50 +36,43 @@ describe('Login Page', () => {
 		);
 		await userEvent.type(
 			getByPlaceholderText(PLACEHOLDERS.password),
-			'1'.repeat(FIELD_ERRORS.password.min.value)
+			'1'.repeat(8)
 		);
 
 		await userEvent.click(getByText(LOG_IN_BUTTON_LABEL));
 
-		for (const field in FIELD_ERRORS) {
-			const { min, max } =
-				FIELD_ERRORS[field as keyof typeof FIELD_ERRORS];
-			expect(queryByText(min.message)).not.toBeInTheDocument();
-			expect(queryByText(max.message)).not.toBeInTheDocument();
-		}
+		expect(queryByText('Minimal')).not.toBeInTheDocument();
+		expect(queryByText('Maximum')).not.toBeInTheDocument();
 	});
 
 	it('incorrect inputs - minimal length', async () => {
-		const { getByPlaceholderText, getByText } = screen;
+		const { getByPlaceholderText, getAllByText, getByText } = screen;
 
 		await userEvent.type(getByPlaceholderText(PLACEHOLDERS.email), 'ex');
 		await userEvent.type(getByPlaceholderText(PLACEHOLDERS.password), '1');
 
 		await userEvent.click(getByText(LOG_IN_BUTTON_LABEL));
 
-		for (const field in FIELD_ERRORS) {
-			const { min } = FIELD_ERRORS[field as keyof typeof FIELD_ERRORS];
-			expect(getByText(min.message)).toBeInTheDocument();
-		}
+		expect(getAllByText(/^Minimal/)).toHaveLength(2);
 	});
 
 	it('incorrect inputs - maximum length', async () => {
-		const { getByPlaceholderText, getByText } = screen;
+		const { getByPlaceholderText, getByText, getAllByText } = screen;
 
 		await userEvent.type(
 			getByPlaceholderText(PLACEHOLDERS.email),
-			'e'.repeat(FIELD_ERRORS.email.max.value + 1)
+			'e'.repeat(100)
 		);
-		await userEvent.type(
-			getByPlaceholderText(PLACEHOLDERS.password),
-			'1'.repeat(FIELD_ERRORS.password.max.value + 1)
+		await act(async () =>
+			fireEvent.change(getByPlaceholderText(PLACEHOLDERS.password), {
+				target: {
+					value: '1'.repeat(400),
+				},
+			})
 		);
 
 		await userEvent.click(getByText(LOG_IN_BUTTON_LABEL));
 
-		for (const field in FIELD_ERRORS) {
-			const { max } = FIELD_ERRORS[field as keyof typeof FIELD_ERRORS];
-			expect(getByText(max.message)).toBeInTheDocument();
-		}
+		expect(getAllByText(/^Max/)).toHaveLength(2);
 	});
 });
