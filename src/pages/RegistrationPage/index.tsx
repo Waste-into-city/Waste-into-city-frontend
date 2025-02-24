@@ -1,5 +1,6 @@
 import logoIcon from '@/assets/icons/svg/recycle_logo.svg';
 import backgroundImage from '@/assets/images/jpg/city.jpeg';
+import { ROUTES } from '@/constants/routes';
 import { useForm } from '@/hooks/useForm';
 
 import { config, RegistrationForm } from './config';
@@ -76,7 +77,8 @@ export const RegistrationPage = () => {
 					<S.ErrorMessage>{errors.global}</S.ErrorMessage>
 
 					<S.LoginLink>
-						{LOG_IN_QUESTION} <a>{LOG_IN_LINK}</a>
+						{LOG_IN_QUESTION}{' '}
+						<a href={ROUTES.LOGIN}>{LOG_IN_LINK}</a>
 					</S.LoginLink>
 				</S.Form>
 			</S.FormContainer>

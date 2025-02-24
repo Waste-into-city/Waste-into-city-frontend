@@ -1,5 +1,6 @@
 import logoIcon from '@/assets/icons/svg/recycle_logo.svg';
 import woodsImage from '@/assets/images/jpg/city.jpeg';
+import { ROUTES } from '@/constants/routes';
 import { useForm } from '@/hooks/useForm';
 
 import { config, LoginForm } from './config';
@@ -57,7 +58,8 @@ export const LoginPage = () => {
 					{isLoading ? <S.ButtonLoader /> : LOG_IN_BUTTON_LABEL}
 				</S.LogInButton>
 				<S.RegisterLink>
-					{REGISTER_QUESTION} <a href='#'>{REGISTER_LINK}</a>
+					{REGISTER_QUESTION}{' '}
+					<a href={ROUTES.REGISTRATION}>{REGISTER_LINK}</a>
 				</S.RegisterLink>
 			</S.Form>
 		</S.Main>

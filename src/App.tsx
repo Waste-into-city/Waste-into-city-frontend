@@ -1,5 +1,5 @@
-import { RegistrationPage } from '@/pages/RegistrationPage';
+import { AppRouter } from '@/components/routers/AppRouter';
 
 export const App = () => {
-	return <RegistrationPage />;
+	return <AppRouter />;
 };
