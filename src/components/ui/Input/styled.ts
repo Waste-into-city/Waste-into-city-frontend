@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
-	width: fit-content;
 	height: fit-content;
 	position: relative;
 `;
@@ -27,7 +26,7 @@ export const Label = styled.label<{ $isFocused: boolean; $isError: boolean }>`
 
 export const Input = styled.input<{ $isError: boolean }>`
 	${({ theme, $isError }) => css`
-		width: 100%;
+		width: ${theme.widths.full};
 		padding: ${theme.indent.medium};
 		font-size: ${theme.fontSizes.control};
 		color: ${theme.colors.fullContrast};

@@ -1,4 +1,4 @@
-import { HTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 
 import { IStyledComponent } from 'styled-components';
 
@@ -6,7 +6,7 @@ import * as S from './styled';
 
 type ButtonVariants = 'common' | 'negative' | 'positive' | 'primary';
 
-export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 	variant?: ButtonVariants;
 };
 
