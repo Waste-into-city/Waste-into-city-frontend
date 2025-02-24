@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 
 import { ZodError, ZodSchema } from 'zod';
 
-import { Form, helpers } from './helpers';
+import { Form, FormError, helpers } from './helpers';
 
 type Params<T extends Form> = {
 	defaultValues: T;
@@ -18,7 +18,7 @@ export const useForm = <T extends Form>({
 	submitHandler,
 }: Params<T>) => {
 	const [fields, setFields] = useState<T>(defaultValues);
-	const [errors, setErrors] = useState<Partial<T>>({});
+	const [errors, setErrors] = useState<FormError<T>>({});
 	const [isLoading, setIsLoading] = useState(false);
 
 	const handleFieldChange =
@@ -35,8 +35,9 @@ export const useForm = <T extends Form>({
 			const parsedFields: T = validationSchema.parse(fields);
 			setIsLoading(true);
 			submitHandler(parsedFields).finally(() => setIsLoading(false));
+			setErrors({});
 		} catch (e: unknown) {
-			const errorsObject = getErrorsObject(e as ZodError);
+			const errorsObject: FormError<T> = getErrorsObject(e as ZodError);
 			setErrors(errorsObject);
 		} finally {
 			formEvent.preventDefault();

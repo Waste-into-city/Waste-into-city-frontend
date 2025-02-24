@@ -4,12 +4,18 @@ export type Form = {
 	[field: string]: string;
 };
 
-const getErrorsObject = <T extends Form>(zodError: ZodError<T>): Partial<T> => {
+export type FormError<T extends Form> = Partial<T> & {
+	global?: string;
+};
+
+const getErrorsObject = <T extends Form>(
+	zodError: ZodError<T>
+): FormError<T> => {
 	const errorsObject: Form = {};
 	for (const { path, message } of zodError.errors) {
 		errorsObject[path[0]] = message;
 	}
-	return errorsObject as Partial<T>;
+	return errorsObject as FormError<T>;
 };
 
 export const helpers = {

@@ -1,5 +1,5 @@
-import { LoginPage } from '@/pages/LoginPage';
+import { RegistrationPage } from '@/pages/RegistrationPage';
 
 export const App = () => {
-	return <LoginPage />;
+	return <RegistrationPage />;
 };

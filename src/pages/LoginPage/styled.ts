@@ -44,7 +44,7 @@ export const Form = styled.form`
 		border-radius: ${theme.borderRadius.round};
 		padding: ${theme.indent.large};
 		z-index: ${theme.zIndexes.middle};
-		box-shadow: ${theme.boxShadows.medium} ${theme.colors.fullContrast};
+		box-shadow: ${theme.boxShadows.medium};
 		position: relative;
 
 		@media ${theme.media.tablet} {
@@ -123,6 +123,6 @@ export const ButtonLoader = styled.div`
 		display: inline-block;
 		width: ${theme.sizes.buttonLoader};
 		height: ${theme.sizes.buttonLoader};
-		${loaderCSS(theme.colors.background)}
+		${loaderCSS(theme.colors.primaryContrast)}
 	`}
 `;

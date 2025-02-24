@@ -20,6 +20,7 @@ export const baseTheme: IBaseTheme = {
 	},
 	heights: {
 		dropdownList: '125px',
+		full: '100%',
 		fullScreen: '100vh',
 		logInBackgroundImage: '60%',
 	},
@@ -31,8 +32,11 @@ export const baseTheme: IBaseTheme = {
 		small: '10px',
 	},
 	media: {
+		landscape: '(orientation: landscape)',
 		laptop: '(max-width: 1024px)',
+		laptopHeight: '(max-height: 850px)',
 		phone: '(max-width: 425px)',
+		portrait: '(orientation: portrait)',
 		smallHeight: '(max-height: 550px)',
 		smallPhone: '(max-width: 350px)',
 		tablet: '(max-width: 768px)',
@@ -55,6 +59,7 @@ export const baseTheme: IBaseTheme = {
 	widths: {
 		full: '100%',
 		logsForm: '760px',
+		registrationBackgroundImage: '55%',
 		scrollbar: '13px',
 	},
 	zIndexes: {
@@ -85,6 +90,7 @@ export interface IBaseTheme {
 	};
 	heights: {
 		dropdownList: string;
+		full: string;
 		fullScreen: string;
 		logInBackgroundImage: string;
 	};
@@ -96,8 +102,11 @@ export interface IBaseTheme {
 		small: string;
 	};
 	media: {
+		landscape: string;
 		laptop: string;
+		laptopHeight: string;
 		phone: string;
+		portrait: string;
 		smallHeight: string;
 		smallPhone: string;
 		tablet: string;
@@ -120,6 +129,7 @@ export interface IBaseTheme {
 	widths: {
 		full: string;
 		logsForm: string;
+		registrationBackgroundImage: string;
 		scrollbar: string;
 	};
 	zIndexes: {
