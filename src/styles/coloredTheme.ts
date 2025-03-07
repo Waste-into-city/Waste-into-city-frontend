@@ -6,6 +6,7 @@ const commonTheme: ICommonTheme = {
 	work: '#a37150',
 	primaryContrast: '#eee',
 	primaryHover: '#299148',
+	backgroundBlur: '#00000050',
 
 	iconPrimary:
 		'invert(67%) sepia(74%) saturate(450%) hue-rotate(81deg) brightness(89%) contrast(85%)',
@@ -55,6 +56,7 @@ interface ICommonTheme {
 	work: string;
 	primaryContrast: string;
 	primaryHover: string;
+	backgroundBlur: string;
 
 	iconPrimary: string;
 	iconPositive: string;
