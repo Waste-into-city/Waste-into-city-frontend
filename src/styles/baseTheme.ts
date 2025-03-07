@@ -9,6 +9,7 @@ export const baseTheme: IBaseTheme = {
 	},
 	boxShadows: {
 		medium: '0 0 10px 1px',
+		small: '0 0 5px',
 	},
 	fontSizes: {
 		control: '24px',
@@ -22,10 +23,12 @@ export const baseTheme: IBaseTheme = {
 		dropdownList: '125px',
 		full: '100%',
 		fullScreen: '100vh',
+		interactionSectionPortrait: '74%',
 		logInBackgroundImage: '60%',
 	},
 	indent: {
 		inputIconPadding: '50px',
+		interactionSection: '45px',
 		large: '35px',
 		medium: '15px',
 		scrollbar: '4px',
@@ -43,8 +46,11 @@ export const baseTheme: IBaseTheme = {
 	},
 	sizes: {
 		buttonLoader: '36px',
+		interactionSectionMin: '70%',
 		loader: '48px',
 		logsFormLogo: '72px',
+		nearFull: '90%',
+		sectionLoader: '64px',
 	},
 	tops: {
 		dropdownDropButton: '6px',
@@ -55,14 +61,17 @@ export const baseTheme: IBaseTheme = {
 	},
 	transitions: {
 		fast: '.15s linear',
+		medium: '.4s',
 	},
 	widths: {
 		full: '100%',
+		interactionSection: '80%',
 		logsForm: '760px',
 		registrationBackgroundImage: '55%',
 		scrollbar: '13px',
 	},
 	zIndexes: {
+		blur: '4',
 		front: '10',
 		middle: '5',
 	},
@@ -79,6 +88,7 @@ export interface IBaseTheme {
 	};
 	boxShadows: {
 		medium: string;
+		small: string;
 	};
 	fontSizes: {
 		control: string;
@@ -92,10 +102,12 @@ export interface IBaseTheme {
 		dropdownList: string;
 		full: string;
 		fullScreen: string;
+		interactionSectionPortrait: string;
 		logInBackgroundImage: string;
 	};
 	indent: {
 		inputIconPadding: string;
+		interactionSection: string;
 		large: string;
 		medium: string;
 		scrollbar: string;
@@ -113,8 +125,11 @@ export interface IBaseTheme {
 	};
 	sizes: {
 		buttonLoader: string;
+		interactionSectionMin: string;
 		loader: string;
 		logsFormLogo: string;
+		nearFull: string;
+		sectionLoader: string;
 	};
 	tops: {
 		dropdownDropButton: string;
@@ -125,14 +140,17 @@ export interface IBaseTheme {
 	};
 	transitions: {
 		fast: string;
+		medium: string;
 	};
 	widths: {
 		full: string;
+		interactionSection: string;
 		logsForm: string;
 		registrationBackgroundImage: string;
 		scrollbar: string;
 	};
 	zIndexes: {
+		blur: string;
 		front: string;
 		middle: string;
 	};

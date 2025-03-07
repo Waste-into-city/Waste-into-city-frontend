@@ -15,7 +15,7 @@ export const MainMap = () => {
 			<YMap location={defaultLocation}>
 				<YMapDefaultSchemeLayer
 					customization={mapCustomization}
-					theme='dark'
+					theme='light'
 				/>
 				<YMapDefaultFeaturesLayer />
 			</YMap>
