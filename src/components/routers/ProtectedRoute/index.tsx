@@ -3,6 +3,8 @@ import { Navigate } from 'react-router-dom';
 
 import { ROUTES } from '@/constants/routes';
 
+// Add storage and tests
+// Add tests for SectionsRoutes
 const isLoggedIn = true;
 
 export const ProtectedRoute = ({
