@@ -7,7 +7,7 @@ import * as S from './styled';
 const { USER_ROUTES, LOG_IN_ROUTE } = config;
 
 // Add storage and tests
-const isLoggedIn = true;
+const isLoggedIn = false;
 
 export const ControlsBar = memo(() => {
 	const { pathname } = useLocation();

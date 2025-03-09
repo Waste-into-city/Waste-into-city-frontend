@@ -1,3 +1,4 @@
+import { registerUser } from '@/api/registerUser';
 import logoIcon from '@/assets/icons/svg/recycle_logo.svg';
 import backgroundImage from '@/assets/images/jpg/city.jpeg';
 import { ROUTES } from '@/constants/routes';
@@ -27,7 +28,7 @@ export const RegistrationPage = () => {
 		isLoading,
 	} = useForm<RegistrationForm>({
 		defaultValues,
-		submitHandler: () => new Promise((res) => setTimeout(res, 20000)),
+		submitHandler: registerUser,
 		validationSchema: RegistrationSchema,
 	});
 

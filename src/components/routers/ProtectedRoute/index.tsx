@@ -5,7 +5,7 @@ import { ROUTES } from '@/constants/routes';
 
 // Add storage and tests
 // Add tests for SectionsRoutes
-const isLoggedIn = true;
+const isLoggedIn = false;
 
 export const ProtectedRoute = ({
 	children,
