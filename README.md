@@ -1,50 +1,71 @@
-# React + TypeScript + Vite
+# Waste into city
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Frontend part
 
-Currently, two official plugins are available:
+This repository contains source code for frontend part of the "Waste into city" application.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Deploy
 
-## Expanding the ESLint configuration
+Public deploy is [here](https://waste-into-city-frontend-pearl.vercel.app/).
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Architecture
 
-- Configure the top-level `parserOptions` property like this:
+The frontend is a Single-page application with Client-side rendering.
 
-```js
-export default tseslint.config({
-	languageOptions: {
-		// other options...
-		parserOptions: {
-			project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-			tsconfigRootDir: import.meta.dirname,
-		},
-	},
-});
-```
+### Technologies
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Used technologies are:
 
-```js
-// eslint.config.js
-import react from "eslint-plugin-react";
+- TypeScript
+- React
+- Zustand
+- Styled-components
+- Zod
+- Vitest
+- React Testing Library
+- Vite
+- Yandex Maps API
+- React Router
+- GitHub Actions
 
-export default tseslint.config({
-	// Set the react version
-	settings: { react: { version: "18.3" } },
-	plugins: {
-		// Add the react plugin
-		react,
-	},
-	rules: {
-		// other rules...
-		// Enable its recommended rules
-		...react.configs.recommended.rules,
-		...react.configs["jsx-runtime"].rules,
-	},
-});
-```
+### Routes
+
+The application routes are:
+
+- **_/_** - main application page
+- **_/signup_** - sign up page
+- **_/login_** - log in page
+- **_/works_** - list of user's works
+- **_/account_** - user's account information and settings
+- **_/account/:id_** - basic information on any user
+- **_/newwork_** - new work creator
+- **_/work/:id_** - work information
+- **_/trashcan/:id_** - trashcan information
+- **_/newtrashcan_** - new trashcan creator (for Admins only)
+- **_/reports_** - list of user reports (for Moderators only)
+- **_/report/:id_** - report information
+
+### States
+
+Work:
+
+- **_Pending_** - waiting for moderator to approve
+- **_Active_** - approved by moderator
+- **_In Progress_** - is currently in progress
+- **_Successful_** - finished successfuly
+- **_Unknown_** - should have ended but for some reason hasn't
+
+Trashcan occupancy:
+
+- **_Empty_** - nearly 0%
+- **_Sparse_** - nearly 25%
+- **_Medium_** - nearly 50%
+- **_Almost Full_** - nearly 75%
+
+Trashcan type:
+
+- **_Mixed_**
+- **_Plastic_**
+- **_Electronic_**
+- **_Glass_**
+- **_Batteries_**
