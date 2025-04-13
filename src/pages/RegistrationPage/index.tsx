@@ -1,8 +1,8 @@
-import { registerUser } from '@/api/registerUser';
 import logoIcon from '@/assets/icons/svg/recycle_logo.svg';
 import backgroundImage from '@/assets/images/jpg/city.jpeg';
 import { ROUTES } from '@/constants/routes';
 import { useForm } from '@/hooks/useForm';
+import { registerUser } from '@/query/registerUser';
 
 import { config, RegistrationForm } from './config';
 import { helpers } from './helpers';

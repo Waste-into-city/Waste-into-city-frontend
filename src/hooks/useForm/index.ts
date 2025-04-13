@@ -34,8 +34,17 @@ export const useForm = <T extends Form>({
 		try {
 			const parsedFields: T = validationSchema.parse(fields);
 			setIsLoading(true);
-			submitHandler(parsedFields).finally(() => setIsLoading(false));
-			setErrors({});
+			submitHandler(parsedFields)
+				.then(() => {
+					setErrors({});
+				})
+				.catch(({ message }: Error) =>
+					setErrors((prevErrors) => ({
+						...prevErrors,
+						global: message,
+					}))
+				)
+				.finally(() => setIsLoading(false));
 		} catch (e: unknown) {
 			const errorsObject: FormError<T> = getErrorsObject(e as ZodError);
 			setErrors(errorsObject);

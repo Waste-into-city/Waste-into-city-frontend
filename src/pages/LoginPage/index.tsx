@@ -2,6 +2,7 @@ import logoIcon from '@/assets/icons/svg/recycle_logo.svg';
 import woodsImage from '@/assets/images/jpg/city.jpeg';
 import { ROUTES } from '@/constants/routes';
 import { useForm } from '@/hooks/useForm';
+import { loginUser } from '@/query/loginUser';
 
 import { config, LoginForm } from './config';
 import { helpers } from './helpers';
@@ -29,8 +30,7 @@ export const LoginPage = () => {
 		isLoading,
 	} = useForm<LoginForm>({
 		defaultValues: defaultFields,
-		// Fake timeout should be replaced with log in function
-		submitHandler: () => new Promise((r) => setTimeout(r, 20000)),
+		submitHandler: loginUser,
 		validationSchema: LoginFormSchema,
 	});
 
@@ -57,6 +57,7 @@ export const LoginPage = () => {
 				<S.LogInButton variant='primary' disabled={isLoading}>
 					{isLoading ? <S.ButtonLoader /> : LOG_IN_BUTTON_LABEL}
 				</S.LogInButton>
+				<S.ErrorMessage>{errors.global}</S.ErrorMessage>
 				<S.RegisterLink>
 					{REGISTER_QUESTION}{' '}
 					<a href={ROUTES.REGISTRATION}>{REGISTER_LINK}</a>

@@ -13,6 +13,7 @@
 		"test:unit": "vitest --passWithNoTests --coverage"
 	},
 	"dependencies": {
+		"@tanstack/react-query": "^5.73.3",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"react-router-dom": "^7.1.5",
