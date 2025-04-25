@@ -4,7 +4,7 @@ export const CommonButton = styled.button`
 	${({ theme }) => css`
 		padding: ${theme.indent.medium};
 		color: ${theme.colors.fullContrast};
-		background: ${theme.colors.background};
+		background: transparent;
 		border-radius: ${theme.borderRadius.round};
 		font-size: ${theme.fontSizes.control};
 		transition: ${theme.transitions.fast};
@@ -17,10 +17,21 @@ export const CommonButton = styled.button`
 		cursor: pointer;
 		line-height: normal;
 
-		&:hover,
-		&:focus-visible {
-			background-color: ${theme.colors.smallContrast};
-			outline: none;
+		&:enabled {
+			&:hover,
+			&:focus-visible {
+				background-color: ${theme.colors.smallContrast};
+				outline: none;
+			}
+		}
+
+		&:disabled {
+			color: ${theme.colors.smallContrast};
+			cursor: default;
+
+			img {
+				filter: ${theme.colors.iconSmallContrast};
+			}
 		}
 
 		img {

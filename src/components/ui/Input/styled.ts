@@ -51,3 +51,14 @@ export const Input = styled.input<{ $isError: boolean }>`
 		}
 	`}
 `;
+
+export const ErrorText = styled.label(({ theme }) => ({
+	color: theme.colors.negative,
+	paddingInline: theme.indent.small,
+	fontSize: theme.fontSizes.label,
+	borderRadius: theme.borderRadius.round,
+	backgroundColor: theme.colors.background,
+	position: 'absolute',
+	bottom: `-${theme.indent.small}`,
+	left: theme.indent.small,
+}));

@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useMemo, useState } from 'react';
 
 import { ZodError, ZodSchema } from 'zod';
 
@@ -21,37 +21,67 @@ export const useForm = <T extends Form>({
 	const [errors, setErrors] = useState<FormError<T>>({});
 	const [isLoading, setIsLoading] = useState(false);
 
-	const handleFieldChange =
+	const handleFieldChange = useCallback(
 		(field: keyof T) => (changeEvent: ChangeEvent<HTMLInputElement>) => {
 			setFields((prevFields) => ({
 				...prevFields,
 				[field]: changeEvent.target.value,
 			}));
 			setErrors((prevErrors) => ({ ...prevErrors, [field]: '' }));
-		};
+		},
+		[setFields, setErrors]
+	);
 
-	const handleFormSubmit = (formEvent: FormEvent) => {
-		try {
-			const parsedFields: T = validationSchema.parse(fields);
-			setIsLoading(true);
-			submitHandler(parsedFields)
-				.then(() => {
-					setErrors({});
-				})
-				.catch(({ message }: Error) =>
-					setErrors((prevErrors) => ({
-						...prevErrors,
-						global: message,
-					}))
-				)
-				.finally(() => setIsLoading(false));
-		} catch (e: unknown) {
-			const errorsObject: FormError<T> = getErrorsObject(e as ZodError);
-			setErrors(errorsObject);
-		} finally {
-			formEvent.preventDefault();
+	const resetFields = useCallback(() => {
+		setFields(defaultValues);
+		setErrors({});
+	}, [setFields, defaultValues]);
+
+	const handleFormSubmit = useCallback(
+		(formEvent: FormEvent) => {
+			try {
+				const parsedFields: T = validationSchema.parse(fields);
+				setIsLoading(true);
+				submitHandler(parsedFields)
+					.then(() => {
+						setErrors({});
+						resetFields();
+					})
+					.catch(({ message }: Error) =>
+						setErrors((prevErrors) => ({
+							...prevErrors,
+							global: message,
+						}))
+					)
+					.finally(() => setIsLoading(false));
+			} catch (e: unknown) {
+				const errorsObject: FormError<T> = getErrorsObject(
+					e as ZodError
+				);
+				setErrors(errorsObject);
+			} finally {
+				formEvent.preventDefault();
+			}
+		},
+		[setIsLoading, setErrors, fields]
+	);
+
+	const areFieldsChanged = useMemo(() => {
+		for (const field in fields) {
+			if (fields[field] !== defaultValues[field]) {
+				return true;
+			}
 		}
-	};
+		return false;
+	}, [fields]);
 
-	return { errors, fields, handleFieldChange, handleFormSubmit, isLoading };
+	return {
+		errors,
+		fields,
+		handleFieldChange,
+		handleFormSubmit,
+		isLoading,
+		resetFields,
+		areFieldsChanged,
+	};
 };

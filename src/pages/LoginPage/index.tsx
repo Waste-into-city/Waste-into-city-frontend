@@ -2,7 +2,7 @@ import logoIcon from '@/assets/icons/svg/recycle_logo.svg';
 import woodsImage from '@/assets/images/jpg/city.jpeg';
 import { ROUTES } from '@/constants/routes';
 import { useForm } from '@/hooks/useForm';
-import { loginUser } from '@/query/loginUser';
+import { loginUser } from '@/queries/loginUser';
 
 import { config, LoginForm } from './config';
 import { helpers } from './helpers';
@@ -43,17 +43,16 @@ export const LoginPage = () => {
 				<S.EmailField
 					placeholder={PLACEHOLDERS.email}
 					value={email}
-					isError={Boolean(errors.email)}
+					errorText={errors.email}
 					onChange={handleFieldChange('email')}
 				/>
-				<S.ErrorMessage>{errors.email}</S.ErrorMessage>
 				<S.PasswordField
 					placeholder={PLACEHOLDERS.password}
 					value={password}
-					isError={Boolean(errors.password)}
+					errorText={errors.password}
 					onChange={handleFieldChange('password')}
 				/>
-				<S.ErrorMessage>{errors.password}</S.ErrorMessage>
+
 				<S.LogInButton variant='primary' disabled={isLoading}>
 					{isLoading ? <S.ButtonLoader /> : LOG_IN_BUTTON_LABEL}
 				</S.LogInButton>

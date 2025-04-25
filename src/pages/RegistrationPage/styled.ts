@@ -101,7 +101,7 @@ export const LogoIcon = styled.img`
 const controlCSS = css`
 	${({ theme }) => css`
 		width: ${theme.widths.full};
-		margin: ${theme.indent.medium} 0;
+		margin: ${theme.indent.large} 0;
 	`}
 `;
 
