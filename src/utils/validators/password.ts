@@ -5,11 +5,11 @@ import { FieldValidator } from '@/types/validator';
 const validatorValues: FieldValidator = {
 	min: {
 		value: 8,
-		message: 'Minimal length for password is 8 symbols!',
+		message: 'Minimal length is 8 symbols',
 	},
 	max: {
 		value: 255,
-		message: 'Maximum length for password is 255 symbols!',
+		message: 'Maximum length is 255 symbols',
 	},
 };
 

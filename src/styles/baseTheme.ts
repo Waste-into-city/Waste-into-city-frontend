@@ -51,6 +51,7 @@ export const baseTheme: IBaseTheme = {
 		logsFormLogo: '72px',
 		nearFull: '90%',
 		sectionLoader: '64px',
+		userAccountAvatar: '80px',
 	},
 	tops: {
 		dropdownDropButton: '6px',
@@ -130,6 +131,7 @@ export interface IBaseTheme {
 		logsFormLogo: string;
 		nearFull: string;
 		sectionLoader: string;
+		userAccountAvatar: string;
 	};
 	tops: {
 		dropdownDropButton: string;

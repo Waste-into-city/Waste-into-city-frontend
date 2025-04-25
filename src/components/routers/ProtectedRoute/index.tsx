@@ -2,10 +2,7 @@ import { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { ROUTES } from '@/constants/routes';
-
-// Add storage and tests
-// Add tests for SectionsRoutes
-const isLoggedIn = false;
+import { useUserLogs } from '@/store/user/useUserLogs';
 
 export const ProtectedRoute = ({
 	children,
@@ -14,6 +11,10 @@ export const ProtectedRoute = ({
 	children: ReactNode;
 	isAuthRoute: boolean;
 }) => {
+	const {
+		logs: { isLoggedIn },
+	} = useUserLogs();
+
 	if (isAuthRoute) {
 		return isLoggedIn ? children : <Navigate to={ROUTES.MAIN} />;
 	}

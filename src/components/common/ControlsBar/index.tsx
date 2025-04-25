@@ -1,16 +1,18 @@
 import { memo } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import { useUserLogs } from '@/store/user/useUserLogs';
+
 import { config } from './config';
 import * as S from './styled';
 
 const { USER_ROUTES, LOG_IN_ROUTE } = config;
 
-// Add storage and tests
-const isLoggedIn = false;
-
 export const ControlsBar = memo(() => {
 	const { pathname } = useLocation();
+	const {
+		logs: { isLoggedIn },
+	} = useUserLogs();
 
 	if (!isLoggedIn) {
 		return (

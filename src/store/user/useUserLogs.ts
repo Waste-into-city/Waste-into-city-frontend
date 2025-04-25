@@ -1,18 +1,13 @@
 import { create } from 'zustand';
 
-import { loginUser } from '@/query/loginUser';
+import { loginUser } from '@/queries/loginUser';
 
-type UserLogs =
-	| {
-			isLoggedIn: true;
-			nickname: string;
-			email: string;
-			accessToken: string;
-			refreshToken: string;
-	  }
-	| {
-			isLoggedIn: false;
-	  };
+type UserLogs = {
+	isLoggedIn: boolean;
+	nickname: string;
+	email: string;
+	avatarLink?: string;
+};
 
 type UserCredentials = {
 	email: string;
@@ -25,12 +20,22 @@ type UserLogsState = {
 	logOut: () => Promise<void>;
 };
 
+const emptyUserValues: UserLogs = {
+	isLoggedIn: false,
+	nickname: '',
+	email: '',
+};
+
+const mockUser: UserLogs = {
+	isLoggedIn: true,
+	nickname: 'Name',
+	email: 'email@gmail.com',
+};
+
 export const useUserLogs = create<UserLogsState>()((set) => ({
-	logs: {
-		isLoggedIn: false,
-	},
+	logs: mockUser,
 	logIn: loginUser,
 	logOut: async () => {
-		set({ logs: { isLoggedIn: false } });
+		set({ logs: emptyUserValues });
 	},
 }));

@@ -2,7 +2,7 @@ import logoIcon from '@/assets/icons/svg/recycle_logo.svg';
 import backgroundImage from '@/assets/images/jpg/city.jpeg';
 import { ROUTES } from '@/constants/routes';
 import { useForm } from '@/hooks/useForm';
-import { registerUser } from '@/query/registerUser';
+import { registerUser } from '@/queries/registerUser';
 
 import { config, RegistrationForm } from './config';
 import { helpers } from './helpers';
@@ -44,33 +44,29 @@ export const RegistrationPage = () => {
 						placeholder={PLACEHOLDERS.name}
 						onChange={handleFieldChange('name')}
 						value={name}
-						isError={Boolean(errors.name)}
+						errorText={errors.name}
 					/>
-					<S.ErrorMessage>{errors.name}</S.ErrorMessage>
 
 					<S.TextField
 						placeholder={PLACEHOLDERS.email}
 						onChange={handleFieldChange('email')}
 						value={email}
-						isError={Boolean(errors.email)}
+						errorText={errors.email}
 					/>
-					<S.ErrorMessage>{errors.email}</S.ErrorMessage>
 
 					<S.PasswordField
 						placeholder={PLACEHOLDERS.password}
 						onChange={handleFieldChange('password')}
 						value={password}
-						isError={Boolean(errors.password)}
+						errorText={errors.password}
 					/>
-					<S.ErrorMessage>{errors.password}</S.ErrorMessage>
 
 					<S.PasswordField
 						placeholder={PLACEHOLDERS.confirmPassword}
 						onChange={handleFieldChange('confirmPassword')}
 						value={confirmPassword}
-						isError={Boolean(errors.confirmPassword)}
+						errorText={errors.confirmPassword}
 					/>
-					<S.ErrorMessage>{errors.confirmPassword}</S.ErrorMessage>
 
 					<S.RegisterButton variant='primary' disabled={isLoading}>
 						{isLoading ? <S.Loader /> : REGISTER_BUTTON_LABEL}

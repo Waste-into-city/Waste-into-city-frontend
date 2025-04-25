@@ -66,7 +66,7 @@ export const SectionLink = styled(Link)<{ $isSelected: boolean }>`
 			margin: ${theme.indent.large} 0;
 
 			@media ${theme.media.smallHeight} {
-				margin: 0;
+				margin: ${theme.indent.medium} 0;
 			}
 		}
 
@@ -74,7 +74,7 @@ export const SectionLink = styled(Link)<{ $isSelected: boolean }>`
 			margin: 0 ${theme.indent.large};
 
 			@media ${theme.media.phone} {
-				margin: 0;
+				margin: 0 ${theme.indent.medium};
 			}
 		}
 	`}
