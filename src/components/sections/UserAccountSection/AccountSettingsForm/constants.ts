@@ -18,3 +18,7 @@ export const USER_SETTINGS_FORM_VALUES: Omit<
 	newPassword: 'New password',
 	newPasswordConfirmation: 'Confirm new password',
 };
+
+export const CANCEL_BUTTON_LABEL = 'Cancel';
+export const EDIT_BUTTON_LABEL = 'Edit';
+export const SAVE_BUTTON_LABEL = 'Save';

@@ -1,5 +1,6 @@
 import { useColoredTheme } from '@/store/theme/useColoredTheme';
 
+import { THEME_TOGGLE_LABEL } from './constants';
 import * as S from './styled';
 
 export const ThemeSwitch = () => {
@@ -12,7 +13,7 @@ export const ThemeSwitch = () => {
 				onClick={toggleTheme}
 				$isDarkTheme={isDarkTheme}
 			/>
-			<p>Dark theme</p>
+			<p>{THEME_TOGGLE_LABEL}</p>
 		</S.ThemeSwitchWraper>
 	);
 };

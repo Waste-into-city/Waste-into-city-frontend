@@ -7,7 +7,13 @@ import { PasswordInput } from '@/components/ui/PasswordInput';
 import { useForm } from '@/hooks/useForm';
 import { useUserLogs } from '@/store/user/useUserLogs';
 
-import { defaultEmptyValues, USER_SETTINGS_FORM_VALUES } from './constants';
+import {
+	CANCEL_BUTTON_LABEL,
+	defaultEmptyValues,
+	EDIT_BUTTON_LABEL,
+	SAVE_BUTTON_LABEL,
+	USER_SETTINGS_FORM_VALUES,
+} from './constants';
 import { validationSchema } from './schema';
 import * as S from './styled';
 import { UserAccountSettingsForm } from './types';
@@ -106,11 +112,11 @@ export const AccountSettingsForm = () => {
 					onClick={handleEditModeStart}
 					disabled={!areFieldsChanged && isEditMode}
 				>
-					{isEditMode ? 'Save' : 'Edit'}
+					{isEditMode ? SAVE_BUTTON_LABEL : EDIT_BUTTON_LABEL}
 				</Button>
 				{isEditMode && (
 					<Button variant='negative' onClick={handleEditModeCancel}>
-						Cancel
+						{CANCEL_BUTTON_LABEL}
 					</Button>
 				)}
 			</S.AvatarWithControlsWrapper>
