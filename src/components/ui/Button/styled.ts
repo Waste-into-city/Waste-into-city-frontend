@@ -35,8 +35,8 @@ export const CommonButton = styled.button`
 		}
 
 		img {
-			width: 48px;
-			height: 48px;
+			width: ${theme.widths.full};
+			height: ${theme.heights.full};
 			filter: ${theme.colors.iconContrast};
 		}
 

@@ -71,7 +71,7 @@ export const AccountSettingsForm = () => {
 				? URL.createObjectURL(avatarFile)
 				: (userLogs.avatarLink ?? '')
 		);
-	}, [avatarFile]);
+	}, [avatarFile, userLogs.avatarLink]);
 
 	const handleEditModeStart: MouseEventHandler = (mouseEvent) => {
 		if (!isEditMode) {

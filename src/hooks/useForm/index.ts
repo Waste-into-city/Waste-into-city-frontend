@@ -63,7 +63,14 @@ export const useForm = <T extends Form>({
 				formEvent.preventDefault();
 			}
 		},
-		[setIsLoading, setErrors, fields]
+		[
+			setIsLoading,
+			setErrors,
+			fields,
+			resetFields,
+			submitHandler,
+			validationSchema,
+		]
 	);
 
 	const areFieldsChanged = useMemo(() => {
@@ -73,7 +80,7 @@ export const useForm = <T extends Form>({
 			}
 		}
 		return false;
-	}, [fields]);
+	}, [fields, defaultValues]);
 
 	return {
 		errors,
