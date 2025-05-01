@@ -7,6 +7,7 @@ const commonTheme: ICommonTheme = {
 	primaryContrast: '#eee',
 	primaryHover: '#299148',
 	backgroundBlur: '#00000050',
+	white: '#fff',
 
 	iconPrimary:
 		'invert(67%) sepia(74%) saturate(450%) hue-rotate(81deg) brightness(89%) contrast(85%)',
@@ -20,6 +21,7 @@ const commonTheme: ICommonTheme = {
 		'invert(48%) sepia(46%) saturate(418%) hue-rotate(341deg) brightness(89%) contrast(90%)',
 	iconPrimaryContrast:
 		'invert(99%) sepia(5%) saturate(358%) hue-rotate(349deg) brightness(115%) contrast(87%)',
+	iconWhite: 'invert(1)',
 };
 
 export const lightTheme: IColoredTheme = {
@@ -57,6 +59,7 @@ interface ICommonTheme {
 	primaryContrast: string;
 	primaryHover: string;
 	backgroundBlur: string;
+	white: string;
 
 	iconPrimary: string;
 	iconPositive: string;
@@ -64,6 +67,7 @@ interface ICommonTheme {
 	iconNegative: string;
 	iconWork: string;
 	iconPrimaryContrast: string;
+	iconWhite: string;
 }
 
 interface ISeparateTheme {

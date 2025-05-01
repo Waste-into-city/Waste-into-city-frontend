@@ -41,11 +41,11 @@ export const Navigation = styled.nav`
 
 export const SectionLink = styled(Link)<{ $isSelected: boolean }>`
 	${({ theme, $isSelected }) => css`
-		width: 55px;
-		height: 55px;
+		width: ${theme.sizes.controlIcon};
+		height: ${theme.sizes.controlIcon};
 		display: block;
 		border-radius: ${theme.borderRadius.round};
-		padding: ${theme.indent.small};
+		padding: ${theme.indent.medium};
 		transition: ${theme.transitions.fast};
 		outline: none;
 
@@ -90,8 +90,8 @@ export const LogInLink = styled(Link)`
 		line-height: 0;
 
 		background-color: ${theme.colors.background};
-		width: 64px;
-		height: 64px;
+		width: ${theme.sizes.controlIcon};
+		height: ${theme.sizes.controlIcon};
 		border-radius: ${theme.borderRadius.circle};
 		padding: ${theme.indent.medium};
 

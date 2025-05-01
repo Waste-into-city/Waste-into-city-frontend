@@ -46,5 +46,12 @@ export const ThemeToggleButton = styled.button<{ $isDarkTheme: boolean }>(
 			transform: `translateX(${$isDarkTheme ? '100%' : '0s'})`,
 			transition: theme.transitions.fast,
 		},
+
+		'&:focus-visible, &:hover': {
+			outlineColor: theme.colors.primary,
+			'&:after': {
+				outlineColor: theme.colors.primary,
+			},
+		},
 	})
 );

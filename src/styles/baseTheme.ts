@@ -6,6 +6,7 @@ export const baseTheme: IBaseTheme = {
 	},
 	borders: {
 		small: '2px solid',
+		large: '5px solid',
 	},
 	boxShadows: {
 		medium: '0 0 10px 1px',
@@ -46,12 +47,15 @@ export const baseTheme: IBaseTheme = {
 	},
 	sizes: {
 		buttonLoader: '36px',
+		controlIcon: '64px',
 		interactionSectionMin: '70%',
 		loader: '48px',
 		logsFormLogo: '72px',
 		nearFull: '90%',
 		sectionLoader: '64px',
 		userAccountAvatar: '80px',
+		userMarker: '30px',
+		workMarker: '50px',
 	},
 	tops: {
 		dropdownDropButton: '6px',
@@ -86,6 +90,7 @@ export interface IBaseTheme {
 	};
 	borders: {
 		small: string;
+		large: string;
 	};
 	boxShadows: {
 		medium: string;
@@ -126,12 +131,15 @@ export interface IBaseTheme {
 	};
 	sizes: {
 		buttonLoader: string;
+		controlIcon: string;
 		interactionSectionMin: string;
 		loader: string;
 		logsFormLogo: string;
 		nearFull: string;
 		sectionLoader: string;
 		userAccountAvatar: string;
+		userMarker: string;
+		workMarker: string;
 	};
 	tops: {
 		dropdownDropButton: string;
