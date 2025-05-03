@@ -1,3 +1,12 @@
+import { WorkInfoForm } from '@/components/common/WorkInfoForm';
+
+import { formInitialValues } from './constants';
+
 export default function NewWorkSection() {
-	return <div>NewWorkSection</div>;
+	return (
+		<WorkInfoForm
+			initialValues={formInitialValues}
+			onSubmit={() => Promise.resolve()}
+		/>
+	);
 }

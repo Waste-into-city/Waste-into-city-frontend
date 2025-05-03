@@ -1,0 +1,76 @@
+import { ChangeEvent, MouseEventHandler, useRef } from 'react';
+
+import attachmentIcon from '@/assets/icons/svg/attachment_icon.svg';
+import closeIcon from '@/assets/icons/svg/cross_icon.svg';
+import { Button } from '@/components/ui/Button';
+
+import { ATTACH_LABEL } from './constants';
+import * as S from './styled';
+import { WorkImageAttachmentsProps } from './types';
+
+export const WorkImageAttachments = ({
+	attachments,
+	setAttachments,
+}: WorkImageAttachmentsProps) => {
+	const attachmentInputRef = useRef<HTMLInputElement>(null);
+
+	const handleAttachmentsChange = (
+		changeEvent: ChangeEvent<HTMLInputElement>
+	) => {
+		const attachedFiles = changeEvent.target.files
+			? [...changeEvent.target.files]
+			: [];
+		setAttachments((prevAttachments) => [
+			...prevAttachments,
+			...attachedFiles.map((file) => ({
+				url: URL.createObjectURL(file),
+				file,
+			})),
+		]);
+	};
+
+	const handleAttachButtonClick: MouseEventHandler = (mouseEvent) => {
+		mouseEvent.stopPropagation();
+		mouseEvent.preventDefault();
+		attachmentInputRef.current?.click();
+	};
+
+	const handleAttachmentRemoveButtonClick =
+		(attachmentUrl: string): MouseEventHandler =>
+		(mouseEvent) => {
+			mouseEvent.stopPropagation();
+			mouseEvent.preventDefault();
+			setAttachments((prevAttachments) =>
+				prevAttachments.filter(({ url }) => url !== attachmentUrl)
+			);
+		};
+
+	return (
+		<S.AttachmentsWrapper>
+			<S.AttachButtonPart>
+				<h2>{ATTACH_LABEL}</h2>
+				<Button onClick={handleAttachButtonClick}>
+					<img src={attachmentIcon} />
+				</Button>
+			</S.AttachButtonPart>
+			<S.AttachmentsList $isNotEmpty={attachments.length > 0}>
+				{attachments.map(({ url }) => (
+					<S.AttachmentItem key={url}>
+						<img src={url} />
+						<Button
+							onClick={handleAttachmentRemoveButtonClick(url)}
+						>
+							<img src={closeIcon} />
+						</Button>
+					</S.AttachmentItem>
+				))}
+			</S.AttachmentsList>
+			<input
+				ref={attachmentInputRef}
+				type='file'
+				hidden
+				onChange={handleAttachmentsChange}
+			/>
+		</S.AttachmentsWrapper>
+	);
+};

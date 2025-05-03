@@ -25,7 +25,10 @@ export const getCurrentLocation = async (): Promise<Coordinates> => {
 			}
 		);
 		return coordinates;
-	} catch {
+	} catch (e) {
+		if ((e as Error).message) {
+			throw e;
+		}
 		throw new Error(FAILED_TO_LOCATE_ERROR);
 	}
 };

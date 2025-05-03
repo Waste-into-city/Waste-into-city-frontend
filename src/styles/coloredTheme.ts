@@ -8,6 +8,7 @@ const commonTheme: ICommonTheme = {
 	primaryHover: '#299148',
 	backgroundBlur: '#00000050',
 	white: '#fff',
+	hexLabelOpacity: '50',
 
 	iconPrimary:
 		'invert(67%) sepia(74%) saturate(450%) hue-rotate(81deg) brightness(89%) contrast(85%)',
@@ -60,6 +61,7 @@ interface ICommonTheme {
 	primaryHover: string;
 	backgroundBlur: string;
 	white: string;
+	hexLabelOpacity: string;
 
 	iconPrimary: string;
 	iconPositive: string;

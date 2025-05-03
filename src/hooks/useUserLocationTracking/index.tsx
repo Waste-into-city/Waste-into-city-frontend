@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { useCurrentLocation } from '@/store/location/useCurrentLocation';
+import { useErrorMessages } from '@/store/messages/useErrorMessages';
 import { getDistanceBetweenPoints } from '@/utils/getDistanceBetweenPoints';
 
 import {
@@ -16,6 +17,7 @@ export const useUserLocationTracking = ({
 	onFirstLocate,
 }: UseUserLocationTrackingProps = {}) => {
 	const { location, setLocation } = useCurrentLocation();
+	const { appendMessage } = useErrorMessages();
 	const [refetchInterval, setRefetchInterval] = useState(
 		DEFAULT_CHECK_TIMEOUT
 	);
@@ -60,7 +62,14 @@ export const useUserLocationTracking = ({
 			}
 
 			setLocation(newLocation);
-		} catch {
+		} catch (e: unknown) {
+			console.log(e, (e as Error).message);
+
+			appendMessage((e as Error).message || '');
+
+			setRefetchInterval(DEFAULT_CHECK_TIMEOUT);
+			setLocationRecords([]);
+			setUserSpeedSum(0);
 			setLocation(null);
 		}
 	}, [
@@ -70,13 +79,16 @@ export const useUserLocationTracking = ({
 		location,
 		refetchInterval,
 		setLocation,
+		appendMessage,
 	]);
 
 	useEffect(() => {
-		getCurrentLocation().then((startLocation) => {
-			setLocation(startLocation);
-			onFirstLocate?.(startLocation);
-		});
+		getCurrentLocation()
+			.then((startLocation) => {
+				setLocation(startLocation);
+				onFirstLocate?.(startLocation);
+			})
+			.catch((e) => appendMessage((e as Error).message));
 	}, []);
 
 	useEffect(() => {
@@ -96,9 +108,12 @@ export const useUserLocationTracking = ({
 				userSpeedSum / STORED_LOCATIONS < SPEED_BORDER
 					? SLOW_CHECK_TIMEOUT
 					: DEFAULT_CHECK_TIMEOUT;
-			if (newRefetchInterval !== refetchInterval) {
-				setRefetchInterval(newRefetchInterval);
-			}
+
+			setRefetchInterval((prevInterval) =>
+				newRefetchInterval !== prevInterval
+					? newRefetchInterval
+					: prevInterval
+			);
 		}
 	}, [
 		userSpeedSum,

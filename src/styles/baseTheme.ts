@@ -3,6 +3,7 @@ export const baseTheme: IBaseTheme = {
 		circle: '50%',
 		large: '15px',
 		round: '5px',
+		statusLabel: '30px',
 	},
 	borders: {
 		small: '2px solid',
@@ -26,6 +27,8 @@ export const baseTheme: IBaseTheme = {
 		fullScreen: '100vh',
 		interactionSectionPortrait: '74%',
 		logInBackgroundImage: '60%',
+		reportTextArea: '175px',
+		workInfoImageApplication: '300px',
 	},
 	indent: {
 		inputIconPadding: '50px',
@@ -49,9 +52,11 @@ export const baseTheme: IBaseTheme = {
 		buttonLoader: '36px',
 		controlIcon: '64px',
 		interactionSectionMin: '70%',
+		listedTrashType: '38px',
 		loader: '48px',
 		logsFormLogo: '72px',
 		nearFull: '90%',
+		removeAttachmentButton: '32px',
 		sectionLoader: '64px',
 		userAccountAvatar: '80px',
 		userMarker: '30px',
@@ -87,6 +92,7 @@ export interface IBaseTheme {
 		circle: string;
 		large: string;
 		round: string;
+		statusLabel: string;
 	};
 	borders: {
 		small: string;
@@ -110,6 +116,8 @@ export interface IBaseTheme {
 		fullScreen: string;
 		interactionSectionPortrait: string;
 		logInBackgroundImage: string;
+		reportTextArea: string;
+		workInfoImageApplication: string;
 	};
 	indent: {
 		inputIconPadding: string;
@@ -133,9 +141,11 @@ export interface IBaseTheme {
 		buttonLoader: string;
 		controlIcon: string;
 		interactionSectionMin: string;
+		listedTrashType: string;
 		loader: string;
 		logsFormLogo: string;
 		nearFull: string;
+		removeAttachmentButton: string;
 		sectionLoader: string;
 		userAccountAvatar: string;
 		userMarker: string;
