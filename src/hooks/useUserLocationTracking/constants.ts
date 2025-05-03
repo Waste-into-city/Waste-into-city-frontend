@@ -1,4 +1,4 @@
-export const GEOLOCATION_TIMEOUT = 1000;
+export const GEOLOCATION_TIMEOUT = 10000;
 export const FAILED_TO_LOCATE_ERROR = 'Failed to get your location';
 
 export const SLOW_CHECK_TIMEOUT = 10000;
