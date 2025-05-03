@@ -1,5 +1,7 @@
 import { ChangeEvent, useCallback, useMemo, useRef } from 'react';
 
+import { NO_AVATAR_ICON } from '@/constants/icons';
+
 import { PopoverOptionsWrapper } from '../PopoverOptions';
 
 import { AvatarOption } from './AvatarOptionsPopover/types';
@@ -71,7 +73,10 @@ export const AvatarInput = ({
 			options={avatarPopoverOptions}
 			disabled={disabled}
 		>
-			<AvatarImage src={avatarLink} $isDisabled={Boolean(disabled)} />
+			<AvatarImage
+				src={avatarLink || NO_AVATAR_ICON}
+				$isDisabled={Boolean(disabled)}
+			/>
 			<input
 				ref={avatarInputRef}
 				type='file'

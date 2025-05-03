@@ -22,13 +22,16 @@ export const useForm = <T extends Form>({
 	const [isLoading, setIsLoading] = useState(false);
 
 	const handleFieldChange = useCallback(
-		(field: keyof T) => (changeEvent: ChangeEvent<HTMLInputElement>) => {
-			setFields((prevFields) => ({
-				...prevFields,
-				[field]: changeEvent.target.value,
-			}));
-			setErrors((prevErrors) => ({ ...prevErrors, [field]: '' }));
-		},
+		(field: keyof T) =>
+			(
+				changeEvent: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+			) => {
+				setFields((prevFields) => ({
+					...prevFields,
+					[field]: changeEvent.target.value,
+				}));
+				setErrors((prevErrors) => ({ ...prevErrors, [field]: '' }));
+			},
 		[setFields, setErrors]
 	);
 

@@ -77,6 +77,7 @@ export const PrimaryButton = styled(CommonButton)`
 
 		&:hover,
 		&:focus-visible {
+			color: ${theme.colors.primary};
 			background-color: ${theme.colors.primaryHover};
 			outline: none;
 		}

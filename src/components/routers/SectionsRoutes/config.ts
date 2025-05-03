@@ -27,6 +27,22 @@ const ROUTE_SECTIONS: RouteSection[] = [
 		route: ROUTES.WORKS,
 		section: getLazySection('UserWorksSection'),
 	},
+	{
+		route: ROUTES.WORK_INFO + '/:id',
+		section: getLazySection('WorkInfoSection'),
+	},
+	{
+		route: ROUTES.RATE_WORK_PARTICIPANTS + '/:id',
+		section: getLazySection('WorkParticipantsRateSection'),
+	},
+	{
+		route: ROUTES.REPORT_WORK + '/:id',
+		section: getLazySection('WorkReportSection'),
+	},
+	{
+		route: '/errors',
+		section: getLazySection('ErrorsSection'),
+	},
 ];
 
 export const config = {

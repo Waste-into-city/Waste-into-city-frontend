@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { loginUser } from '@/queries/loginUser';
 
 type UserLogs = {
+	id: string;
 	isLoggedIn: boolean;
 	nickname: string;
 	email: string;
@@ -21,12 +22,14 @@ type UserLogsState = {
 };
 
 const emptyUserValues: UserLogs = {
+	id: '',
 	isLoggedIn: false,
 	nickname: '',
 	email: '',
 };
 
 const mockUser: UserLogs = {
+	id: '1',
 	isLoggedIn: true,
 	nickname: 'Name',
 	email: 'email@gmail.com',
