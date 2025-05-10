@@ -4,18 +4,18 @@ import { Button } from '@/components/ui/Button';
 import { loaderCSS } from '@/styles/common/loader';
 import { scrollbarCSS } from '@/styles/common/scrollbar';
 
-export const SectionBlur = styled.div`
-	${({ theme }) => css`
+export const SectionBlur = styled.div<{ $isSectionHidden: boolean }>`
+	${({ theme, $isSectionHidden }) => css`
 		width: ${theme.widths.full};
 		height: ${theme.heights.full};
 		z-index: ${theme.zIndexes.blur};
 		background-color: ${theme.colors.backgroundBlur};
 		animation: blur-background ${theme.transitions.medium};
+		display: ${$isSectionHidden ? 'none' : 'flex'};
 
 		position: absolute;
 		top: 0;
 		left: 0;
-		display: flex;
 		justify-content: center;
 		align-items: center;
 

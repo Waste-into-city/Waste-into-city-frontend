@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import { useMapItemLocation } from '@/store/location/useMapItemLocation';
 import { useUserLogs } from '@/store/user/useUserLogs';
 
 import { config } from './config';
@@ -10,9 +11,14 @@ const { USER_ROUTES, LOG_IN_ROUTE } = config;
 
 export const ControlsBar = memo(() => {
 	const { pathname } = useLocation();
+	const { isSelected } = useMapItemLocation();
 	const {
 		logs: { isLoggedIn },
 	} = useUserLogs();
+
+	if (isSelected) {
+		return null;
+	}
 
 	if (!isLoggedIn) {
 		return (

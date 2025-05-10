@@ -31,8 +31,8 @@ const emptyUserValues: UserLogs = {
 const mockUser: UserLogs = {
 	id: '1',
 	isLoggedIn: true,
-	nickname: 'Name',
-	email: 'email@gmail.com',
+	nickname: 'Joseph',
+	email: 'joseph.wic@gmail.com',
 };
 
 export const useUserLogs = create<UserLogsState>()((set) => ({

@@ -10,3 +10,6 @@ export const NO_TRASH_TYPES_ERROR = 'Trash types must be specified!';
 export const CREATE_WORK_BUTTON_LABEL = 'Create Work';
 
 export const EDIT_WORK_BUTTON_LABEL = 'Save Changes';
+
+export const UPDATE_LOCATION_BUTTON_LABEL = 'Update Location';
+export const SET_LOCATION_BUTTON_LABEL = 'Set Location';

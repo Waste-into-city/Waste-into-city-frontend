@@ -8,4 +8,5 @@ export const UserMarkerPin = styled.div(({ theme }) => ({
 	border: theme.borders.large,
 	borderColor: theme.colors.primaryContrast,
 	boxShadow: theme.boxShadows.small,
+	margin: '-50% 0 0 -50%',
 }));

@@ -1,8 +1,10 @@
-import { useCallback, useState } from 'react';
+import { MouseEventHandler, useCallback, useState } from 'react';
 
+import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { TextArea } from '@/components/ui/TextArea';
 import { useForm } from '@/hooks/useForm';
+import { useMapItemLocation } from '@/store/location/useMapItemLocation';
 import { TrashTypes } from '@/types/trashTypes';
 
 import { WorkImageAttachments } from '../WorkImageAttachments';
@@ -13,6 +15,8 @@ import {
 	EDIT_WORK_BUTTON_LABEL,
 	LABELS,
 	NO_TRASH_TYPES_ERROR,
+	SET_LOCATION_BUTTON_LABEL,
+	UPDATE_LOCATION_BUTTON_LABEL,
 } from './constants';
 import { validationSchema } from './schema';
 import * as S from './styled';
@@ -25,6 +29,8 @@ export const WorkInfoForm = ({
 	onSubmit,
 	isEditForm,
 }: WorkInfoFormProps) => {
+	const { selectItem, location } = useMapItemLocation();
+
 	const [attachments, setAttachments] = useState<Array<WorkImageAttachment>>(
 		initialValues.attachments
 	);
@@ -59,6 +65,11 @@ export const WorkInfoForm = ({
 			validationSchema,
 		});
 
+	const handleLocationButtonClick: MouseEventHandler = (mouseEvent) => {
+		mouseEvent.preventDefault();
+		selectItem();
+	};
+
 	return (
 		<S.NewWorkForm onSubmit={handleFormSubmit}>
 			<Input
@@ -87,9 +98,18 @@ export const WorkInfoForm = ({
 				attachments={attachments}
 				setAttachments={setAttachments}
 			/>
-			<S.SubmitButton variant={isEditForm ? 'positive' : 'primary'}>
-				{isEditForm ? EDIT_WORK_BUTTON_LABEL : CREATE_WORK_BUTTON_LABEL}
-			</S.SubmitButton>
+			<S.BottomButtons>
+				<Button variant={isEditForm ? 'positive' : 'primary'}>
+					{isEditForm
+						? EDIT_WORK_BUTTON_LABEL
+						: CREATE_WORK_BUTTON_LABEL}
+				</Button>
+				<Button onClick={handleLocationButtonClick}>
+					{location
+						? UPDATE_LOCATION_BUTTON_LABEL
+						: SET_LOCATION_BUTTON_LABEL}
+				</Button>
+			</S.BottomButtons>
 		</S.NewWorkForm>
 	);
 };
