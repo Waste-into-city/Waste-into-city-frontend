@@ -57,10 +57,12 @@ export const AvatarWithControlsWrapper = styled.div(({ theme }) => ({
 		height: '100%',
 	},
 
-	[`@media ${theme.media.phone}`]: {
-		gap: theme.indent.small,
+	[`@media ${theme.media.tablet}`]: {
 		flexWrap: 'wrap',
-		justifyContent: 'space-between',
+	},
+
+	[`@media ${theme.media.phone}`]: {
+		gap: theme.indent.medium,
 
 		button: {
 			padding: 0,

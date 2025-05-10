@@ -20,5 +20,6 @@ export const WorksGroupMarkerPin = styled.div<{ $displayValue: number }>(
 		textAlign: 'center',
 		alignContent: 'center',
 		cursor: 'pointer',
+		margin: '-50% 0 0 -50%',
 	})
 );

@@ -70,7 +70,6 @@ export const useUserLocationTracking = ({
 			setRefetchInterval(DEFAULT_CHECK_TIMEOUT);
 			setLocationRecords([]);
 			setUserSpeedSum(0);
-			setLocation(null);
 		}
 	}, [
 		locationRecords,

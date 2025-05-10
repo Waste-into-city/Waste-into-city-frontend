@@ -43,7 +43,7 @@ const mockWorkInfo: WorkInfo = {
 		TrashTypes.Plastic,
 	],
 	workComplexityId: 1,
-	workStatusTypeForClient: WorkStatus.InProgress,
+	workStatusTypeForClient: WorkStatus.Active,
 	lat: 2,
 	lng: 1,
 };
@@ -54,8 +54,6 @@ const WorkInfoSection = () => {
 	const {
 		logs: { id: userId },
 	} = useUserLogs();
-
-	console.log(id);
 
 	const isUserParticipant = useMemo(
 		() =>

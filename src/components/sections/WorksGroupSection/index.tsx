@@ -1,9 +1,10 @@
 import { WorksList } from '@/components/common/WorksList';
+import { useSelectedWorksGroup } from '@/store/worksGroup/useSelectedWorksGroup';
 import { WorkInfo, WorkStatus } from '@/types/contracts/workInfo';
 import { TrashTypes } from '@/types/trashTypes';
 
-import { USER_WORKS_HEADING } from './constants';
-import { UserWorksListWrapper } from './styled';
+import { WORKS_GROUP_HEADING } from './constants';
+import { WorksGroupWrapper } from './styled';
 
 function randomEnum<T extends object>(anEnum: T): T[keyof T] {
 	const enumValues = Object.keys(anEnum) as unknown as T[keyof T][];
@@ -31,10 +32,13 @@ const mockList: Array<WorkInfo> = new Array(40).fill(0).map((zero, id) => ({
 	workComplexityId: 1,
 }));
 
-const UserWorksSection = () => {
+export default function WorksGroupSection() {
+	const { worksGroup } = useSelectedWorksGroup();
+	console.log(worksGroup);
+
 	return (
-		<UserWorksListWrapper>
-			<h2>{USER_WORKS_HEADING}</h2>
+		<WorksGroupWrapper>
+			<h2>{WORKS_GROUP_HEADING}</h2>
 			<WorksList
 				initialWorks={mockList.slice(0, 25)}
 				getNextWorks={() =>
@@ -46,8 +50,6 @@ const UserWorksSection = () => {
 					})
 				}
 			/>
-		</UserWorksListWrapper>
+		</WorksGroupWrapper>
 	);
-};
-
-export default UserWorksSection;
+}

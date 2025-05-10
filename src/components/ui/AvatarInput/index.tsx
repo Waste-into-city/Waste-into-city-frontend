@@ -2,7 +2,7 @@ import { ChangeEvent, useCallback, useMemo, useRef } from 'react';
 
 import { NO_AVATAR_ICON } from '@/constants/icons';
 
-import { PopoverOptionsWrapper } from '../PopoverOptions';
+import { PopoverOptionsWrapper } from '../PopoverOptionsWrapper';
 
 import { AvatarOption } from './AvatarOptionsPopover/types';
 import { avatarOptionNames } from './constants';

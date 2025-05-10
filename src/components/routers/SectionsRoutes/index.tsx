@@ -1,10 +1,18 @@
 import { MouseEventHandler, Suspense } from 'react';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import {
+	Navigate,
+	Route,
+	Routes,
+	useLocation,
+	useNavigate,
+} from 'react-router-dom';
 
 import closeIcon from '@/assets/icons/svg/cross_icon.svg';
 import { ControlsBar } from '@/components/common/ControlsBar';
 import { MainMap } from '@/components/map/MainMap';
 import { ROUTES } from '@/constants/routes';
+import { useMapItemLocation } from '@/store/location/useMapItemLocation';
+import { useSelectedWorksGroup } from '@/store/worksGroup/useSelectedWorksGroup';
 
 import { ProtectedRoute } from '../ProtectedRoute';
 
@@ -16,8 +24,19 @@ const CLOSE_ICON_ALT = 'Close';
 
 const Sections = () => {
 	const navigate = useNavigate();
+	const { pathname } = useLocation();
+	const { clearWorksGroup } = useSelectedWorksGroup();
+	const { location, setLocation, isSelected } = useMapItemLocation();
 
 	const handleSectionClose = () => {
+		if (pathname === ROUTES.WORKS_GROUP) {
+			clearWorksGroup();
+		}
+
+		if (location) {
+			setLocation(null);
+		}
+
 		navigate(ROUTES.MAIN);
 	};
 
@@ -26,23 +45,36 @@ const Sections = () => {
 	};
 
 	return (
-		<S.SectionBlur onClick={handleSectionClose}>
+		<S.SectionBlur
+			onClick={handleSectionClose}
+			$isSectionHidden={isSelected}
+		>
 			<S.InteractionSection onClick={handleInSectionClick}>
 				<S.SectionContentContainer>
 					<Routes>
 						{ROUTE_SECTIONS.map(
-							({ route, section: LazySection }) => (
+							({ route, section: LazySection, isAuthRoute }) => (
 								<Route
 									path={route}
 									key={route}
 									element={
-										<ProtectedRoute isAuthRoute={true}>
+										isAuthRoute ? (
+											<ProtectedRoute isAuthRoute={true}>
+												<Suspense
+													fallback={
+														<S.SectionLoader />
+													}
+												>
+													<LazySection />
+												</Suspense>
+											</ProtectedRoute>
+										) : (
 											<Suspense
 												fallback={<S.SectionLoader />}
 											>
 												<LazySection />
 											</Suspense>
-										</ProtectedRoute>
+										)
 									}
 								/>
 							)

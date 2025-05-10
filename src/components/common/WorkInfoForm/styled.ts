@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { Button } from '@/components/ui/Button';
-
 export const NewWorkForm = styled.form(({ theme }) => ({
 	display: 'flex',
 	flexDirection: 'column',
@@ -10,7 +8,15 @@ export const NewWorkForm = styled.form(({ theme }) => ({
 	gap: theme.indent.large,
 }));
 
-export const SubmitButton = styled(Button)(() => ({
+export const BottomButtons = styled.div(({ theme }) => ({
+	display: 'flex',
 	justifySelf: 'flex-end',
 	marginTop: 'auto',
+
+	width: theme.widths.full,
+	gap: theme.indent.large,
+
+	'& > button': {
+		flexGrow: '1',
+	},
 }));
