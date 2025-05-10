@@ -42,6 +42,7 @@ export const usePagination = <T>({
 		onError,
 		page,
 		totalPages,
+		pageSize,
 	]);
 
 	return { items, getNextPage, isLoading };
