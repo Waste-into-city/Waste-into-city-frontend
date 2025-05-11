@@ -22,3 +22,10 @@ export const USER_SETTINGS_FORM_VALUES: Omit<
 export const CANCEL_BUTTON_LABEL = 'Cancel';
 export const EDIT_BUTTON_LABEL = 'Edit';
 export const SAVE_BUTTON_LABEL = 'Save';
+
+export const USER_INFO_CHANGE_SUCCESSFUL_MESSAGE = 'Account changes are saved';
+export const USER_INFO_CHANGE_ERROR_MESSAGE =
+	'Failed to update account information';
+
+export const PREVIOUS_PASSWORD_NOT_SPECIFIED_MESSAGE =
+	'You must specify previous password first';

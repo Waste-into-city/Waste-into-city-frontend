@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 import { loginUser } from '@/queries/loginUser';
+import { UserRoles } from '@/types/userRoles';
 
 type UserLogs = {
 	id: string;
@@ -8,6 +9,7 @@ type UserLogs = {
 	nickname: string;
 	email: string;
 	avatarLink?: string;
+	role: UserRoles;
 };
 
 type UserCredentials = {
@@ -26,6 +28,7 @@ const emptyUserValues: UserLogs = {
 	isLoggedIn: false,
 	nickname: '',
 	email: '',
+	role: UserRoles.Guest,
 };
 
 const mockUser: UserLogs = {
@@ -33,6 +36,7 @@ const mockUser: UserLogs = {
 	isLoggedIn: true,
 	nickname: 'Joseph',
 	email: 'joseph.wic@gmail.com',
+	role: UserRoles.Moderator,
 };
 
 export const useUserLogs = create<UserLogsState>()((set) => ({

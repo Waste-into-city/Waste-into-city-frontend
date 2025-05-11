@@ -17,3 +17,5 @@ export const passwordValidator = z
 	.string()
 	.min(validatorValues.min.value, validatorValues.min.message)
 	.max(validatorValues.max.value, validatorValues.max.message);
+
+export const PASSWORDS_MUST_MATCH_MESSAGE = 'Passwords must match!';

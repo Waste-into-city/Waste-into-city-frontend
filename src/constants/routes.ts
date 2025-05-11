@@ -10,4 +10,7 @@ export const ROUTES = {
 	WORKS_GROUP: '/worksgroup',
 	REPORT_WORK: '/reportwork',
 	RATE_WORK_PARTICIPANTS: '/rateparticipants',
+	WORK_REVIEW: '/workreview',
+	REPORT_REVIEW: '/reportreview',
+	ADMIN_PANEL: '/adminpanel',
 };
