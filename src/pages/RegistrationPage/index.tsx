@@ -71,7 +71,6 @@ export const RegistrationPage = () => {
 					<S.RegisterButton variant='primary' disabled={isLoading}>
 						{isLoading ? <S.Loader /> : REGISTER_BUTTON_LABEL}
 					</S.RegisterButton>
-					<S.ErrorMessage>{errors.global}</S.ErrorMessage>
 
 					<S.LoginLink>
 						{LOG_IN_QUESTION}{' '}

@@ -5,7 +5,10 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { PasswordInput } from '@/components/ui/PasswordInput';
 import { useForm } from '@/hooks/useForm';
+import { useNotifications } from '@/store/notifications/useNotifications';
 import { useUserLogs } from '@/store/user/useUserLogs';
+import { NotificationTypes } from '@/types/notificationTypes';
+import { UserRoles } from '@/types/userRoles';
 
 import {
 	CANCEL_BUTTON_LABEL,
@@ -21,6 +24,7 @@ import { UserAccountSettingsForm } from './types';
 export const AccountSettingsForm = () => {
 	const { logs: userLogs } = useUserLogs();
 	const [isEditMode, setIsEditMode] = useState(false);
+	const { appendNotification } = useNotifications();
 
 	const defaultValues = useMemo<UserAccountSettingsForm>(
 		() => ({
@@ -46,6 +50,10 @@ export const AccountSettingsForm = () => {
 		submitHandler: () => {
 			setIsEditMode(false);
 			setAvatarFile(null);
+			appendNotification(
+				NotificationTypes.Success,
+				'Successfully changed'
+			);
 			return Promise.resolve();
 		},
 		validationSchema,
@@ -105,7 +113,11 @@ export const AccountSettingsForm = () => {
 				<S.WatchModeLabels $isEditMode={isEditMode}>
 					<S.NicknameLabel>{userLogs.nickname}</S.NicknameLabel>
 					<S.SmallLabel>{userLogs.email}</S.SmallLabel>
-					<S.SmallLabel>Moderator</S.SmallLabel>
+					<S.SmallLabel>
+						{(userLogs.role === UserRoles.Moderator ||
+							userLogs.role === UserRoles.Admin) &&
+							userLogs.role}
+					</S.SmallLabel>
 				</S.WatchModeLabels>
 				<Button
 					variant='positive'

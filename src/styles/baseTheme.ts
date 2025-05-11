@@ -56,6 +56,7 @@ export const baseTheme: IBaseTheme = {
 		loader: '48px',
 		logsFormLogo: '72px',
 		nearFull: '90%',
+		notificationCloseButton: '31px',
 		removeAttachmentButton: '32px',
 		sectionLoader: '64px',
 		userAccountAvatar: '80px',
@@ -77,7 +78,11 @@ export const baseTheme: IBaseTheme = {
 		full: '100%',
 		interactionSection: '80%',
 		logsForm: '760px',
+		maxScoreSettingLabel: '140px',
+		minScoreSettingLabel: '110px',
+		notificationPopup: '768px',
 		registrationBackgroundImage: '55%',
+		scoreSettingsField: '185px',
 		scrollbar: '13px',
 	},
 	zIndexes: {
@@ -145,6 +150,7 @@ export interface IBaseTheme {
 		loader: string;
 		logsFormLogo: string;
 		nearFull: string;
+		notificationCloseButton: string;
 		removeAttachmentButton: string;
 		sectionLoader: string;
 		userAccountAvatar: string;
@@ -166,7 +172,11 @@ export interface IBaseTheme {
 		full: string;
 		interactionSection: string;
 		logsForm: string;
+		maxScoreSettingLabel: string;
+		minScoreSettingLabel: string;
+		notificationPopup: string;
 		registrationBackgroundImage: string;
+		scoreSettingsField: string;
 		scrollbar: string;
 	};
 	zIndexes: {

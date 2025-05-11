@@ -56,7 +56,7 @@ export const LoginPage = () => {
 				<S.LogInButton variant='primary' disabled={isLoading}>
 					{isLoading ? <S.ButtonLoader /> : LOG_IN_BUTTON_LABEL}
 				</S.LogInButton>
-				<S.ErrorMessage>{errors.global}</S.ErrorMessage>
+
 				<S.RegisterLink>
 					{REGISTER_QUESTION}{' '}
 					<a href={ROUTES.REGISTRATION}>{REGISTER_LINK}</a>

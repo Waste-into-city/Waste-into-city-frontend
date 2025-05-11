@@ -1,6 +1,16 @@
-import { ChangeEvent, FormEvent, useCallback, useMemo, useState } from 'react';
+import {
+	ChangeEvent,
+	FormEvent,
+	useCallback,
+	useEffect,
+	useMemo,
+	useState,
+} from 'react';
 
 import { ZodError, ZodSchema } from 'zod';
+
+import { useNotifications } from '@/store/notifications/useNotifications';
+import { NotificationTypes } from '@/types/notificationTypes';
 
 import { Form, FormError, helpers } from './helpers';
 
@@ -20,6 +30,7 @@ export const useForm = <T extends Form>({
 	const [fields, setFields] = useState<T>(defaultValues);
 	const [errors, setErrors] = useState<FormError<T>>({});
 	const [isLoading, setIsLoading] = useState(false);
+	const { appendNotification } = useNotifications();
 
 	const handleFieldChange = useCallback(
 		(field: keyof T) =>
@@ -30,7 +41,11 @@ export const useForm = <T extends Form>({
 					...prevFields,
 					[field]: changeEvent.target.value,
 				}));
-				setErrors((prevErrors) => ({ ...prevErrors, [field]: '' }));
+				setErrors((prevErrors) => ({
+					...prevErrors,
+					[field]: '',
+					global: '',
+				}));
 			},
 		[setFields, setErrors]
 	);
@@ -84,6 +99,12 @@ export const useForm = <T extends Form>({
 		}
 		return false;
 	}, [fields, defaultValues]);
+
+	useEffect(() => {
+		if (errors.global) {
+			appendNotification(NotificationTypes.Error, errors.global);
+		}
+	}, [errors, appendNotification]);
 
 	return {
 		errors,

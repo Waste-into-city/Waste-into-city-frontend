@@ -56,6 +56,21 @@ const ROUTE_SECTIONS: RouteSection[] = [
 		section: getLazySection('ErrorsSection'),
 		isAuthRoute: true,
 	},
+	{
+		route: ROUTES.WORK_REVIEW,
+		section: getLazySection('WorkReviewSection'),
+		isAuthRoute: true,
+	},
+	{
+		route: ROUTES.REPORT_REVIEW,
+		section: getLazySection('ReportReviewSection'),
+		isAuthRoute: true,
+	},
+	{
+		route: ROUTES.ADMIN_PANEL,
+		section: getLazySection('AdminPanelSection'),
+		isAuthRoute: true,
+	},
 ];
 
 export const config = {

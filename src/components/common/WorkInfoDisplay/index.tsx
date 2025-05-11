@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { MouseEventHandler, TouchEventHandler, useState } from 'react';
 
 import arrowIcon from '@/assets/icons/svg/arrow_icon.svg';
 import complexityIcon from '@/assets/icons/svg/work_people_icon.svg';
@@ -22,8 +22,10 @@ export const WorkInfoDisplay = ({
 		workComplexityId,
 		workStatusTypeForClient,
 	},
+	isMissingParticipants = false,
 }: {
 	workInfo: WorkInfo;
+	isMissingParticipants?: boolean;
 }) => {
 	const {
 		logs: { id: currentUserId },
@@ -35,9 +37,19 @@ export const WorkInfoDisplay = ({
 	const handleParticipantsSummaryClick = () =>
 		setAreParticipantsDisplayed((areDisplayed) => !areDisplayed);
 
+	const handleImagesScroll: MouseEventHandler & TouchEventHandler = (
+		event
+	) => {
+		event.stopPropagation();
+	};
+
 	return (
 		<S.WorkInfoWrapper>
-			<S.WorkImagesWrapper>
+			<S.WorkTitle>{title}</S.WorkTitle>
+			<S.WorkImagesWrapper
+				onMouseMove={handleImagesScroll}
+				onTouchMove={handleImagesScroll}
+			>
 				{imageApplications.map((link) => (
 					<img key={link} src={link} />
 				))}
@@ -56,30 +68,34 @@ export const WorkInfoDisplay = ({
 				{workComplexityId}
 				{COMPLEXITY_PEOPLE_LABEL}
 			</S.WorkComplexity>
-			<S.WorkTitle>{title}</S.WorkTitle>
+
 			<S.WorkDescription>{description}</S.WorkDescription>
-			<S.ParticipantsSummary
-				onClick={handleParticipantsSummaryClick}
-				$isToggled={areParticipantsDisplayed}
-			>
-				<p>{getParticipantsLabel(participants.length)}</p>
-				{participants.length > 0 && (
-					<Button>
-						<img src={arrowIcon} />
-					</Button>
-				)}
-			</S.ParticipantsSummary>
-			<S.ParticipantsList $isDisplayed={areParticipantsDisplayed}>
-				{participants.map(({ id, avatarLink, nickname }) => (
-					<S.ParticipantItem
-						key={id}
-						$isCurrentUser={id === currentUserId}
+			{!isMissingParticipants && (
+				<>
+					<S.ParticipantsSummary
+						onClick={handleParticipantsSummaryClick}
+						$isToggled={areParticipantsDisplayed}
 					>
-						<img src={avatarLink || NO_AVATAR_ICON} />
-						<h3>{nickname}</h3>
-					</S.ParticipantItem>
-				))}
-			</S.ParticipantsList>
+						<p>{getParticipantsLabel(participants.length)}</p>
+						{participants.length > 0 && (
+							<Button>
+								<img src={arrowIcon} />
+							</Button>
+						)}
+					</S.ParticipantsSummary>
+					<S.ParticipantsList $isDisplayed={areParticipantsDisplayed}>
+						{participants.map(({ id, avatarLink, nickname }) => (
+							<S.ParticipantItem
+								key={id}
+								$isCurrentUser={id === currentUserId}
+							>
+								<img src={avatarLink || NO_AVATAR_ICON} />
+								<h3>{nickname}</h3>
+							</S.ParticipantItem>
+						))}
+					</S.ParticipantsList>
+				</>
+			)}
 		</S.WorkInfoWrapper>
 	);
 };

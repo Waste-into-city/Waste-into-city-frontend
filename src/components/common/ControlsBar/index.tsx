@@ -1,20 +1,26 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { useMapItemLocation } from '@/store/location/useMapItemLocation';
 import { useUserLogs } from '@/store/user/useUserLogs';
+import { UserRoles } from '@/types/userRoles';
 
 import { config } from './config';
 import * as S from './styled';
 
-const { USER_ROUTES, LOG_IN_ROUTE } = config;
+const { USER_ROUTES, LOG_IN_ROUTE, MODERATOR_ROUTES } = config;
 
 export const ControlsBar = memo(() => {
 	const { pathname } = useLocation();
 	const { isSelected } = useMapItemLocation();
 	const {
-		logs: { isLoggedIn },
+		logs: { isLoggedIn, role },
 	} = useUserLogs();
+
+	const controlRoutes = useMemo(
+		() => (role === UserRoles.Moderator ? MODERATOR_ROUTES : USER_ROUTES),
+		[role]
+	);
 
 	if (isSelected) {
 		return null;
@@ -30,7 +36,7 @@ export const ControlsBar = memo(() => {
 
 	return (
 		<S.Navigation>
-			{USER_ROUTES.map(({ name, path, icon }) => (
+			{controlRoutes.map(({ name, path, icon }) => (
 				<S.SectionLink
 					to={path}
 					key={name}
