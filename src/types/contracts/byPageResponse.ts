@@ -1,6 +1,6 @@
 export type ByPageResponse<T> = {
-	skip: number;
-	pageSize: number;
+	skippedItems: number;
+	size: number;
 	items: Array<T>;
 	total: number;
 };

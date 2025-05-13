@@ -16,6 +16,7 @@ export const CardOptionButtonsWrapper = styled.div(({ theme }) => ({
 	padding: `0 ${theme.indent.medium}`,
 	display: 'flex',
 	justifyContent: 'space-between',
+	justifySelf: 'flex-end',
 	marginTop: 'auto',
 }));
 

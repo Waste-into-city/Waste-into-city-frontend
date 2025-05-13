@@ -21,10 +21,10 @@ export const usePagination = <T>({
 			try {
 				const {
 					items: newItems,
-					skip,
+					skippedItems,
 					total,
 				} = await getPage(page, pageSize);
-				setPage(skip);
+				setPage(skippedItems);
 				setTotalPages(total);
 				setItems((prevItems) => [...prevItems, ...newItems]);
 			} catch (e: unknown) {

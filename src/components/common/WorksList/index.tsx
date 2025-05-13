@@ -15,11 +15,11 @@ export const WorksList = ({ initialWorks, getNextWorks }: WorksListProps) => {
 	const navigate = useNavigate();
 
 	const { items, isLoading, getNextPage } = usePagination({
-		top: 40,
-		skip: 0,
+		top: initialWorks.total,
+		skip: initialWorks.skippedItems,
 		pageSize: WORKS_PAGE_SIZE,
 		getPage: getNextWorks,
-		initialItems: initialWorks,
+		initialItems: initialWorks.items,
 	});
 
 	const handleWorkItemClick = (id: string) => () => {

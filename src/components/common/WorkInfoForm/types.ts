@@ -1,3 +1,4 @@
+import { Coordinates } from '@/types/coordinates';
 import { TrashTypes } from '@/types/trashTypes';
 
 import { WorkImageAttachment } from '../WorkImageAttachments/types';
@@ -11,6 +12,7 @@ export type WorkInfoFormValues = WorkInfoForm & {
 	attachments: Array<WorkImageAttachment>;
 	complexity: number;
 	trashTypes: Array<TrashTypes>;
+	location: Coordinates;
 };
 
 export type WorkInfoFormProps = {

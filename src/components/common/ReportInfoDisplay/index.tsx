@@ -1,5 +1,6 @@
 import { MouseEventHandler, TouchEventHandler } from 'react';
 
+import { getImageUriByName } from '@/constants/apiEndpoints';
 import { WorkReport } from '@/types/contracts/workReport';
 
 import * as S from './styled';
@@ -22,7 +23,7 @@ export const ReportInfoDisplay = ({ report }: { report: WorkReport }) => {
 			<p>{description}</p>
 			<S.ReportImagesWrapper>
 				{imageNames.map((imageName) => (
-					<img key={imageName} src={imageName} />
+					<img key={imageName} src={getImageUriByName(imageName)} />
 				))}
 			</S.ReportImagesWrapper>
 		</S.ReportInfoWrapper>

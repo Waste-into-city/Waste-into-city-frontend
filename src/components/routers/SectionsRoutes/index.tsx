@@ -1,4 +1,4 @@
-import { MouseEventHandler, Suspense } from 'react';
+import { MouseEventHandler, Suspense, useEffect } from 'react';
 import {
 	Navigate,
 	Route,
@@ -44,37 +44,41 @@ const Sections = () => {
 		event.stopPropagation();
 	};
 
+	useEffect(() => {
+		if (location) {
+			setLocation(null);
+		}
+	}, [pathname]);
+
 	return (
 		<S.SectionBlur
 			onClick={handleSectionClose}
 			$isSectionHidden={isSelected}
 		>
 			<S.InteractionSection onClick={handleInSectionClick}>
+				<S.CloseSectionButton
+					variant='common'
+					onClick={handleSectionClose}
+				>
+					<img src={closeIcon} alt={CLOSE_ICON_ALT} />
+				</S.CloseSectionButton>
 				<S.SectionContentContainer>
 					<Routes>
 						{ROUTE_SECTIONS.map(
-							({ route, section: LazySection, isAuthRoute }) => (
+							({ route, section: LazySection, allowedRoles }) => (
 								<Route
 									path={route}
 									key={route}
 									element={
-										isAuthRoute ? (
-											<ProtectedRoute isAuthRoute={true}>
-												<Suspense
-													fallback={
-														<S.SectionLoader />
-													}
-												>
-													<LazySection />
-												</Suspense>
-											</ProtectedRoute>
-										) : (
+										<ProtectedRoute
+											allowedRoles={allowedRoles}
+										>
 											<Suspense
 												fallback={<S.SectionLoader />}
 											>
 												<LazySection />
 											</Suspense>
-										)
+										</ProtectedRoute>
 									}
 								/>
 							)
@@ -85,12 +89,6 @@ const Sections = () => {
 						/>
 					</Routes>
 				</S.SectionContentContainer>
-				<S.CloseSectionButton
-					variant='common'
-					onClick={handleSectionClose}
-				>
-					<img src={closeIcon} alt={CLOSE_ICON_ALT} />
-				</S.CloseSectionButton>
 			</S.InteractionSection>
 		</S.SectionBlur>
 	);

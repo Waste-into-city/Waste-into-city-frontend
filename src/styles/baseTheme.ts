@@ -32,7 +32,7 @@ export const baseTheme: IBaseTheme = {
 	},
 	indent: {
 		inputIconPadding: '50px',
-		interactionSection: '45px',
+		interactionSection: '25px',
 		large: '35px',
 		medium: '15px',
 		scrollbar: '4px',

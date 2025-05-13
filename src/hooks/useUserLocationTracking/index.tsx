@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { useCurrentLocation } from '@/store/location/useCurrentLocation';
-import { useErrorMessages } from '@/store/messages/useErrorMessages';
 import { getDistanceBetweenPoints } from '@/utils/getDistanceBetweenPoints';
 
 import {
@@ -17,7 +16,6 @@ export const useUserLocationTracking = ({
 	onFirstLocate,
 }: UseUserLocationTrackingProps = {}) => {
 	const { location, setLocation } = useCurrentLocation();
-	const { appendMessage } = useErrorMessages();
 	const [refetchInterval, setRefetchInterval] = useState(
 		DEFAULT_CHECK_TIMEOUT
 	);
@@ -65,8 +63,6 @@ export const useUserLocationTracking = ({
 		} catch (e: unknown) {
 			console.log(e, (e as Error).message);
 
-			appendMessage((e as Error).message || '');
-
 			setRefetchInterval(DEFAULT_CHECK_TIMEOUT);
 			setLocationRecords([]);
 			setUserSpeedSum(0);
@@ -78,16 +74,13 @@ export const useUserLocationTracking = ({
 		location,
 		refetchInterval,
 		setLocation,
-		appendMessage,
 	]);
 
 	useEffect(() => {
-		getCurrentLocation()
-			.then((startLocation) => {
-				setLocation(startLocation);
-				onFirstLocate?.(startLocation);
-			})
-			.catch((e) => appendMessage((e as Error).message));
+		getCurrentLocation().then((startLocation) => {
+			setLocation(startLocation);
+			onFirstLocate?.(startLocation);
+		});
 	}, []);
 
 	useEffect(() => {

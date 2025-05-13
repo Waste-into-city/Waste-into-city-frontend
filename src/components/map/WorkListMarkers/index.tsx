@@ -1,36 +1,20 @@
 import { useMemo } from 'react';
 
+import { useGetWorksLookup } from '@/queries/works/useGetWorksLookup';
 import { useCurrentZoom } from '@/store/location/useCurrentZoom';
-import { WorkLookup } from '@/types/contracts/workLookup';
 import { getMarkerGroups } from '@/utils/getMarkerGroups';
 
 import { getActualDistanceForZoom } from './helpers';
 import { WorkMarker } from './WorkMarker';
 import { WorksGroupMarker } from './WorksGroupMarker';
 
-const mockMarkerGroups: WorkLookup[] = [
-	{
-		id: '1',
-		lat: 53.9020832,
-		lng: 27.5349504,
-	},
-	{
-		id: '2',
-		lat: 53.9002832,
-		lng: 27.5349504,
-	},
-	{
-		id: '3',
-		lat: 53.9013832,
-		lng: 27.5349504,
-	},
-];
-
 export const WorkListMarkers = () => {
 	const { zoom } = useCurrentZoom();
+	const { data } = useGetWorksLookup();
+
 	const groupedWorkMarkers = useMemo(
-		() => getMarkerGroups(mockMarkerGroups, getActualDistanceForZoom(zoom)),
-		[zoom]
+		() => getMarkerGroups(data ?? [], getActualDistanceForZoom(zoom)),
+		[zoom, data]
 	);
 
 	return groupedWorkMarkers.map((group) =>

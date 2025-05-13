@@ -2,7 +2,7 @@ import logoIcon from '@/assets/icons/svg/recycle_logo.svg';
 import woodsImage from '@/assets/images/jpg/city.jpeg';
 import { ROUTES } from '@/constants/routes';
 import { useForm } from '@/hooks/useForm';
-import { loginUser } from '@/queries/loginUser';
+import { useUserLogs } from '@/store/user/useUserLogs';
 
 import { config, LoginForm } from './config';
 import { helpers } from './helpers';
@@ -11,6 +11,7 @@ import * as S from './styled';
 const { LoginFormSchema } = helpers;
 
 const {
+	ALTERNATIVE_TEXT,
 	BACKGROUND_ALT,
 	LOGO_ALT,
 	LOG_IN_BUTTON_LABEL,
@@ -18,10 +19,13 @@ const {
 	PLACEHOLDERS,
 	REGISTER_LINK,
 	REGISTER_QUESTION,
+	START_EXPLORING_LINK,
 	defaultFields,
 } = config;
 
 export const LoginPage = () => {
+	const { logIn } = useUserLogs();
+
 	const {
 		fields: { email, password },
 		errors,
@@ -30,7 +34,7 @@ export const LoginPage = () => {
 		isLoading,
 	} = useForm<LoginForm>({
 		defaultValues: defaultFields,
-		submitHandler: loginUser,
+		submitHandler: logIn,
 		validationSchema: LoginFormSchema,
 	});
 
@@ -60,6 +64,8 @@ export const LoginPage = () => {
 				<S.RegisterLink>
 					{REGISTER_QUESTION}{' '}
 					<a href={ROUTES.REGISTRATION}>{REGISTER_LINK}</a>
+					{ALTERNATIVE_TEXT}
+					<a href={ROUTES.MAIN}>{START_EXPLORING_LINK}</a>
 				</S.RegisterLink>
 			</S.Form>
 		</S.Main>

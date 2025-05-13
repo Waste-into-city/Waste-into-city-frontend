@@ -27,9 +27,9 @@ const commonTheme: ICommonTheme = {
 
 export const lightTheme: IColoredTheme = {
 	colors: {
-		background: '#fff',
-		smallContrast: '#eee',
-		fullContrast: '#000',
+		background: '#ffffff',
+		smallContrast: '#cccccc',
+		fullContrast: '#000000',
 		iconContrast: 'invert(0)',
 		iconSmallContrast:
 			' invert(98%) sepia(43%) saturate(5412%) hue-rotate(184deg) brightness(126%) contrast(87%)',
@@ -40,9 +40,9 @@ export const lightTheme: IColoredTheme = {
 
 export const darkTheme: IColoredTheme = {
 	colors: {
-		background: '#333',
-		smallContrast: '#444',
-		fullContrast: '#eee',
+		background: '#333333',
+		smallContrast: '#505050',
+		fullContrast: '#eeeeee',
 		iconContrast: 'invert(1)',
 		iconSmallContrast:
 			'invert(22%) sepia(0%) saturate(9%) hue-rotate(172deg) brightness(98%) contrast(82%)',

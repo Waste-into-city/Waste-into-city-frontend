@@ -14,19 +14,22 @@ export const ControlsBar = memo(() => {
 	const { pathname } = useLocation();
 	const { isSelected } = useMapItemLocation();
 	const {
-		logs: { isLoggedIn, role },
+		logs: { highRoleName },
 	} = useUserLogs();
 
 	const controlRoutes = useMemo(
-		() => (role === UserRoles.Moderator ? MODERATOR_ROUTES : USER_ROUTES),
-		[role]
+		() =>
+			highRoleName === UserRoles.Moderator
+				? MODERATOR_ROUTES
+				: USER_ROUTES,
+		[highRoleName]
 	);
 
 	if (isSelected) {
 		return null;
 	}
 
-	if (!isLoggedIn) {
+	if (highRoleName === UserRoles.Guest) {
 		return (
 			<S.LogInLink to={LOG_IN_ROUTE.path}>
 				<img src={LOG_IN_ROUTE.icon} alt={LOG_IN_ROUTE.name} />

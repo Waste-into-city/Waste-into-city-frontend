@@ -7,6 +7,9 @@ export const UserAccountForm = styled.form(({ theme }) => ({
 	gap: theme.indent.large,
 	marginBottom: theme.indent.large,
 	color: theme.colors.fullContrast,
+	backgroundColor: theme.colors.smallContrast,
+	padding: theme.indent.small,
+	borderRadius: theme.borderRadius.large,
 }));
 
 export const WatchModeLabels = styled.div<{ $isEditMode: boolean }>(
@@ -32,6 +35,9 @@ export const SmallLabel = styled.p(({ theme }) => ({
 export const TextFields = styled.div(({ theme }) => ({
 	display: 'flex',
 	gap: theme.indent.large,
+	backgroundColor: theme.colors.background,
+	padding: theme.indent.small,
+	borderRadius: theme.borderRadius.large,
 
 	[`@media ${theme.media.tablet}`]: {
 		flexDirection: 'column',
@@ -42,6 +48,9 @@ export const PasswordFields = styled.div(({ theme }) => ({
 	display: 'flex',
 	width: '100%',
 	gap: theme.indent.large,
+	backgroundColor: theme.colors.background,
+	padding: theme.indent.small,
+	borderRadius: theme.borderRadius.large,
 
 	[`@media ${theme.media.laptop}`]: {
 		flexDirection: 'column',
@@ -54,7 +63,10 @@ export const AvatarWithControlsWrapper = styled.div(({ theme }) => ({
 	gap: theme.indent.medium,
 
 	button: {
-		height: '100%',
+		height: theme.heights.full,
+		'&:hover': {
+			backgroundColor: theme.colors.background,
+		},
 	},
 
 	[`@media ${theme.media.tablet}`]: {

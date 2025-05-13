@@ -4,6 +4,7 @@ import arrowIcon from '@/assets/icons/svg/arrow_icon.svg';
 import complexityIcon from '@/assets/icons/svg/work_people_icon.svg';
 import { Button } from '@/components/ui/Button';
 import { WorkStatusLabel } from '@/components/ui/WorkStatusLabel';
+import { getImageUriByName } from '@/constants/apiEndpoints';
 import { NO_AVATAR_ICON, TRASH_ICONS } from '@/constants/icons';
 import { useUserLogs } from '@/store/user/useUserLogs';
 import { WorkInfo } from '@/types/contracts/workInfo';
@@ -51,7 +52,7 @@ export const WorkInfoDisplay = ({
 				onTouchMove={handleImagesScroll}
 			>
 				{imageApplications.map((link) => (
-					<img key={link} src={link} />
+					<img key={link} src={getImageUriByName(link)} />
 				))}
 			</S.WorkImagesWrapper>
 			<S.WorkStatusWrapper>
@@ -89,7 +90,13 @@ export const WorkInfoDisplay = ({
 								key={id}
 								$isCurrentUser={id === currentUserId}
 							>
-								<img src={avatarLink || NO_AVATAR_ICON} />
+								<img
+									src={
+										avatarLink
+											? getImageUriByName(avatarLink)
+											: NO_AVATAR_ICON
+									}
+								/>
 								<h3>{nickname}</h3>
 							</S.ParticipantItem>
 						))}

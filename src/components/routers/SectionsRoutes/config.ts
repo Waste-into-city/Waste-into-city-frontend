@@ -1,11 +1,12 @@
 import { FC, lazy, LazyExoticComponent } from 'react';
 
 import { ROUTES } from '@/constants/routes';
+import { UserRoles } from '@/types/userRoles';
 
 type RouteSection = {
 	route: string;
 	section: LazyExoticComponent<FC>;
-	isAuthRoute: boolean;
+	allowedRoles: Array<UserRoles>;
 };
 
 const getLazySection = (sectionName: string) =>
@@ -19,57 +20,62 @@ const ROUTE_SECTIONS: RouteSection[] = [
 	{
 		route: ROUTES.NEW_WORK,
 		section: getLazySection('NewWorkSection'),
-		isAuthRoute: true,
+		allowedRoles: [UserRoles.User, UserRoles.Admin],
 	},
 	{
 		route: ROUTES.ACCOUNT,
 		section: getLazySection('UserAccountSection'),
-		isAuthRoute: true,
+		allowedRoles: [UserRoles.Admin, UserRoles.Moderator, UserRoles.User],
 	},
 	{
 		route: ROUTES.WORKS,
 		section: getLazySection('UserWorksSection'),
-		isAuthRoute: true,
+		allowedRoles: [UserRoles.Admin, UserRoles.User],
 	},
 	{
 		route: ROUTES.WORK_INFO + '/:id',
 		section: getLazySection('WorkInfoSection'),
-		isAuthRoute: false,
+		allowedRoles: [
+			UserRoles.Admin,
+			UserRoles.Guest,
+			UserRoles.Moderator,
+			UserRoles.User,
+		],
 	},
 	{
 		route: ROUTES.WORKS_GROUP,
 		section: getLazySection('WorksGroupSection'),
-		isAuthRoute: false,
+		allowedRoles: [
+			UserRoles.Admin,
+			UserRoles.Guest,
+			UserRoles.Moderator,
+			UserRoles.User,
+		],
 	},
 	{
 		route: ROUTES.RATE_WORK_PARTICIPANTS + '/:id',
 		section: getLazySection('WorkParticipantsRateSection'),
-		isAuthRoute: true,
+		allowedRoles: [UserRoles.User, UserRoles.Admin],
 	},
 	{
 		route: ROUTES.REPORT_WORK + '/:id',
 		section: getLazySection('WorkReportSection'),
-		isAuthRoute: true,
-	},
-	{
-		route: '/errors',
-		section: getLazySection('ErrorsSection'),
-		isAuthRoute: true,
+		allowedRoles: [UserRoles.Admin, UserRoles.User],
 	},
 	{
 		route: ROUTES.WORK_REVIEW,
 		section: getLazySection('WorkReviewSection'),
-		isAuthRoute: true,
+		allowedRoles: [UserRoles.Moderator],
 	},
 	{
 		route: ROUTES.REPORT_REVIEW,
 		section: getLazySection('ReportReviewSection'),
-		isAuthRoute: true,
+		allowedRoles: [UserRoles.Moderator],
 	},
 	{
 		route: ROUTES.ADMIN_PANEL,
 		section: getLazySection('AdminPanelSection'),
-		isAuthRoute: true,
+		allowedRoles: [UserRoles.Admin],
 	},
 ];
 

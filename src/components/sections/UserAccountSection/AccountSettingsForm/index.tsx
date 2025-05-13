@@ -1,12 +1,13 @@
 import { MouseEventHandler, useEffect, useMemo, useState } from 'react';
 
+import LoaderWrapper from '@/components/common/LoaderWrapper';
 import { AvatarInput } from '@/components/ui/AvatarInput';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { PasswordInput } from '@/components/ui/PasswordInput';
 import { useForm } from '@/hooks/useForm';
+import { useGetSelfUserInfo } from '@/queries/users/useGetSelfUserInfo';
 import { useNotifications } from '@/store/notifications/useNotifications';
-import { useUserLogs } from '@/store/user/useUserLogs';
 import { NotificationTypes } from '@/types/notificationTypes';
 import { UserRoles } from '@/types/userRoles';
 
@@ -22,20 +23,20 @@ import * as S from './styled';
 import { UserAccountSettingsForm } from './types';
 
 export const AccountSettingsForm = () => {
-	const { logs: userLogs } = useUserLogs();
+	const { data, isLoading, error } = useGetSelfUserInfo();
 	const [isEditMode, setIsEditMode] = useState(false);
 	const { appendNotification } = useNotifications();
 
 	const defaultValues = useMemo<UserAccountSettingsForm>(
 		() => ({
 			...defaultEmptyValues,
-			...{
-				name: userLogs.nickname,
-				email: userLogs.email,
-				avatarLink: userLogs.avatarLink,
-			},
+			...(data && {
+				name: data.nickname,
+				email: data.email,
+				avatarLink: data?.avatarImageName ?? '',
+			}),
 		}),
-		[userLogs]
+		[data]
 	);
 
 	const {
@@ -68,7 +69,7 @@ export const AccountSettingsForm = () => {
 	} = fields;
 
 	const [displayAvatarLink, setDisplayAvatarLink] = useState(
-		userLogs.avatarLink ?? ''
+		data?.avatarImageName ?? ''
 	);
 
 	const [avatarFile, setAvatarFile] = useState<File | null>(null);
@@ -77,9 +78,9 @@ export const AccountSettingsForm = () => {
 		setDisplayAvatarLink(
 			avatarFile
 				? URL.createObjectURL(avatarFile)
-				: (userLogs.avatarLink ?? '')
+				: (data?.avatarImageName ?? '')
 		);
-	}, [avatarFile, userLogs.avatarLink]);
+	}, [avatarFile, data?.avatarImageName]);
 
 	const handleEditModeStart: MouseEventHandler = (mouseEvent) => {
 		if (!isEditMode) {
@@ -100,80 +101,87 @@ export const AccountSettingsForm = () => {
 	};
 
 	return (
-		<S.UserAccountForm onSubmit={handleFormSubmit}>
-			<S.AvatarWithControlsWrapper>
-				<AvatarInput
-					avatarLink={displayAvatarLink}
-					isAvatarFileSet={avatarFile !== null}
-					isAvatarSaved={Boolean(userLogs.avatarLink)}
-					setAvatarFile={setAvatarFile}
-					handleAvatarDelete={handleAvatarDelete}
-					disabled={!isEditMode}
-				/>
-				<S.WatchModeLabels $isEditMode={isEditMode}>
-					<S.NicknameLabel>{userLogs.nickname}</S.NicknameLabel>
-					<S.SmallLabel>{userLogs.email}</S.SmallLabel>
-					<S.SmallLabel>
-						{(userLogs.role === UserRoles.Moderator ||
-							userLogs.role === UserRoles.Admin) &&
-							userLogs.role}
-					</S.SmallLabel>
-				</S.WatchModeLabels>
-				<Button
-					variant='positive'
-					onClick={handleEditModeStart}
-					disabled={!areFieldsChanged && isEditMode}
-				>
-					{isEditMode ? SAVE_BUTTON_LABEL : EDIT_BUTTON_LABEL}
-				</Button>
-				{isEditMode && (
-					<Button variant='negative' onClick={handleEditModeCancel}>
-						{CANCEL_BUTTON_LABEL}
+		<LoaderWrapper isLoaderVisible={isLoading || Boolean(error)}>
+			<S.UserAccountForm onSubmit={handleFormSubmit}>
+				<S.AvatarWithControlsWrapper>
+					<AvatarInput
+						avatarLink={displayAvatarLink}
+						isAvatarFileSet={avatarFile !== null}
+						isAvatarSaved={Boolean(data?.avatarImageName)}
+						setAvatarFile={setAvatarFile}
+						handleAvatarDelete={handleAvatarDelete}
+						disabled={!isEditMode}
+					/>
+					<S.WatchModeLabels $isEditMode={isEditMode}>
+						<S.NicknameLabel>{data?.nickname}</S.NicknameLabel>
+						<S.SmallLabel>{data?.email}</S.SmallLabel>
+						<S.SmallLabel>
+							{(data?.highRoleName === UserRoles.Moderator ||
+								data?.highRoleName === UserRoles.Admin) &&
+								data?.highRoleName}
+						</S.SmallLabel>
+					</S.WatchModeLabels>
+					<Button
+						variant='positive'
+						onClick={handleEditModeStart}
+						disabled={!areFieldsChanged && isEditMode}
+					>
+						{isEditMode ? SAVE_BUTTON_LABEL : EDIT_BUTTON_LABEL}
 					</Button>
+					{isEditMode && (
+						<Button
+							variant='negative'
+							onClick={handleEditModeCancel}
+						>
+							{CANCEL_BUTTON_LABEL}
+						</Button>
+					)}
+				</S.AvatarWithControlsWrapper>
+				{isEditMode && (
+					<>
+						<S.TextFields>
+							<Input
+								value={name}
+								onChange={handleFieldChange('name')}
+								errorText={errors.name}
+								label={USER_SETTINGS_FORM_VALUES.name}
+							/>
+							<Input
+								value={email}
+								onChange={handleFieldChange('email')}
+								errorText={errors.email}
+								label={USER_SETTINGS_FORM_VALUES.email}
+							/>
+						</S.TextFields>
+						<S.PasswordFields>
+							<PasswordInput
+								value={previousPassword}
+								onChange={handleFieldChange('previousPassword')}
+								errorText={errors.previousPassword}
+								label={
+									USER_SETTINGS_FORM_VALUES.previousPassword
+								}
+							/>
+							<PasswordInput
+								value={newPassword}
+								onChange={handleFieldChange('newPassword')}
+								errorText={errors.newPassword}
+								label={USER_SETTINGS_FORM_VALUES.newPassword}
+							/>
+							<PasswordInput
+								value={newPasswordConfirmation}
+								onChange={handleFieldChange(
+									'newPasswordConfirmation'
+								)}
+								errorText={errors.newPasswordConfirmation}
+								label={
+									USER_SETTINGS_FORM_VALUES.newPasswordConfirmation
+								}
+							/>
+						</S.PasswordFields>
+					</>
 				)}
-			</S.AvatarWithControlsWrapper>
-			{isEditMode && (
-				<>
-					<S.TextFields>
-						<Input
-							value={name}
-							onChange={handleFieldChange('name')}
-							errorText={errors.name}
-							label={USER_SETTINGS_FORM_VALUES.name}
-						/>
-						<Input
-							value={email}
-							onChange={handleFieldChange('email')}
-							errorText={errors.email}
-							label={USER_SETTINGS_FORM_VALUES.email}
-						/>
-					</S.TextFields>
-					<S.PasswordFields>
-						<PasswordInput
-							value={previousPassword}
-							onChange={handleFieldChange('previousPassword')}
-							errorText={errors.previousPassword}
-							label={USER_SETTINGS_FORM_VALUES.previousPassword}
-						/>
-						<PasswordInput
-							value={newPassword}
-							onChange={handleFieldChange('newPassword')}
-							errorText={errors.newPassword}
-							label={USER_SETTINGS_FORM_VALUES.newPassword}
-						/>
-						<PasswordInput
-							value={newPasswordConfirmation}
-							onChange={handleFieldChange(
-								'newPasswordConfirmation'
-							)}
-							errorText={errors.newPasswordConfirmation}
-							label={
-								USER_SETTINGS_FORM_VALUES.newPasswordConfirmation
-							}
-						/>
-					</S.PasswordFields>
-				</>
-			)}
-		</S.UserAccountForm>
+			</S.UserAccountForm>
+		</LoaderWrapper>
 	);
 };
