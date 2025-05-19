@@ -5,7 +5,6 @@ export const WorkRatesWrapper = styled.div(({ theme }) => ({
 	flexDirection: 'column',
 	height: theme.heights.full,
 	gap: theme.indent.large,
-	paddingTop: theme.indent.large,
 
 	'& > h2': {
 		color: theme.colors.fullContrast,
@@ -30,5 +29,5 @@ export const SubmitRatesButtons = styled.div(({ theme }) => ({
 export const ParticipantRatesWrapper = styled.div(({ theme }) => ({
 	display: 'flex',
 	flexDirection: 'column',
-	gap: theme.indent.large,
+	gap: theme.indent.medium,
 }));

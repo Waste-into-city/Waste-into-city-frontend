@@ -1,16 +1,13 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
+import { USER_LOGS_STORAGE } from '@/constants/persistStorages';
 import { loginUser } from '@/queries/loginUser';
+import { logoutUser } from '@/queries/logoutUser';
+import { SelfUserInfo } from '@/types/contracts/selfUserInfo';
 import { UserRoles } from '@/types/userRoles';
 
-type UserLogs = {
-	id: string;
-	isLoggedIn: boolean;
-	nickname: string;
-	email: string;
-	avatarLink?: string;
-	role: UserRoles;
-};
+type UserLogs = SelfUserInfo;
 
 type UserCredentials = {
 	email: string;
@@ -21,28 +18,40 @@ type UserLogsState = {
 	logs: UserLogs;
 	logIn: (credentials: UserCredentials) => Promise<void>;
 	logOut: () => Promise<void>;
+	updateLogs: (logs: UserLogs) => void;
 };
 
 const emptyUserValues: UserLogs = {
 	id: '',
-	isLoggedIn: false,
 	nickname: '',
 	email: '',
-	role: UserRoles.Guest,
+	highRoleName: UserRoles.Guest,
+	avatarImageName: null,
 };
 
-const mockUser: UserLogs = {
-	id: '1',
-	isLoggedIn: true,
-	nickname: 'Joseph',
-	email: 'joseph.wic@gmail.com',
-	role: UserRoles.Moderator,
-};
-
-export const useUserLogs = create<UserLogsState>()((set) => ({
-	logs: mockUser,
-	logIn: loginUser,
-	logOut: async () => {
-		set({ logs: emptyUserValues });
-	},
-}));
+export const useUserLogs = create<UserLogsState>()(
+	persist(
+		(set) => ({
+			logs: emptyUserValues,
+			logIn: async (credentials) => {
+				const userLogs = await loginUser(credentials);
+				set((prevLogs) => ({
+					...prevLogs,
+					logs: { ...userLogs },
+				}));
+			},
+			logOut: async () => {
+				try {
+					await logoutUser();
+				} finally {
+					set((prevLogs) => ({ ...prevLogs, logs: emptyUserValues }));
+				}
+			},
+			updateLogs: (newLogs) =>
+				set((prevLogs) => ({ ...prevLogs, logs: newLogs })),
+		}),
+		{
+			name: USER_LOGS_STORAGE,
+		}
+	)
+);

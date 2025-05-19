@@ -4,7 +4,7 @@ export const WorksGroupWrapper = styled.div(({ theme }) => ({
 	width: theme.widths.full,
 	display: 'flex',
 	flexDirection: 'column',
-	gap: theme.indent.large,
+	gap: theme.indent.medium,
 
 	'& > h2': {
 		fontSize: theme.fontSizes.h2,

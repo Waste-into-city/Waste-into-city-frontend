@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { LngLat, MapEventUpdateHandler } from '@yandex/ymaps3-types';
 import {
@@ -62,6 +62,15 @@ export const MainMap = () => {
 			setDisplayedCenter([lng, lat]);
 		},
 	});
+
+	useEffect(() => {
+		if (isSelected && mapItemLocation) {
+			setMapCenter((prevCenter) => ({
+				...prevCenter,
+				center: mapItemLocation,
+			}));
+		}
+	}, [mapItemLocation, isSelected]);
 
 	const setLocationAtDisplayCenter = () => {
 		if (isSelected && !mapItemLocation) {

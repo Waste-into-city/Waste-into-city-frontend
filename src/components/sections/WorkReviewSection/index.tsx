@@ -1,46 +1,98 @@
+import { useCallback, useEffect } from 'react';
+
+import { useQueryClient } from '@tanstack/react-query';
+
+import LoaderWrapper from '@/components/common/LoaderWrapper';
 import { ReviewCardPicker } from '@/components/common/ReviewCardPicker';
 import { WorkInfoDisplay } from '@/components/common/WorkInfoDisplay';
-import { WorkInfo, WorkStatus } from '@/types/contracts/workInfo';
-import { TrashTypes } from '@/types/trashTypes';
+import { ReviewQueries } from '@/constants/queryKeys';
+import { useApproveWorkReview } from '@/queries/reviews/useApproveWorkReview';
+import { useGetWorkReview } from '@/queries/reviews/useGetWorkReview';
+import { useRejectWorkReview } from '@/queries/reviews/useRejectWorkReview';
+import { useMapItemLocation } from '@/store/location/useMapItemLocation';
+import { useNotifications } from '@/store/notifications/useNotifications';
+import { NotificationTypes } from '@/types/notificationTypes';
 
-const mockWorkInfo: WorkInfo = {
-	id: 's',
-	title: 'Dirty',
-	description: 'Description',
-	participants: [
-		{
-			id: '2',
-			nickname: 'Nick',
-			avatarLink:
-				'https://audi-minsk.by/wp-content/uploads/2024/07/a6_1280x720-optimized.jpg',
-		},
-		{ id: '3', nickname: 'Jonathan', avatarLink: '' },
-	],
-	imageApplications: [
-		'https://audi-minsk.by/wp-content/uploads/2024/07/a6_1280x720-optimized.jpg',
-		'https://s3-eu-west-1.amazonaws.com/blog-ecotree/blog/0001/01/ad46dbb447cd0e9a6aeecd64cc2bd332b0cbcb79.jpeg',
-		'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3k8QD2Ty9XCxSBUucxssdkV8aolbj2vrQlw&s',
-		'https://treenewal.com/wp-content/uploads/2020/11/environmental_factors_affecting_trees.png',
-		'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwthecQSnalUrYNkUvavdk_EpcAaFyAn5X4w&s',
-	],
-	trashTypes: [
-		TrashTypes.Batteries,
-		TrashTypes.Electronic,
-		TrashTypes.Glass,
-		TrashTypes.Mixed,
-		TrashTypes.Plastic,
-	],
-	workComplexityId: 1,
-	workStatusTypeForClient: WorkStatus.Active,
-	lat: 2,
-	lng: 1,
-};
+import {
+	FAILED_TO_GET_NEXT_WORK_REVIEW,
+	WORK_LOCATION_BUTTON_LABEL,
+} from './constants';
+import { WorkLocationButton } from './styled';
 
 const WorkReviewSection = () => {
+	const queryClient = useQueryClient();
+
+	const { displayItem, setLocation, cancelItem } = useMapItemLocation();
+	const { data, isLoading, error } = useGetWorkReview();
+
+	const { appendNotification } = useNotifications();
+
+	const { mutate: approveReview, isPending: isApproving } =
+		useApproveWorkReview({
+			onSuccess: () => {
+				queryClient.invalidateQueries({
+					queryKey: [ReviewQueries.WorkReview],
+				});
+			},
+		});
+	const { mutate: rejectReview, isPending: isRejecting } =
+		useRejectWorkReview({
+			onSuccess: () => {
+				queryClient.invalidateQueries({
+					queryKey: [ReviewQueries.WorkReview],
+				});
+			},
+		});
+
+	const handleReviewApprove = useCallback(
+		() => data?.id && approveReview(data.id),
+		[data?.id, approveReview]
+	);
+	const handleReviewReject = useCallback(
+		() => data?.id && rejectReview(data.id),
+		[data?.id, rejectReview]
+	);
+
+	useEffect(() => {
+		if (data) {
+			setLocation([data.lng, data.lat]);
+		}
+		return () => {
+			cancelItem();
+		};
+	}, [setLocation, data, cancelItem]);
+
+	useEffect(() => {
+		if (error) {
+			appendNotification(
+				NotificationTypes.Error,
+				FAILED_TO_GET_NEXT_WORK_REVIEW
+			);
+		}
+	}, [error, appendNotification]);
+
+	const handleWorkLocationButtonClick = () => {
+		displayItem();
+	};
+
+	const isLoadingCard =
+		isLoading || isApproving || isRejecting || Boolean(error);
+
 	return (
-		<ReviewCardPicker onAccept={() => {}} onReject={() => {}}>
-			<WorkInfoDisplay workInfo={mockWorkInfo} isMissingParticipants />
-		</ReviewCardPicker>
+		<LoaderWrapper isLoaderVisible={isLoadingCard}>
+			<ReviewCardPicker
+				onAccept={handleReviewApprove}
+				onReject={handleReviewReject}
+				isLoading={isLoadingCard}
+			>
+				{data && (
+					<WorkInfoDisplay workInfo={data} isMissingParticipants />
+				)}
+				<WorkLocationButton onClick={handleWorkLocationButtonClick}>
+					{WORK_LOCATION_BUTTON_LABEL}
+				</WorkLocationButton>
+			</ReviewCardPicker>
+		</LoaderWrapper>
 	);
 };
 

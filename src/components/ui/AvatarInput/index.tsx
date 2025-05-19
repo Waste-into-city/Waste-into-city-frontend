@@ -1,5 +1,6 @@
 import { ChangeEvent, useCallback, useMemo, useRef } from 'react';
 
+import { ALLOWED_IMAGE_TYPES } from '@/constants/allowedImageTypes';
 import { NO_AVATAR_ICON } from '@/constants/icons';
 
 import { PopoverOptionsWrapper } from '../PopoverOptionsWrapper';
@@ -80,6 +81,7 @@ export const AvatarInput = ({
 			<input
 				ref={avatarInputRef}
 				type='file'
+				accept={ALLOWED_IMAGE_TYPES}
 				onChange={handleAvatarInputChange}
 				hidden
 				disabled={disabled}

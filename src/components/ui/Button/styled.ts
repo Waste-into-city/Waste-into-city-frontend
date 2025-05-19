@@ -75,11 +75,17 @@ export const PrimaryButton = styled(CommonButton)`
 			filter: ${theme.colors.iconPrimaryContrast};
 		}
 
-		&:hover,
-		&:focus-visible {
-			color: ${theme.colors.primary};
+		&:disabled {
 			background-color: ${theme.colors.primaryHover};
-			outline: none;
+			color: ${theme.colors.primary};
+		}
+
+		&:enabled {
+			&:hover,
+			&:focus-visible {
+				background-color: ${theme.colors.primaryHover};
+				outline: none;
+			}
 		}
 	`}
 `;

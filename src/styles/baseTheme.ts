@@ -32,7 +32,7 @@ export const baseTheme: IBaseTheme = {
 	},
 	indent: {
 		inputIconPadding: '50px',
-		interactionSection: '45px',
+		interactionSection: '25px',
 		large: '35px',
 		medium: '15px',
 		scrollbar: '4px',
@@ -42,6 +42,7 @@ export const baseTheme: IBaseTheme = {
 		landscape: '(orientation: landscape)',
 		laptop: '(max-width: 1024px)',
 		laptopHeight: '(max-height: 850px)',
+		middleHeight: '(max-height: 680px)',
 		phone: '(max-width: 425px)',
 		portrait: '(orientation: portrait)',
 		smallHeight: '(max-height: 550px)',
@@ -75,6 +76,7 @@ export const baseTheme: IBaseTheme = {
 		medium: '.4s',
 	},
 	widths: {
+		aboutUsTopSection: '800px',
 		full: '100%',
 		interactionSection: '80%',
 		logsForm: '760px',
@@ -136,6 +138,7 @@ export interface IBaseTheme {
 		landscape: string;
 		laptop: string;
 		laptopHeight: string;
+		middleHeight: string;
 		phone: string;
 		portrait: string;
 		smallHeight: string;
@@ -169,6 +172,7 @@ export interface IBaseTheme {
 		medium: string;
 	};
 	widths: {
+		aboutUsTopSection: string;
 		full: string;
 		interactionSection: string;
 		logsForm: string;

@@ -3,7 +3,7 @@ import { OtherUser } from '@/types/contracts/otherUser';
 import { UserRating } from '@/types/contracts/userRating';
 
 export type UsersListProps = {
-	usersList: Array<OtherUser | UserRating>;
+	usersList: ByPageResponse<OtherUser | UserRating>;
 	isIndexed?: boolean;
 	getNextUsers: (
 		from: number,

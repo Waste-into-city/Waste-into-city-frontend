@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import LoaderWrapper from '@/components/common/LoaderWrapper';
 import { Button } from '@/components/ui/Button';
 import { ROUTES } from '@/constants/routes';
-import { OtherUser } from '@/types/contracts/otherUser';
+import { useFinishWork } from '@/queries/works/useFinishWork';
+import { useGetWorkInfo } from '@/queries/works/useGetWorkInfo';
+import { useUserLogs } from '@/store/user/useUserLogs';
 
 import {
 	RATES_SECTION_LABEL,
@@ -14,22 +17,25 @@ import { ParticipantRate } from './ParticipantRate';
 import * as S from './styled';
 import { ParticipantRateInfo } from './types';
 
-const mockParticipants: Array<OtherUser> = [
-	{
-		id: '2',
-		nickname: 'Nick',
-		avatarLink:
-			'https://audi-minsk.by/wp-content/uploads/2024/07/a6_1280x720-optimized.jpg',
-	},
-	{ id: '3', nickname: 'Jonathan', avatarLink: '' },
-];
-
 export default function WorkParticipantsRateSection() {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const {
+		logs: { id: userId },
+	} = useUserLogs();
 	const [rates, setRates] = useState<Array<ParticipantRateInfo>>([]);
 
-	console.log(id);
+	const { data, isLoading, error } = useGetWorkInfo(id ?? '');
+	const { mutate } = useFinishWork(id ?? '', {
+		onSuccess: () => {
+			navigate(ROUTES.MAIN);
+		},
+	});
+
+	const otherParticipants = useMemo(
+		() => data?.participants.filter(({ id }) => id !== userId) ?? [],
+		[userId, data]
+	);
 
 	const handleParticipantRateChange =
 		(participantId: string) => (rate: number) => {
@@ -50,42 +56,56 @@ export default function WorkParticipantsRateSection() {
 			});
 		};
 
-	console.log(rates);
+	useEffect(() => {
+		if (data && otherParticipants.length === 0) {
+			mutate([]);
+		}
+	}, [data]);
 
-	const handleSubmitRatesButtonClick = () => {
-		navigate(ROUTES.MAIN);
+	const handleSubmitRatesButtonClick = async () => {
+		mutate(
+			rates.map(({ participantId, rate }) => ({
+				id: participantId,
+				ranking: rate,
+				nickname: '',
+				avatarLink: '',
+			}))
+		);
 	};
 
-	const handleSkipRatingButtonClick = () => {
-		navigate(ROUTES.MAIN);
+	const handleSkipRatingButtonClick = async () => {
+		mutate([]);
 	};
 
 	return (
-		<S.WorkRatesWrapper>
-			<h2>{RATES_SECTION_LABEL}</h2>
-			<S.SubmitRatesButtons>
-				<Button
-					variant='primary'
-					disabled={rates.length === 0}
-					onClick={handleSubmitRatesButtonClick}
-				>
-					{SUBMIT_RATES_BUTTON_LABEL}
-				</Button>
-				<Button onClick={handleSkipRatingButtonClick}>
-					{SKIP_RATING_BUTTON_LABEL}
-				</Button>
-			</S.SubmitRatesButtons>
-			<S.ParticipantRatesWrapper>
-				{mockParticipants.map((participant) => (
-					<ParticipantRate
-						key={participant.id}
-						participant={participant}
-						onRateChange={handleParticipantRateChange(
-							participant.id
-						)}
-					/>
-				))}
-			</S.ParticipantRatesWrapper>
-		</S.WorkRatesWrapper>
+		<LoaderWrapper isLoaderVisible={isLoading || Boolean(error)}>
+			<S.WorkRatesWrapper>
+				<h2>{RATES_SECTION_LABEL}</h2>
+				<S.SubmitRatesButtons>
+					<Button
+						variant='primary'
+						disabled={rates.length === 0}
+						onClick={handleSubmitRatesButtonClick}
+					>
+						{SUBMIT_RATES_BUTTON_LABEL}
+					</Button>
+					<Button onClick={handleSkipRatingButtonClick}>
+						{SKIP_RATING_BUTTON_LABEL}
+					</Button>
+				</S.SubmitRatesButtons>
+				<S.ParticipantRatesWrapper>
+					{otherParticipants.map((participant) => (
+						<ParticipantRate
+							key={participant.id}
+							participant={participant}
+							onRateChange={handleParticipantRateChange(
+								participant.id
+							)}
+						/>
+					))}
+				</S.ParticipantRatesWrapper>
+			</S.WorkRatesWrapper>
+			\
+		</LoaderWrapper>
 	);
 }

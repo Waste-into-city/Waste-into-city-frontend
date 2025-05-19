@@ -11,7 +11,7 @@ export const ZOOM_RANGE: ZoomRange = {
 
 // Is using default while no geolocation is available
 const defaultLocation: YMapLocationRequest = {
-	center: [21.018928, 52.231208],
+	center: [27.567444, 53.893009],
 	zoom: 17,
 	duration: 300,
 	easing: 'ease-in-out',

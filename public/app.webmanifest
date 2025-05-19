@@ -1,0 +1,14 @@
+{
+	"name": "Waste into city",
+	"short_name": "WIC",
+	"scope": "https://waste-into-city-frontend-pearl.vercel.app/",
+	"start_url": "/?standalone=1",
+	"display": "standalone",
+	"icons": [
+		{
+			"src": "recycle_logo.svg",
+			"sizes": "192x192",
+			"type": "image/svg"
+		}
+	]
+}

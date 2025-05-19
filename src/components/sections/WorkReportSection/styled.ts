@@ -7,7 +7,6 @@ export const WorkReportFormWrapper = styled.form(({ theme }) => ({
 	display: 'flex',
 	flexDirection: 'column',
 	gap: theme.indent.large,
-	paddingTop: theme.indent.large,
 	width: theme.widths.full,
 	height: theme.heights.full,
 

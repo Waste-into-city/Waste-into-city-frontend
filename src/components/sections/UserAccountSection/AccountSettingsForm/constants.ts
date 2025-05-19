@@ -29,3 +29,5 @@ export const USER_INFO_CHANGE_ERROR_MESSAGE =
 
 export const PREVIOUS_PASSWORD_NOT_SPECIFIED_MESSAGE =
 	'You must specify previous password first';
+export const ACCOUNT_INFORMATION_UPDATED_MESSAGE =
+	'Your account information has been successfully updated!';

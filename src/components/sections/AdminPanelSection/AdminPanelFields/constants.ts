@@ -15,22 +15,25 @@ export const ADMIN_PANEL_HEADING = 'Admin Panel';
 export const SCORE_SETTINGS_HEADER = 'Score Settings';
 
 export const EMPTY_SCORE_SETTINGS: AdminPanelForm = {
-	workRankingDefaultReviewAdding: '0',
-	workNegativeAddingMultiplier: '0',
-	workNegativeSubstracting: '0',
-	workRankingAdding: '0',
-	workRankingSubstracting: '0',
-	workApplicationRankingSubstracting: '0',
-	workApplicationNegativeAddingMultiplier: '0',
-	workApplicationRankingAdding: '0',
-	workApplicationNegativeSubstracting: '0',
-	userBanRankingAtLeast: '0',
-	pendingFinalizationWorkRankingSubstracting: '0',
-	pendingFinalizationWorkNegativeAdding: '0',
-	workComplaintUserNegativeSubstracting: '0',
-	workComplaintParticipantNegativeAddingMultiplier: '0',
-	workComplaintUserNegativeAddingMultiplier: '0',
-	workComplaintParticipantRankingSubstracting: '0',
-	workComplaintUserRankingSubstracting: '0',
-	workComplaintUserRankingAdding: '0',
+	workRankingDefaultReviewAdding: '',
+	workNegativeAddingMultiplier: '',
+	workNegativeSubstracting: '',
+	workRankingAdding: '',
+	workRankingSubstracting: '',
+	workApplicationRankingSubstracting: '',
+	workApplicationNegativeAddingMultiplier: '',
+	workApplicationRankingAdding: '',
+	workApplicationNegativeSubstracting: '',
+	userBanRankingAtLeast: '',
+	pendingFinalizationWorkRankingSubstracting: '',
+	pendingFinalizationWorkNegativeAdding: '',
+	workComplaintUserNegativeSubstracting: '',
+	workComplaintParticipantNegativeAddingMultiplier: '',
+	workComplaintUserNegativeAddingMultiplier: '',
+	workComplaintParticipantRankingSubstracting: '',
+	workComplaintUserRankingSubstracting: '',
+	workComplaintUserRankingAdding: '',
 };
+
+export const SETTINGS_SAVED_MESSAGE = 'Score settings are saved!';
+export const SETTINGS_NOT_SAVED_MESSAGE = 'Failed to save score settings!';

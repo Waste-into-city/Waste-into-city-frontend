@@ -4,7 +4,7 @@ export const WorksListWrapper = styled.ul(({ theme }) => ({
 	display: 'flex',
 	flexDirection: 'column',
 	width: theme.widths.full,
-	gap: theme.indent.large,
+	gap: theme.indent.medium,
 }));
 
 export const WorksListItem = styled.li(({ theme }) => ({
@@ -16,6 +16,11 @@ export const WorksListItem = styled.li(({ theme }) => ({
 	width: theme.widths.full,
 	gap: theme.indent.medium,
 	color: theme.colors.fullContrast,
+
+	border: theme.borders.large,
+	borderColor: theme.colors.smallSectionContrast,
+	borderRadius: theme.borderRadius.large,
+	padding: `${theme.indent.medium} ${theme.indent.small}`,
 
 	'& > h3': {
 		wordBreak: 'break-word',

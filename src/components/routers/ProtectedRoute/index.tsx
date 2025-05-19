@@ -3,20 +3,22 @@ import { Navigate } from 'react-router-dom';
 
 import { ROUTES } from '@/constants/routes';
 import { useUserLogs } from '@/store/user/useUserLogs';
+import { UserRoles } from '@/types/userRoles';
 
 export const ProtectedRoute = ({
 	children,
-	isAuthRoute,
+	allowedRoles,
 }: {
 	children: ReactNode;
-	isAuthRoute: boolean;
+	allowedRoles: Array<UserRoles>;
 }) => {
 	const {
-		logs: { isLoggedIn },
+		logs: { highRoleName },
 	} = useUserLogs();
 
-	if (isAuthRoute) {
-		return isLoggedIn ? children : <Navigate to={ROUTES.MAIN} />;
-	}
-	return isLoggedIn ? <Navigate to={ROUTES.MAIN} /> : children;
+	return allowedRoles?.includes(highRoleName) ? (
+		children
+	) : (
+		<Navigate to={ROUTES.MAIN} />
+	);
 };

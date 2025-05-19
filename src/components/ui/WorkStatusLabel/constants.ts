@@ -2,7 +2,7 @@ import { IColoredTheme } from '@/styles/coloredTheme';
 import { WorkStatus } from '@/types/contracts/workInfo';
 
 export const WORK_STATUS_LABELS: Record<WorkStatus, string> = {
-	[WorkStatus.Active]: 'Active',
+	[WorkStatus.Active]: 'Available',
 	[WorkStatus.InProgress]: 'In Progress',
 	[WorkStatus.Pending]: 'Pending',
 	[WorkStatus.Successful]: 'Successful',

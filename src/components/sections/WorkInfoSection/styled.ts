@@ -10,9 +10,15 @@ export const WorkInfoSectionWrapper = styled.div(({ theme }) => ({
 	gap: theme.indent.medium,
 }));
 
-export const SubmitButton = styled(Button)(({ theme }) => ({
+export const WorkControls = styled.div(({ theme }) => ({
+	display: 'flex',
+	flexDirection: 'column',
+	gap: theme.indent.medium,
 	marginTop: 'auto',
+	paddingBottom: theme.indent.medium,
+}));
 
+export const SubmitButton = styled(Button)(({ theme }) => ({
 	[`@media ${theme.media.phone}`]: {
 		width: '100%',
 	},

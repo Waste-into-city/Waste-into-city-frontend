@@ -32,6 +32,9 @@ export const SmallLabel = styled.p(({ theme }) => ({
 export const TextFields = styled.div(({ theme }) => ({
 	display: 'flex',
 	gap: theme.indent.large,
+	backgroundColor: theme.colors.background,
+	padding: theme.indent.small,
+	borderRadius: theme.borderRadius.large,
 
 	[`@media ${theme.media.tablet}`]: {
 		flexDirection: 'column',
@@ -42,6 +45,9 @@ export const PasswordFields = styled.div(({ theme }) => ({
 	display: 'flex',
 	width: '100%',
 	gap: theme.indent.large,
+	backgroundColor: theme.colors.background,
+	padding: theme.indent.small,
+	borderRadius: theme.borderRadius.large,
 
 	[`@media ${theme.media.laptop}`]: {
 		flexDirection: 'column',
@@ -53,8 +59,15 @@ export const AvatarWithControlsWrapper = styled.div(({ theme }) => ({
 	alignItems: 'center',
 	gap: theme.indent.medium,
 
+	backgroundColor: theme.colors.smallSectionContrast,
+	padding: theme.indent.small,
+	borderRadius: theme.borderRadius.large,
+
 	button: {
-		height: '100%',
+		height: theme.heights.full,
+		'&:hover': {
+			backgroundColor: theme.colors.background,
+		},
 	},
 
 	[`@media ${theme.media.tablet}`]: {

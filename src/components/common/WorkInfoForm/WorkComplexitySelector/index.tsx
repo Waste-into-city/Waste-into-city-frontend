@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { complexityItems, WORK_COMPLEXITY_LABEL } from './constants';
+import { workComplexitiesPeople } from '@/constants/workComplexitiesPeople';
+
+import { WORK_COMPLEXITY_LABEL } from './constants';
 import * as S from './styled';
 
 export const WorkComplexitySelector = ({
@@ -18,8 +20,8 @@ export const WorkComplexitySelector = ({
 		<S.WorkComplexitiesWrapper>
 			<h2>{WORK_COMPLEXITY_LABEL}</h2>
 			<S.WorkComplexityOptionsWrapper>
-				{complexityItems.map(
-					({ complexity: currentComplexity, label }) => (
+				{workComplexitiesPeople.map(
+					({ id: currentComplexity, people }) => (
 						<S.WorkComplexityOption
 							key={currentComplexity}
 							$isSelected={complexity === currentComplexity}
@@ -28,7 +30,7 @@ export const WorkComplexitySelector = ({
 								currentComplexity
 							)}
 						>
-							{label}
+							{people}
 						</S.WorkComplexityOption>
 					)
 				)}

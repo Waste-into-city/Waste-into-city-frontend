@@ -3,6 +3,7 @@ import { ChangeEvent, MouseEventHandler, useRef } from 'react';
 import attachmentIcon from '@/assets/icons/svg/attachment_icon.svg';
 import closeIcon from '@/assets/icons/svg/cross_icon.svg';
 import { Button } from '@/components/ui/Button';
+import { ALLOWED_IMAGE_TYPES } from '@/constants/allowedImageTypes';
 
 import { ATTACH_LABEL } from './constants';
 import * as S from './styled';
@@ -67,6 +68,7 @@ export const WorkImageAttachments = ({
 			</S.AttachmentsList>
 			<input
 				ref={attachmentInputRef}
+				accept={ALLOWED_IMAGE_TYPES}
 				type='file'
 				hidden
 				onChange={handleAttachmentsChange}

@@ -4,7 +4,8 @@ import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { YMapComponentsProvider } from 'ymap3-components';
 
-import ThemeProvider from '@/components/providers/ThemeProvider/index.tsx';
+import { LogoutProvider } from '@/components/providers/LogoutProvider';
+import ThemeProvider from '@/components/providers/ThemeProvider';
 
 import '@/styles/index.css';
 
@@ -20,7 +21,9 @@ createRoot(document.getElementById('root')!).render(
 		<StrictMode>
 			<QueryClientProvider client={queryClient}>
 				<ThemeProvider>
-					<App />
+					<LogoutProvider>
+						<App />
+					</LogoutProvider>
 				</ThemeProvider>
 			</QueryClientProvider>
 		</StrictMode>

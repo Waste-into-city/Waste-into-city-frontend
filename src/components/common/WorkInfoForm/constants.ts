@@ -6,6 +6,7 @@ export const LABELS: WorkInfoForm = {
 };
 
 export const NO_TRASH_TYPES_ERROR = 'Trash types must be specified!';
+export const NO_LOCATION_ERROR = 'Location for the work must be specified!';
 
 export const CREATE_WORK_BUTTON_LABEL = 'Create Work';
 

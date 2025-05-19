@@ -1,8 +1,12 @@
+import { useNavigate } from 'react-router-dom';
+
 import logoIcon from '@/assets/icons/svg/recycle_logo.svg';
 import backgroundImage from '@/assets/images/jpg/city.jpeg';
 import { ROUTES } from '@/constants/routes';
 import { useForm } from '@/hooks/useForm';
 import { registerUser } from '@/queries/registerUser';
+import { useNotifications } from '@/store/notifications/useNotifications';
+import { NotificationTypes } from '@/types/notificationTypes';
 
 import { config, RegistrationForm } from './config';
 import { helpers } from './helpers';
@@ -12,14 +16,20 @@ const { RegistrationSchema } = helpers;
 
 const {
 	defaultValues,
+	ALTERNATIVE_TEXT,
 	LOG_IN_LINK,
 	LOG_IN_QUESTION,
 	PLACEHOLDERS,
 	REGISTER_BUTTON_LABEL,
 	REGISTRATION_FORM_HEADING,
+	START_EXPLORING_LINK,
+	SUCCESSFUL_REGISTRATION_MESSAGE,
 } = config;
 
 export const RegistrationPage = () => {
+	const { appendNotification } = useNotifications();
+	const navigate = useNavigate();
+
 	const {
 		errors,
 		handleFieldChange,
@@ -28,7 +38,14 @@ export const RegistrationPage = () => {
 		isLoading,
 	} = useForm<RegistrationForm>({
 		defaultValues,
-		submitHandler: registerUser,
+		submitHandler: async (credentials) => {
+			await registerUser(credentials);
+			appendNotification(
+				NotificationTypes.Success,
+				SUCCESSFUL_REGISTRATION_MESSAGE
+			);
+			navigate(ROUTES.LOGIN);
+		},
 		validationSchema: RegistrationSchema,
 	});
 
@@ -75,6 +92,8 @@ export const RegistrationPage = () => {
 					<S.LoginLink>
 						{LOG_IN_QUESTION}{' '}
 						<a href={ROUTES.LOGIN}>{LOG_IN_LINK}</a>
+						{ALTERNATIVE_TEXT}
+						<a href={ROUTES.MAIN}>{START_EXPLORING_LINK}</a>
 					</S.LoginLink>
 				</S.Form>
 			</S.FormContainer>

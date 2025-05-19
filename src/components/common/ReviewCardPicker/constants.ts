@@ -7,4 +7,4 @@ export const cardWindowEvents: Record<
 	end: ['mouseup', 'touchend'],
 };
 
-export const CHOICE_BORDER = 0.25;
+export const CHOICE_BORDER = 0.1;

@@ -13,10 +13,7 @@ import { AdminPanelForm } from './types';
 
 const commonSchema = z
 	.string()
-	.refine(
-		(value) => value !== '' && !Number.isNaN(value),
-		REQUIRES_NUMBER_ERROR
-	)
+	.refine((value) => !Number.isNaN(value), REQUIRES_NUMBER_ERROR)
 	.refine((value) => Number(value) >= MIN_VALUE, MIN_VALUE_ERROR)
 	.refine((value) => Number(value) <= MAX_VALUE, MAX_VALUE_ERROR);
 
