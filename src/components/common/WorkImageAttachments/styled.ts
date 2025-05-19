@@ -47,7 +47,7 @@ export const AttachmentsList = styled(ScrollableList)<{ $isNotEmpty: boolean }>(
 			marginTop: theme.indent.medium,
 			padding: theme.indent.small,
 			border: theme.borders.small,
-			borderColor: theme.colors.smallContrast,
+			borderColor: theme.colors.smallSectionContrast,
 			borderRadius: theme.borderRadius.round,
 		}),
 	})
