@@ -34,3 +34,6 @@ export const EMPTY_SCORE_SETTINGS: AdminPanelForm = {
 	workComplaintUserRankingSubstracting: '',
 	workComplaintUserRankingAdding: '',
 };
+
+export const SETTINGS_SAVED_MESSAGE = 'Score settings are saved!';
+export const SETTINGS_NOT_SAVED_MESSAGE = 'Failed to save score settings!';

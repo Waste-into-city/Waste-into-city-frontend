@@ -10,6 +10,7 @@ export const getWorkInfoFromResponse = (workResponse?: WorkInfo): WorkInfo => ({
 	workComplexityTypesId: workResponse?.workComplexityTypesId ?? 0,
 	workStatusTypeForClient:
 		workResponse?.workStatusTypeForClient || WorkStatus.Unknown,
+	startDateTime: workResponse?.startDateTime,
 	lat: workResponse?.lat ?? 0,
 	lng: workResponse?.lng ?? 0,
 });

@@ -80,6 +80,11 @@ const ROUTE_SECTIONS: RouteSection[] = [
 		section: getLazySection('AdminPanelSection'),
 		allowedRoles: [UserRoles.Admin],
 	},
+	{
+		route: ROUTES.WORK_REPORT_RESULT + '/:id',
+		section: getLazySection('WorkReportResultSection'),
+		allowedRoles: [UserRoles.Admin, UserRoles.User],
+	},
 ];
 
 export const config = {

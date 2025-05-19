@@ -22,7 +22,7 @@ const SCORE_SETTINGS_ORDER: Array<keyof ScoreSettings> = [
 ];
 
 export const getScoreSettingById = (id: number): keyof ScoreSettings =>
-	SCORE_SETTINGS_ORDER[id + 1];
+	SCORE_SETTINGS_ORDER[id - 1];
 
 export const getIdForScoreSetting = (scoreSetting: keyof ScoreSettings) =>
 	SCORE_SETTINGS_ORDER.indexOf(scoreSetting) + 1;

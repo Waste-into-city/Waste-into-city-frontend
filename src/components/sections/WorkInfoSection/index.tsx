@@ -18,6 +18,7 @@ import {
 	FINISH_BUTTON_LABEL,
 	JOIN_BUTTON_LABEL,
 	LEAVE_BUTTON_LABEL,
+	RATE_BUTTON_LABEL,
 	REPORT_BUTTON_LABEL,
 } from './constants';
 import { getWorkInfoFromResponse } from './helpers';
@@ -77,6 +78,10 @@ const WorkInfoSection = () => {
 	};
 
 	const handleWorkFinishButtonClick = () => {
+		navigate(`${ROUTES.WORK_REPORT_RESULT}/${id}`);
+	};
+
+	const handleWorkRateButtonClick = () => {
 		navigate(`${ROUTES.RATE_WORK_PARTICIPANTS}/${id}`);
 	};
 
@@ -129,14 +134,23 @@ const WorkInfoSection = () => {
 								: JOIN_BUTTON_LABEL}
 						</SubmitButton>
 					)}
-					{isWorkSuccessful && isUserJoinable && (
-						<SubmitButton
-							variant='negative'
-							onClick={handleWorkReportButtonClick}
-						>
-							{REPORT_BUTTON_LABEL}
-						</SubmitButton>
-					)}
+					{isWorkSuccessful &&
+						isUserJoinable &&
+						(isUserParticipant ? (
+							<SubmitButton
+								variant='negative'
+								onClick={handleWorkReportButtonClick}
+							>
+								{REPORT_BUTTON_LABEL}
+							</SubmitButton>
+						) : (
+							<SubmitButton
+								variant='positive'
+								onClick={handleWorkRateButtonClick}
+							>
+								{RATE_BUTTON_LABEL}
+							</SubmitButton>
+						))}
 					{isWorkInProgress && isUserJoinable && (
 						<SubmitButton
 							variant='positive'

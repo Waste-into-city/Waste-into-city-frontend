@@ -29,6 +29,7 @@ export const DescriptionContainer = styled.section(({ theme }) => ({
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
+	backgroundColor: theme.colors.background,
 
 	'&:first-child': {
 		boxShadow: theme.boxShadows.small,
@@ -68,6 +69,7 @@ export const TopDescriptionBlock = styled.article(({ theme }) => ({
 
 	'& > p': {
 		fontSize: theme.fontSizes.control,
+		color: theme.colors.fullContrast,
 		width: theme.widths.aboutUsTopSection,
 		textAlign: 'center',
 
@@ -93,6 +95,7 @@ export const BottomDescriptionBlock = styled.article(({ theme }) => ({
 	fontSize: theme.fontSizes.control,
 	padding: `${theme.indent.medium} ${theme.indent.large}`,
 	lineHeight: theme.fontSizes.h2,
+	color: theme.colors.fullContrast,
 
 	[`@media ${theme.media.middleHeight} or ${theme.media.tablet}`]: {
 		padding: 0,

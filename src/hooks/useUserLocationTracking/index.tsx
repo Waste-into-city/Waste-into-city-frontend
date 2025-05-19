@@ -60,9 +60,7 @@ export const useUserLocationTracking = ({
 			}
 
 			setLocation(newLocation);
-		} catch (e: unknown) {
-			console.log(e, (e as Error).message);
-
+		} catch {
 			setRefetchInterval(DEFAULT_CHECK_TIMEOUT);
 			setLocationRecords([]);
 			setUserSpeedSum(0);

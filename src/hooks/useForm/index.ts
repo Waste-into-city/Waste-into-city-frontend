@@ -106,6 +106,10 @@ export const useForm = <T extends Form>({
 		}
 	}, [errors, appendNotification]);
 
+	useEffect(() => {
+		setFields(defaultValues);
+	}, [defaultValues]);
+
 	return {
 		errors,
 		fields,

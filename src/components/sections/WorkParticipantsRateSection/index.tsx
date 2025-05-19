@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import LoaderWrapper from '@/components/common/LoaderWrapper';
 import { Button } from '@/components/ui/Button';
 import { ROUTES } from '@/constants/routes';
+import { useFinishWork } from '@/queries/works/useFinishWork';
 import { useGetWorkInfo } from '@/queries/works/useGetWorkInfo';
+import { useUserLogs } from '@/store/user/useUserLogs';
 
 import {
 	RATES_SECTION_LABEL,
@@ -18,8 +20,22 @@ import { ParticipantRateInfo } from './types';
 export default function WorkParticipantsRateSection() {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const {
+		logs: { id: userId },
+	} = useUserLogs();
 	const [rates, setRates] = useState<Array<ParticipantRateInfo>>([]);
+
 	const { data, isLoading, error } = useGetWorkInfo(id ?? '');
+	const { mutate } = useFinishWork(id ?? '', {
+		onSuccess: () => {
+			navigate(ROUTES.MAIN);
+		},
+	});
+
+	const otherParticipants = useMemo(
+		() => data?.participants.filter(({ id }) => id !== userId) ?? [],
+		[userId, data]
+	);
 
 	const handleParticipantRateChange =
 		(participantId: string) => (rate: number) => {
@@ -40,12 +56,25 @@ export default function WorkParticipantsRateSection() {
 			});
 		};
 
-	const handleSubmitRatesButtonClick = () => {
-		navigate(ROUTES.MAIN);
+	useEffect(() => {
+		if (data && otherParticipants.length === 0) {
+			mutate([]);
+		}
+	}, [data]);
+
+	const handleSubmitRatesButtonClick = async () => {
+		mutate(
+			rates.map(({ participantId, rate }) => ({
+				id: participantId,
+				ranking: rate,
+				nickname: '',
+				avatarLink: '',
+			}))
+		);
 	};
 
-	const handleSkipRatingButtonClick = () => {
-		navigate(ROUTES.MAIN);
+	const handleSkipRatingButtonClick = async () => {
+		mutate([]);
 	};
 
 	return (
@@ -65,7 +94,7 @@ export default function WorkParticipantsRateSection() {
 					</Button>
 				</S.SubmitRatesButtons>
 				<S.ParticipantRatesWrapper>
-					{data?.participants.map((participant) => (
+					{otherParticipants.map((participant) => (
 						<ParticipantRate
 							key={participant.id}
 							participant={participant}

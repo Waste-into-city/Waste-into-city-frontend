@@ -98,7 +98,7 @@ export const WorkInfoDisplay = ({
 			</S.WorkComplexity>
 			{workStartTime && (
 				<S.WorkStartAt>
-					Starts at <span>{workStartTime}</span>
+					Start at <span>{workStartTime}</span>
 				</S.WorkStartAt>
 			)}
 

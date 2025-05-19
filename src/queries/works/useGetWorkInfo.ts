@@ -21,10 +21,19 @@ export const useGetWorkInfo = (
 			if (response.ok) {
 				const responseData = await response.json();
 				return {
-					...responseData,
+					id: responseData.id,
+					title: responseData.title,
+					description: responseData.description,
+					participants: responseData.participants,
+					imageNames: responseData.imageNames,
+					workComplexityTypesId: responseData.workComplexityTypesId,
 					workStatusTypeForClient: getWorkStatusById(
 						responseData.workStatusTypesId
 					),
+					trashTypesIds: responseData.trashTypesIds,
+					startDateTime: responseData.startedDatetime,
+					lat: responseData.lat,
+					lng: responseData.lng,
 				};
 			}
 

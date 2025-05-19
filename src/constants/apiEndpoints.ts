@@ -41,6 +41,11 @@ export const WORK_REPORT_APPROVE_URI = `${WORK_REPORTS_URI}/confirm`;
 export const WORK_REPORT_REJECT_URI = `${WORK_REPORTS_URI}/reject`;
 export const GET_WORK_REPORT_URI = `${WORK_REPORTS_URI}/get-from-queue`;
 
+// Work Report Results
+export const WORK_REPORT_RESULTS_URI = `${API_URI}/work-report-results`;
+export const CREATE_WORK_REPORT_RESULT_URI = `${WORK_REPORT_RESULTS_URI}/create`;
+export const GET_WORK_REPORT_RESULTS_URI = `${WORK_REPORT_RESULTS_URI}`;
+
 // Works
 export const WORKS_URI = `${API_URI}/works`;
 export const GET_WORKS_LOOKUP_URI = `${WORKS_URI}/get-all-lookup`;

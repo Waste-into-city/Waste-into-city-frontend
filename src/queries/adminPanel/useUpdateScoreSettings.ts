@@ -1,28 +1,23 @@
 import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 
 import { ADMIN_PANEL_SAVE_ALL_DATA_URI } from '@/constants/apiEndpoints';
-import { ScoreSettings } from '@/types/contracts/scoreSettings';
+import { ScoreSettingSetter } from '@/types/contracts/selfUserInfo';
 import { fetchWithAuth } from '@/utils/fetchWithAuth';
-import { getIdForScoreSetting } from '@/utils/getScoreSettingById';
 
 export const useUpdateScoreSettings = (
-	options?: UseMutationOptions<void, Error, ScoreSettings>
+	options?: UseMutationOptions<void, Error, Array<ScoreSettingSetter>>
 ) =>
-	useMutation<void, Error, ScoreSettings>({
+	useMutation<void, Error, Array<ScoreSettingSetter>>({
 		...options,
-		mutationFn: async (scoreSettings: ScoreSettings) => {
+		mutationFn: async (scoreSettings: Array<ScoreSettingSetter>) => {
 			const response = await fetchWithAuth(
 				ADMIN_PANEL_SAVE_ALL_DATA_URI,
 				{
 					method: 'POST',
-					body: JSON.stringify(
-						Object.entries(scoreSettings).map(([key, value]) => ({
-							scoreSettingTypesId: getIdForScoreSetting(
-								key as keyof ScoreSettings
-							),
-							value,
-						}))
-					),
+					body: JSON.stringify(scoreSettings),
+					headers: {
+						'Content-Type': 'application/json',
+					},
 				}
 			);
 

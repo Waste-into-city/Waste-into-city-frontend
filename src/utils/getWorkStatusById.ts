@@ -10,3 +10,6 @@ const WORK_STATUSES_ORDER: Array<WorkStatus> = [
 export const getWorkStatusById = (workStatusId: number) => {
 	return WORK_STATUSES_ORDER[workStatusId - 1];
 };
+
+export const getIdForWorkStatus = (workStatus: WorkStatus) =>
+	WORK_STATUSES_ORDER.indexOf(workStatus) + 1;

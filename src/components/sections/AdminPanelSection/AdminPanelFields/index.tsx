@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback } from 'react';
+import { ChangeEvent, useCallback, useMemo } from 'react';
 
 import LoaderWrapper from '@/components/common/LoaderWrapper';
 import { Accordion } from '@/components/ui/Accordion';
@@ -6,6 +6,9 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { useForm } from '@/hooks/useForm';
 import { useGetScoreSettings } from '@/queries/adminPanel/useGetScoreSettings';
+import { useUpdateScoreSettings } from '@/queries/adminPanel/useUpdateScoreSettings';
+import { useNotifications } from '@/store/notifications/useNotifications';
+import { NotificationTypes } from '@/types/notificationTypes';
 
 import { adminPanelFieldsKeys, SCORE_SETTINGS_SHORT_NAMES } from '../constants';
 
@@ -16,14 +19,41 @@ import {
 	RESET_BUTTON_LABEL,
 	SAVE_BUTTON_LABEL,
 	SCORE_SETTINGS_HEADER,
+	SETTINGS_NOT_SAVED_MESSAGE,
+	SETTINGS_SAVED_MESSAGE,
 } from './constants';
-import { getFormValuesFromScoreSettings } from './helpers';
+import {
+	getFormValuesFromScoreSettings,
+	getScoreSettingsFromFormValues,
+} from './helpers';
 import { validationSchema } from './schema';
 import * as S from './styled';
 import { AdminPanelForm } from './types';
 
 export const AdminPanelFields = () => {
-	const { data, isLoading } = useGetScoreSettings();
+	const { appendNotification } = useNotifications();
+	const { data, isLoading, refetch } = useGetScoreSettings();
+	const { mutateAsync, isPending } = useUpdateScoreSettings({
+		onSuccess: () => {
+			appendNotification(
+				NotificationTypes.Success,
+				SETTINGS_SAVED_MESSAGE
+			);
+			refetch();
+		},
+		onError: () => {
+			appendNotification(
+				NotificationTypes.Error,
+				SETTINGS_NOT_SAVED_MESSAGE
+			);
+		},
+	});
+
+	const defaultValues = useMemo(
+		() =>
+			data ? getFormValuesFromScoreSettings(data) : EMPTY_SCORE_SETTINGS,
+		[data]
+	);
 
 	const {
 		handleFieldChange,
@@ -33,10 +63,9 @@ export const AdminPanelFields = () => {
 		resetFields,
 		areFieldsChanged,
 	} = useForm<AdminPanelForm>({
-		defaultValues: data
-			? getFormValuesFromScoreSettings(data)
-			: EMPTY_SCORE_SETTINGS,
-		submitHandler: () => Promise.resolve(),
+		defaultValues,
+		submitHandler: (values) =>
+			mutateAsync(getScoreSettingsFromFormValues(values)),
 		validationSchema,
 	});
 
@@ -52,7 +81,7 @@ export const AdminPanelFields = () => {
 	);
 
 	return (
-		<LoaderWrapper isLoaderVisible={isLoading}>
+		<LoaderWrapper isLoaderVisible={isLoading || isPending}>
 			<S.AdminPanelFieldsForm onSubmit={handleFormSubmit}>
 				<h2>{ADMIN_PANEL_HEADING}</h2>
 				<Accordion header={SCORE_SETTINGS_HEADER} isDefaultDropped>

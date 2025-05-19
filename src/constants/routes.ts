@@ -14,4 +14,5 @@ export const ROUTES = {
 	REPORT_REVIEW: '/report-review',
 	ADMIN_PANEL: '/admin-panel',
 	ABOUT_US: '/about-us',
+	WORK_REPORT_RESULT: '/work-report-result',
 };

@@ -4,6 +4,7 @@ import { GET_SINGLE_WORK_URI } from '@/constants/apiEndpoints';
 import { WorkQueries } from '@/constants/queryKeys';
 import { WorkInfo } from '@/types/contracts/workInfo';
 import { fetchWithAuth } from '@/utils/fetchWithAuth';
+import { getWorkStatusById } from '@/utils/getWorkStatusById';
 
 export const useGetWorksGroup = (
 	workIds: string[],
@@ -22,9 +23,15 @@ export const useGetWorksGroup = (
 									`${GET_SINGLE_WORK_URI}/${id}`
 								).then((response) => {
 									if (response.ok) {
-										response
-											.json()
-											.then((data) => resolve(data));
+										response.json().then((data) =>
+											resolve({
+												...data,
+												workStatusTypeForClient:
+													getWorkStatusById(
+														data.workStatusTypesId
+													),
+											})
+										);
 									} else {
 										reject();
 									}

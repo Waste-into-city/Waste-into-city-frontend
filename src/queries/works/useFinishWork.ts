@@ -24,6 +24,9 @@ export const useFinishWork = (
 							})
 						),
 					}),
+					headers: {
+						'Content-Type': 'application/json',
+					},
 				}
 			);
 
