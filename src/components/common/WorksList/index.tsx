@@ -4,6 +4,7 @@ import { WorkStatusLabel } from '@/components/ui/WorkStatusLabel';
 import { TRASH_ICONS } from '@/constants/icons';
 import { ROUTES } from '@/constants/routes';
 import { usePagination } from '@/hooks/usePagination';
+import { getTrashTypeById } from '@/utils/getTrashTypeId';
 
 import { InfiniteScrollTrigger } from '../InfiniteScrollTrigger';
 
@@ -28,22 +29,28 @@ export const WorksList = ({ initialWorks, getNextWorks }: WorksListProps) => {
 
 	return (
 		<S.WorksListWrapper>
-			{items.map(({ id, workStatusTypeForClient, title, trashTypes }) => (
-				<S.WorksListItem key={id} onClick={handleWorkItemClick(id)}>
-					<h3>{title}</h3>
-					<S.WorkItemLabels>
-						<WorkStatusLabel status={workStatusTypeForClient} />
+			{items.map(
+				({ id, workStatusTypeForClient, title, trashTypesIds }) => (
+					<S.WorksListItem key={id} onClick={handleWorkItemClick(id)}>
+						<h3>{title}</h3>
 						<S.WorkItemLabels>
-							{trashTypes.map((trashType) => (
-								<img
-									key={trashType}
-									src={TRASH_ICONS[trashType]}
-								/>
-							))}
+							<WorkStatusLabel status={workStatusTypeForClient} />
+							<S.WorkItemLabels>
+								{trashTypesIds.map((trashType) => (
+									<img
+										key={trashType}
+										src={
+											TRASH_ICONS[
+												getTrashTypeById(trashType)
+											]
+										}
+									/>
+								))}
+							</S.WorkItemLabels>
 						</S.WorkItemLabels>
-					</S.WorkItemLabels>
-				</S.WorksListItem>
-			))}
+					</S.WorksListItem>
+				)
+			)}
 			<InfiniteScrollTrigger
 				onReach={getNextPage}
 				isLoading={isLoading}

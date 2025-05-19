@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import logoIcon from '@/assets/icons/svg/recycle_logo.svg';
 import backgroundImage from '@/assets/images/jpg/city.jpeg';
 import { ROUTES } from '@/constants/routes';
@@ -26,6 +28,7 @@ const {
 
 export const RegistrationPage = () => {
 	const { appendNotification } = useNotifications();
+	const navigate = useNavigate();
 
 	const {
 		errors,
@@ -41,6 +44,7 @@ export const RegistrationPage = () => {
 				NotificationTypes.Success,
 				SUCCESSFUL_REGISTRATION_MESSAGE
 			);
+			navigate(ROUTES.LOGIN);
 		},
 		validationSchema: RegistrationSchema,
 	});

@@ -15,11 +15,12 @@ export const USER_LOGOUT_URI = `${IDENTITY_URI}/logout`;
 export const USER_LOGIN_URI = `${IDENTITY_URI}/login`;
 export const USER_REGISTER_URI = `${IDENTITY_URI}/register`;
 export const TOKEN_REFRESH_URI = `${IDENTITY_URI}/refresh`;
+export const UPDATE_USER_INFO_URI = `${IDENTITY_URI}/update-own-user-info`;
 
 // Images
 export const IMAGES_URI = `${API_URI}/images`;
 export const getImageUriByName = (imageName: string) =>
-	`${IMAGES_URI}/${imageName}`;
+	`${IMAGES_URI}/get-by-name/${imageName}`;
 export const UPLOAD_IMAGE_URI = `${IMAGES_URI}/upload`;
 
 // Work Applications
@@ -34,11 +35,11 @@ export const WORK_PARTICIPANTS_REPORTS_URI = `${API_URI}/work-colleague-reports`
 export const CREATE_WORK_PARTICIPANT_MARKS_URI = `${WORK_PARTICIPANTS_REPORTS_URI}/create-marks`;
 
 // Work Reports
-export const WORK_REPORTS_URI = `${API_URI}/work-report-complaints`;
+export const WORK_REPORTS_URI = `${API_URI}/work-report-complains`;
 export const CREATE_WORK_REPORT_URI = `${WORK_REPORTS_URI}/create`;
 export const WORK_REPORT_APPROVE_URI = `${WORK_REPORTS_URI}/confirm`;
 export const WORK_REPORT_REJECT_URI = `${WORK_REPORTS_URI}/reject`;
-export const GET_WORK_REPORT_URI = `${WORK_APPLICATIONS_URI}/get-from-queue`;
+export const GET_WORK_REPORT_URI = `${WORK_REPORTS_URI}/get-from-queue`;
 
 // Works
 export const WORKS_URI = `${API_URI}/works`;
@@ -46,4 +47,5 @@ export const GET_WORKS_LOOKUP_URI = `${WORKS_URI}/get-all-lookup`;
 export const GET_SINGLE_WORK_URI = `${WORKS_URI}/get-by-id`;
 export const GET_WORK_HISTORY_URI = `${WORKS_URI}/get-all-own-take-part-in`;
 export const JOIN_WORK_URI = `${WORKS_URI}/take-part-in-self`;
+export const JOIN_WORK_FIRST_URI = `${WORKS_URI}/take-part-in-first-self`;
 export const LEAVE_WORK_URI = `${WORKS_URI}/leave-from-participation-self`;

@@ -1,12 +1,16 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import { GET_SINGLE_WORK_URI } from '@/constants/apiEndpoints';
 import { WorkQueries } from '@/constants/queryKeys';
 import { WorkInfo } from '@/types/contracts/workInfo';
 import { fetchWithAuth } from '@/utils/fetchWithAuth';
 
-export const useGetWorksGroup = (workIds: string[]) =>
+export const useGetWorksGroup = (
+	workIds: string[],
+	options?: UseQueryOptions<Array<WorkInfo>, Error>
+) =>
 	useQuery<Array<WorkInfo>>({
+		...options,
 		queryKey: [WorkQueries.WorksGroup, workIds.join(',')],
 		queryFn: async () => {
 			try {

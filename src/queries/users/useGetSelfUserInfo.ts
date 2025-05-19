@@ -1,16 +1,19 @@
 import { useEffect } from 'react';
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import { GET_SELF_USER_INFO_URI } from '@/constants/apiEndpoints';
 import { useUserLogs } from '@/store/user/useUserLogs';
 import { SelfUserInfo } from '@/types/contracts/selfUserInfo';
 import { fetchWithAuth } from '@/utils/fetchWithAuth';
 
-export const useGetSelfUserInfo = () => {
+export const useGetSelfUserInfo = (
+	options?: UseQueryOptions<SelfUserInfo, Error>
+) => {
 	const { updateLogs } = useUserLogs();
 
 	const queryReturn = useQuery<SelfUserInfo>({
+		...options,
 		queryKey: [],
 		queryFn: async () => {
 			const response = await fetchWithAuth(GET_SELF_USER_INFO_URI);
@@ -26,7 +29,7 @@ export const useGetSelfUserInfo = () => {
 		if (queryReturn.data) {
 			updateLogs({ ...queryReturn.data });
 		}
-	}, [queryReturn.data]);
+	}, [queryReturn.data, updateLogs]);
 
 	return queryReturn;
 };

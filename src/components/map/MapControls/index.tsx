@@ -4,6 +4,7 @@ import { LngLat } from '@yandex/ymaps3-types';
 
 import { useCurrentLocation } from '@/store/location/useCurrentLocation';
 import { useUserLogs } from '@/store/user/useUserLogs';
+import { UserRoles } from '@/types/userRoles';
 
 import { config, ZOOM_RANGE } from '../MainMap/config';
 
@@ -22,7 +23,7 @@ const MapControlsInner = ({
 	displayedCenter: LngLat;
 }) => {
 	const {
-		logs: { isLoggedIn },
+		logs: { highRoleName },
 	} = useUserLogs();
 	const { location } = useCurrentLocation();
 
@@ -58,7 +59,7 @@ const MapControlsInner = ({
 	);
 
 	return (
-		<MapControlsWrapper $isLoggedIn={isLoggedIn}>
+		<MapControlsWrapper $isLoggedIn={highRoleName !== UserRoles.Guest}>
 			<LocateControl onLocate={handleUserLocate} />
 			<ZoomControls onZoomIn={handleZoomIn} onZoomOut={handleZoomOut} />
 		</MapControlsWrapper>

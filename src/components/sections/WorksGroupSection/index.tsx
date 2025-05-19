@@ -18,7 +18,14 @@ export default function WorksGroupSection() {
 	const { data, isLoading, error } = useGetWorksGroup(groupIds);
 
 	const initialWorks = useMemo(
-		() => (data ? data.slice(0, WORKS_PAGE_SIZE) : []),
+		() => ({
+			total: data?.length ?? 0,
+			skippedItems: data?.length
+				? Math.min(data.length, WORKS_PAGE_SIZE)
+				: 0,
+			size: WORKS_PAGE_SIZE,
+			items: data ? data.slice(0, WORKS_PAGE_SIZE) : [],
+		}),
 		[data]
 	);
 
@@ -26,8 +33,8 @@ export default function WorksGroupSection() {
 		(from: number, pageSize: number) =>
 			Promise.resolve({
 				total: data?.length ?? 0,
-				pageSize: pageSize,
-				skip: Math.min(from + pageSize, data?.length ?? 0),
+				size: pageSize,
+				skippedItems: Math.min(from + pageSize, data?.length ?? 0),
 				items: data ? data.slice(from, from + pageSize) : [],
 			}),
 		[data]

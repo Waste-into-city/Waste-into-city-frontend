@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import { IColoredTheme } from '@/styles/coloredTheme';
 import { scrollbarCSS } from '@/styles/common/scrollbar';
 
 export const WorkInfoWrapper = styled.div(({ theme }) => ({
@@ -46,9 +47,14 @@ export const WorkTrashTypes = styled.div(({ theme }) => ({
 	},
 }));
 
-export const WorkComplexity = styled.p(({ theme }) => ({
+export const WorkComplexity = styled.p<{
+	$complexityColors: [
+		keyof IColoredTheme['colors'],
+		keyof IColoredTheme['colors'],
+	];
+}>(({ theme, $complexityColors: [textColor, iconColor] }) => ({
 	fontSize: theme.fontSizes.text,
-	color: theme.colors.smallContrast,
+	color: theme.colors[textColor],
 	gap: theme.indent.small,
 	display: 'flex',
 	alignItems: 'center',
@@ -56,7 +62,16 @@ export const WorkComplexity = styled.p(({ theme }) => ({
 	'& > img': {
 		width: theme.sizes.listedTrashType,
 		height: theme.sizes.listedTrashType,
-		filter: theme.colors.iconSmallContrast,
+		filter: theme.colors[iconColor],
+	},
+}));
+
+export const WorkStartAt = styled.p(({ theme }) => ({
+	color: theme.colors.fullContrast,
+	fontSize: theme.fontSizes.control,
+	'& > span': {
+		color: theme.colors.primary,
+		textDecoration: 'underline',
 	},
 }));
 

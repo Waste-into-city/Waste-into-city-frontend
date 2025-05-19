@@ -8,6 +8,10 @@ export const ParticipantRateWrapper = styled.div(({ theme }) => ({
 	gap: theme.indent.medium,
 	flexWrap: 'wrap',
 
+	backgroundColor: theme.colors.smallSectionContrast,
+	borderRadius: theme.borderRadius.large,
+	padding: theme.indent.medium,
+
 	[`@media ${theme.media.tablet}`]: {
 		flexDirection: 'column',
 		alignItems: 'flex-start',

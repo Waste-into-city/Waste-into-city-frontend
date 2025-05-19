@@ -1,5 +1,3 @@
-import { TrashTypes } from '../trashTypes';
-
 import { OtherUser } from './otherUser';
 
 export enum WorkStatus {
@@ -15,10 +13,11 @@ export type WorkInfo = {
 	title: string;
 	description: string;
 	participants: Array<OtherUser>;
-	imageApplications: Array<string>;
-	trashTypes: Array<TrashTypes>;
-	workComplexityId: number;
+	imageNames: Array<string>;
+	trashTypesIds: Array<number>;
+	workComplexityTypesId: number;
 	workStatusTypeForClient: WorkStatus;
+	startDateTime?: string;
 	lat: number;
 	lng: number;
 };

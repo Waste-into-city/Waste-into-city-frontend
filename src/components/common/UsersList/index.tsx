@@ -42,7 +42,9 @@ export const UsersList = ({
 							/>
 							<h3>{nickname}</h3>
 						</S.UserInfoItem>
-						{'rating' in otherFields && <p>{otherFields.rating}</p>}
+						{'ranking' in otherFields && (
+							<p>{otherFields.ranking}</p>
+						)}
 					</S.UsersListItem>
 				)
 			)}

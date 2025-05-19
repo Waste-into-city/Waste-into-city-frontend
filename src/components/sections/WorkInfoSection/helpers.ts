@@ -5,9 +5,9 @@ export const getWorkInfoFromResponse = (workResponse?: WorkInfo): WorkInfo => ({
 	title: workResponse?.title || '',
 	description: workResponse?.description || '',
 	participants: workResponse?.participants ?? [],
-	imageApplications: workResponse?.imageApplications ?? [],
-	trashTypes: workResponse?.trashTypes ?? [],
-	workComplexityId: workResponse?.workComplexityId ?? 0,
+	imageNames: workResponse?.imageNames ?? [],
+	trashTypesIds: workResponse?.trashTypesIds ?? [],
+	workComplexityTypesId: workResponse?.workComplexityTypesId ?? 0,
 	workStatusTypeForClient:
 		workResponse?.workStatusTypeForClient || WorkStatus.Unknown,
 	lat: workResponse?.lat ?? 0,

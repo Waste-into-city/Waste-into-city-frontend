@@ -51,6 +51,7 @@ export const InteractionSection = styled.section`
 		width: ${theme.widths.interactionSection};
 		display: flex;
 		flex-direction: column;
+		gap: ${theme.indent.scrollbar};
 		padding-top: ${theme.indent.medium};
 
 		position: relative;
@@ -103,13 +104,16 @@ export const CloseSectionButton = styled(Button)`
 	`}
 `;
 
-export const SectionContentContainer = styled.div`
-	${({ theme }) => css`
+export const SectionContentContainer = styled.div<{
+	$isPaddingRequired?: boolean;
+}>`
+	${({ theme, $isPaddingRequired }) => css`
 		width: ${theme.widths.full};
 		height: ${theme.heights.full};
-		padding: ${theme.indent.medium};
-		border: ${theme.borders.small} ${theme.colors.smallContrast};
-		border-radius: ${theme.borderRadius.round};
+		${$isPaddingRequired &&
+		`padding: ${theme.indent.medium};
+		border: ${theme.borders.small} ${theme.colors.smallSectionContrast};
+		border-radius: ${theme.borderRadius.round};`}
 
 		position: relative;
 		overflow: auto;

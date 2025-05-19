@@ -7,6 +7,7 @@ type RouteSection = {
 	route: string;
 	section: LazyExoticComponent<FC>;
 	allowedRoles: Array<UserRoles>;
+	isSelfPadded?: boolean;
 };
 
 const getLazySection = (sectionName: string) =>
@@ -66,11 +67,13 @@ const ROUTE_SECTIONS: RouteSection[] = [
 		route: ROUTES.WORK_REVIEW,
 		section: getLazySection('WorkReviewSection'),
 		allowedRoles: [UserRoles.Moderator],
+		isSelfPadded: true,
 	},
 	{
 		route: ROUTES.REPORT_REVIEW,
 		section: getLazySection('ReportReviewSection'),
 		allowedRoles: [UserRoles.Moderator],
+		isSelfPadded: true,
 	},
 	{
 		route: ROUTES.ADMIN_PANEL,

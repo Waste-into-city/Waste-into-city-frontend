@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import { USERS_LIST_PAGE_SIZE } from '@/components/common/UsersList/constants';
 import { GET_LEADERBOARD_URI } from '@/constants/apiEndpoints';
@@ -7,8 +7,11 @@ import { ByPageResponse } from '@/types/contracts/byPageResponse';
 import { UserRating } from '@/types/contracts/userRating';
 import { fetchWithAuth } from '@/utils/fetchWithAuth';
 
-export const useGetLeaderboard = () =>
+export const useGetLeaderboard = (
+	options?: UseQueryOptions<ByPageResponse<UserRating>, Error>
+) =>
 	useQuery<ByPageResponse<UserRating>>({
+		...options,
 		queryKey: [UserQueries.Leaderboard],
 		queryFn: async () => {
 			const response = await fetchWithAuth(

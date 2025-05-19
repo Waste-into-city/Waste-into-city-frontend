@@ -1,4 +1,4 @@
-import { TOKEN_REFRESH_URI } from '@/constants/apiEndpoints';
+import { refreshToken } from '@/queries/refreshToken';
 
 import { logoutObserver } from './logoutObserver';
 
@@ -13,10 +13,7 @@ export const fetchWithAuth = async (
 	});
 
 	if (firstResponse.status === 401) {
-		const tokenRefreshResponse = await fetch(TOKEN_REFRESH_URI, {
-			method: 'POST',
-			credentials: 'include',
-		});
+		const tokenRefreshResponse = await refreshToken();
 
 		if (tokenRefreshResponse.ok) {
 			const secondResponse = await fetch(input, {

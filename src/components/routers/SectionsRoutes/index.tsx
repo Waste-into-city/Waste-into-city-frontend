@@ -1,4 +1,4 @@
-import { MouseEventHandler, Suspense, useEffect } from 'react';
+import { MouseEventHandler, Suspense, useEffect, useMemo } from 'react';
 import {
 	Navigate,
 	Route,
@@ -50,6 +50,15 @@ const Sections = () => {
 		}
 	}, [pathname]);
 
+	const isSectionPaddingRequired = useMemo(
+		() =>
+			!ROUTE_SECTIONS.find(
+				({ route, isSelfPadded }) =>
+					route.includes(pathname) && isSelfPadded
+			),
+		[pathname]
+	);
+
 	return (
 		<S.SectionBlur
 			onClick={handleSectionClose}
@@ -62,7 +71,9 @@ const Sections = () => {
 				>
 					<img src={closeIcon} alt={CLOSE_ICON_ALT} />
 				</S.CloseSectionButton>
-				<S.SectionContentContainer>
+				<S.SectionContentContainer
+					$isPaddingRequired={isSectionPaddingRequired}
+				>
 					<Routes>
 						{ROUTE_SECTIONS.map(
 							({ route, section: LazySection, allowedRoles }) => (

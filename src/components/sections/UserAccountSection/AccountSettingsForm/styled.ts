@@ -7,9 +7,6 @@ export const UserAccountForm = styled.form(({ theme }) => ({
 	gap: theme.indent.large,
 	marginBottom: theme.indent.large,
 	color: theme.colors.fullContrast,
-	backgroundColor: theme.colors.smallContrast,
-	padding: theme.indent.small,
-	borderRadius: theme.borderRadius.large,
 }));
 
 export const WatchModeLabels = styled.div<{ $isEditMode: boolean }>(
@@ -61,6 +58,10 @@ export const AvatarWithControlsWrapper = styled.div(({ theme }) => ({
 	display: 'flex',
 	alignItems: 'center',
 	gap: theme.indent.medium,
+
+	backgroundColor: theme.colors.smallSectionContrast,
+	padding: theme.indent.small,
+	borderRadius: theme.borderRadius.large,
 
 	button: {
 		height: theme.heights.full,

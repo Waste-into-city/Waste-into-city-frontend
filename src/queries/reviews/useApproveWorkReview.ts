@@ -1,13 +1,16 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 
-import { WORK_APPLICATIONS_URI } from '@/constants/apiEndpoints';
+import { WORK_APPLICATION_APPROVE_URI } from '@/constants/apiEndpoints';
 import { fetchWithAuth } from '@/utils/fetchWithAuth';
 
-export const useApproveWorkReview = (reviewId: string) =>
-	useMutation({
-		mutationFn: async () => {
+export const useApproveWorkReview = (
+	options?: UseMutationOptions<void, Error, string>
+) =>
+	useMutation<void, Error, string>({
+		...options,
+		mutationFn: async (reviewId: string) => {
 			const response = await fetchWithAuth(
-				`${WORK_APPLICATIONS_URI}/${reviewId}`,
+				`${WORK_APPLICATION_APPROVE_URI}/${reviewId}`,
 				{
 					method: 'POST',
 				}

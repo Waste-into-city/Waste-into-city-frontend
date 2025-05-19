@@ -29,10 +29,11 @@ export const lightTheme: IColoredTheme = {
 	colors: {
 		background: '#ffffff',
 		smallContrast: '#cccccc',
+		smallSectionContrast: '#dddddd',
 		fullContrast: '#000000',
 		iconContrast: 'invert(0)',
 		iconSmallContrast:
-			' invert(98%) sepia(43%) saturate(5412%) hue-rotate(184deg) brightness(126%) contrast(87%)',
+			'invert(74%) sepia(0%) saturate(49%) hue-rotate(174deg) brightness(111%) contrast(91%)',
 
 		...commonTheme,
 	},
@@ -41,11 +42,12 @@ export const lightTheme: IColoredTheme = {
 export const darkTheme: IColoredTheme = {
 	colors: {
 		background: '#333333',
-		smallContrast: '#505050',
+		smallContrast: '#707070',
+		smallSectionContrast: '#404040',
 		fullContrast: '#eeeeee',
 		iconContrast: 'invert(1)',
 		iconSmallContrast:
-			'invert(22%) sepia(0%) saturate(9%) hue-rotate(172deg) brightness(98%) contrast(82%)',
+			'invert(44%) sepia(0%) saturate(0%) hue-rotate(134deg) brightness(95%) contrast(79%)',
 
 		...commonTheme,
 	},
@@ -75,6 +77,7 @@ interface ICommonTheme {
 interface ISeparateTheme {
 	background: string;
 	smallContrast: string;
+	smallSectionContrast: string;
 	fullContrast: string;
 
 	iconContrast: string;
