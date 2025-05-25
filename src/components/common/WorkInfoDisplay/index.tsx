@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { WorkStatusLabel } from '@/components/ui/WorkStatusLabel';
 import { getImageUriByName } from '@/constants/apiEndpoints';
 import { NO_AVATAR_ICON, TRASH_ICONS } from '@/constants/icons';
+import { NO_DESCRIPTION } from '@/constants/labels';
 import { workComplexitiesPeople } from '@/constants/workComplexitiesPeople';
 import { useUserLogs } from '@/store/user/useUserLogs';
 import { WorkInfo, WorkStatus } from '@/types/contracts/workInfo';
@@ -102,9 +103,11 @@ export const WorkInfoDisplay = ({
 				</S.WorkStartAt>
 			)}
 
-			<S.WorkDescription>{description}</S.WorkDescription>
+			<S.WorkDescription>
+				{description || NO_DESCRIPTION}
+			</S.WorkDescription>
 			{!isMissingParticipants &&
-				workStatusTypeForClient !== WorkStatus.Pending && (
+				workStatusTypeForClient !== WorkStatus.PendingFinalization && (
 					<>
 						<S.ParticipantsSummary
 							onClick={handleParticipantsSummaryClick}

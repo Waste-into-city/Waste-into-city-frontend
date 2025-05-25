@@ -1,16 +1,20 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { GET_SINGLE_WORK_URI } from '@/constants/apiEndpoints';
 import { WorkQueries } from '@/constants/queryKeys';
 import { WorkInfo } from '@/types/contracts/workInfo';
+import { PatchedQueryOptions } from '@/types/patchedQueryOptions';
 import { fetchWithAuth } from '@/utils/fetchWithAuth';
 import { getWorkStatusById } from '@/utils/getWorkStatusById';
 
+const WORK_REFETCH_INTERVAL = 15000;
+
 export const useGetWorkInfo = (
 	id: string,
-	options?: UseQueryOptions<WorkInfo, Error>
+	options?: PatchedQueryOptions<WorkInfo, Error>
 ) =>
 	useQuery<WorkInfo>({
+		refetchInterval: WORK_REFETCH_INTERVAL,
 		...options,
 		queryKey: [WorkQueries.WorkInfo, id],
 		queryFn: async () => {

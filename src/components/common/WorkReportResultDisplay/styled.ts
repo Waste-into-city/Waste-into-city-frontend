@@ -5,7 +5,6 @@ export const WorkReportDisplayWrapper = styled.div(({ theme }) => ({
 	flexDirection: 'column',
 	gap: theme.indent.large,
 	width: theme.widths.full,
-	height: theme.heights.full,
 
 	'& > h2': {
 		fontSize: theme.fontSizes.h2,
@@ -19,6 +18,7 @@ export const WorkReportDisplayWrapper = styled.div(({ theme }) => ({
 	'& > p': {
 		fontSize: theme.fontSizes.control,
 		color: theme.colors.fullContrast,
+		wordBreak: 'break-word',
 
 		[`@media ${theme.media.phone}`]: {
 			fontSize: theme.fontSizes.text,
@@ -39,7 +39,7 @@ export const SetComplexityLabel = styled.div(({ theme }) => ({
 	},
 }));
 
-export const SetStatus = styled.h2<{ $isSuccessful: boolean }>(
+export const SetStatus = styled.h3<{ $isSuccessful: boolean }>(
 	({ theme, $isSuccessful }) => ({
 		fontSize: theme.fontSizes.h2,
 		color: $isSuccessful ? theme.colors.positive : theme.colors.negative,

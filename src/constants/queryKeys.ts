@@ -3,6 +3,8 @@ export enum WorkQueries {
 	WorksHistory = 'WorksHistory',
 	WorksLookup = 'WorksLookup',
 	WorksGroup = 'WorksGroup',
+	WorkReportResult = 'WorkReportResult',
+	WorkParticipantsRates = 'WorkParticipantsRates',
 }
 
 export enum UserQueries {

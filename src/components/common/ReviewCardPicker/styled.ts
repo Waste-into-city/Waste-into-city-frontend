@@ -15,6 +15,7 @@ export const CardPickerWrapper = styled.div<{
 	gap: theme.indent.medium,
 	border: theme.borders.large,
 	borderColor: theme.colors.smallContrast,
+	borderRadius: theme.borderRadius.large,
 	cursor: 'grab',
 
 	...($isAccepting && {
@@ -49,6 +50,7 @@ export const CardOptionButtonsWrapper = styled.div(({ theme }) => ({
 	justifySelf: 'flex-end',
 	marginTop: 'auto',
 	boxShadow: `0 -2px ${theme.indent.small}`,
+	borderRadius: theme.borderRadius.large,
 }));
 
 export const CardOptionButton = styled(Button)(({ theme }) => ({
@@ -59,4 +61,7 @@ export const CardOptionButton = styled(Button)(({ theme }) => ({
 
 export const CancelOptionButton = styled(CardOptionButton)(({ theme }) => ({
 	backgroundColor: theme.colors.negative,
+	'& > img': {
+		filter: theme.colors.iconPrimaryContrast,
+	},
 }));

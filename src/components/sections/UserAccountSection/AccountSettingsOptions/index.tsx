@@ -15,6 +15,10 @@ export const AccountSettingsOptions = () => {
 	} = useUserLogs();
 	const navigate = useNavigate();
 
+	const handleAboutUsButtonClick = () => {
+		window.open(ROUTES.ABOUT_US);
+	};
+
 	const handleAdminPanelOptionClick = () => {
 		navigate(ROUTES.ADMIN_PANEL);
 	};
@@ -24,7 +28,7 @@ export const AccountSettingsOptions = () => {
 			<S.OptionItem>
 				<ThemeSwitch />
 			</S.OptionItem>
-			<S.OptionItem>
+			<S.OptionItem onClick={handleAboutUsButtonClick}>
 				<S.OptionButton>{OPTION_LABELS.aboutUs}</S.OptionButton>
 			</S.OptionItem>
 			{highRoleName === UserRoles.Admin && (

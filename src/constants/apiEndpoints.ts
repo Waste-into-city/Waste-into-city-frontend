@@ -33,6 +33,7 @@ export const GET_WORK_APPLICATION_URI = `${WORK_APPLICATIONS_URI}/get-from-queue
 // Colleague Reports
 export const WORK_PARTICIPANTS_REPORTS_URI = `${API_URI}/work-colleague-reports`;
 export const CREATE_WORK_PARTICIPANT_MARKS_URI = `${WORK_PARTICIPANTS_REPORTS_URI}/create-marks`;
+export const GET_PARTICIPANTS_MARKS_URI = `${WORK_PARTICIPANTS_REPORTS_URI}/get-all-works-by-id`;
 
 // Work Reports
 export const WORK_REPORTS_URI = `${API_URI}/work-report-complains`;

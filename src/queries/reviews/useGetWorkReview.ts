@@ -1,11 +1,14 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { GET_WORK_APPLICATION_URI } from '@/constants/apiEndpoints';
 import { ReviewQueries } from '@/constants/queryKeys';
 import { WorkInfo, WorkStatus } from '@/types/contracts/workInfo';
+import { PatchedQueryOptions } from '@/types/patchedQueryOptions';
 import { fetchWithAuth } from '@/utils/fetchWithAuth';
 
-export const useGetWorkReview = (options?: UseQueryOptions<WorkInfo, Error>) =>
+export const useGetWorkReview = (
+	options?: PatchedQueryOptions<WorkInfo, Error>
+) =>
 	useQuery<WorkInfo>({
 		...options,
 		queryKey: [ReviewQueries.WorkReview],
@@ -17,7 +20,7 @@ export const useGetWorkReview = (options?: UseQueryOptions<WorkInfo, Error>) =>
 				return {
 					...responseData,
 					participants: [],
-					workStatusTypeForClient: WorkStatus.Pending,
+					workStatusTypeForClient: WorkStatus.PendingFinalization,
 				};
 			}
 

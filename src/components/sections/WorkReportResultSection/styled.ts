@@ -24,10 +24,15 @@ export const SubmitButton = styled(Button)(() => ({
 	marginTop: 'auto',
 }));
 
-export const WorkStatusToggle = styled.h2<{ $isSuccessful: boolean }>(
+export const WorkStatusToggle = styled.p<{ $isSuccessful: boolean }>(
 	({ theme, $isSuccessful }) => ({
 		fontSize: theme.fontSizes.h2,
 		color: $isSuccessful ? theme.colors.positive : theme.colors.negative,
 		cursor: 'pointer',
+		userSelect: 'none',
+
+		':hover': {
+			textDecoration: 'underline',
+		},
 	})
 );

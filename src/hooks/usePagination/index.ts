@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { UsePaginationProps } from './types';
 
@@ -14,6 +14,10 @@ export const usePagination = <T>({
 	const [page, setPage] = useState(skip);
 	const [isLoading, setIsLoading] = useState(false);
 	const [totalPages, setTotalPages] = useState(top);
+
+	useEffect(() => {
+		setItems(initialItems);
+	}, [initialItems]);
 
 	const getNextPage = useCallback(async () => {
 		if (page < totalPages) {

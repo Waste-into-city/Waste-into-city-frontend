@@ -4,8 +4,16 @@ import attachmentIcon from '@/assets/icons/svg/attachment_icon.svg';
 import closeIcon from '@/assets/icons/svg/cross_icon.svg';
 import { Button } from '@/components/ui/Button';
 import { ALLOWED_IMAGE_TYPES } from '@/constants/allowedImageTypes';
+import { useNotifications } from '@/store/notifications/useNotifications';
+import { NotificationTypes } from '@/types/notificationTypes';
+import { validateWorkImageApplications } from '@/utils/validators/workImageApplications';
 
-import { ATTACH_LABEL } from './constants';
+import {
+	ATTACH_LABEL,
+	ATTACHMENTS_COUNT_EXCEEDED_MESSAGE,
+	FILE_SIZE_EXCEEDED_MESSAGE,
+	MAX_ATTACHMENTS_COUNT,
+} from './constants';
 import * as S from './styled';
 import { WorkImageAttachmentsProps } from './types';
 
@@ -13,6 +21,7 @@ export const WorkImageAttachments = ({
 	attachments,
 	setAttachments,
 }: WorkImageAttachmentsProps) => {
+	const { appendNotification } = useNotifications();
 	const attachmentInputRef = useRef<HTMLInputElement>(null);
 
 	const handleAttachmentsChange = (
@@ -21,6 +30,23 @@ export const WorkImageAttachments = ({
 		const attachedFiles = changeEvent.target.files
 			? [...changeEvent.target.files]
 			: [];
+
+		if (attachedFiles.length + attachments.length > MAX_ATTACHMENTS_COUNT) {
+			appendNotification(
+				NotificationTypes.Error,
+				ATTACHMENTS_COUNT_EXCEEDED_MESSAGE
+			);
+			return;
+		}
+
+		if (!validateWorkImageApplications(attachedFiles)) {
+			appendNotification(
+				NotificationTypes.Error,
+				FILE_SIZE_EXCEEDED_MESSAGE
+			);
+			return;
+		}
+
 		setAttachments((prevAttachments) => [
 			...prevAttachments,
 			...attachedFiles.map((file) => ({
@@ -72,6 +98,7 @@ export const WorkImageAttachments = ({
 				type='file'
 				hidden
 				onChange={handleAttachmentsChange}
+				multiple
 			/>
 		</S.AttachmentsWrapper>
 	);

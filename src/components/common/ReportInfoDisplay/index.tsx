@@ -1,12 +1,15 @@
 import { MouseEventHandler, TouchEventHandler } from 'react';
 
 import { getImageUriByName } from '@/constants/apiEndpoints';
+import { NO_DESCRIPTION } from '@/constants/labels';
 import { WorkReport } from '@/types/contracts/workReport';
 
+import { getUserByString } from './helpers';
 import * as S from './styled';
 
 export const ReportInfoDisplay = ({ report }: { report: WorkReport }) => {
-	const { imageNames, title, description } = report;
+	const { imageNames, title, description, fromUserEmail, fromUserNickname } =
+		report;
 
 	const handleImagesScroll: MouseEventHandler & TouchEventHandler = (
 		event
@@ -20,7 +23,8 @@ export const ReportInfoDisplay = ({ report }: { report: WorkReport }) => {
 			onTouchMove={handleImagesScroll}
 		>
 			<h2>{title}</h2>
-			<p>{description}</p>
+			<p>{getUserByString(fromUserNickname, fromUserEmail)}</p>
+			<p>{description || NO_DESCRIPTION}</p>
 			<S.ReportImagesWrapper>
 				{imageNames.map((imageName) => (
 					<img key={imageName} src={getImageUriByName(imageName)} />

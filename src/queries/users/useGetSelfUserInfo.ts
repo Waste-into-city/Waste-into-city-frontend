@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { GET_SELF_USER_INFO_URI } from '@/constants/apiEndpoints';
 import { useUserLogs } from '@/store/user/useUserLogs';
 import { SelfUserInfo } from '@/types/contracts/selfUserInfo';
+import { PatchedQueryOptions } from '@/types/patchedQueryOptions';
 import { fetchWithAuth } from '@/utils/fetchWithAuth';
 
 export const useGetSelfUserInfo = (
-	options?: UseQueryOptions<SelfUserInfo, Error>
+	options?: PatchedQueryOptions<SelfUserInfo, Error>
 ) => {
 	const { updateLogs } = useUserLogs();
 
@@ -23,6 +24,7 @@ export const useGetSelfUserInfo = (
 			}
 		},
 		refetchOnWindowFocus: false,
+		placeholderData: keepPreviousData,
 	});
 
 	useEffect(() => {

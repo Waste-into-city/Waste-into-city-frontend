@@ -3,4 +3,8 @@ export type WorkReport = {
 	title: string;
 	description: string;
 	imageNames: string[];
+	workId: string;
+	fromUserNickname: string;
+	fromUserEmail: string;
+	workReportResultId: string;
 };

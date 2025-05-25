@@ -28,17 +28,18 @@ export const useReportWork = (
 					.map((attachment) => attachment && uploadImage(attachment))
 			);
 
-			const response = await fetchWithAuth(
-				`${CREATE_WORK_REPORT_URI}/${workId}`,
-				{
-					method: 'POST',
-					body: JSON.stringify({
-						title,
-						description,
-						imageNames: attachedNames,
-					}),
-				}
-			);
+			const response = await fetchWithAuth(`${CREATE_WORK_REPORT_URI}`, {
+				method: 'POST',
+				body: JSON.stringify({
+					title,
+					description,
+					imageNames: attachedNames,
+					worksId: workId,
+				}),
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
 
 			if (!response.ok) {
 				throw new Error();

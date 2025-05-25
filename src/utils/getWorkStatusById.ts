@@ -1,10 +1,13 @@
 import { WorkStatus } from '@/types/contracts/workInfo';
 
 const WORK_STATUSES_ORDER: Array<WorkStatus> = [
-	WorkStatus.Active,
+	WorkStatus.Available,
+	WorkStatus.Preparing,
 	WorkStatus.InProgress,
-	WorkStatus.Successful,
-	WorkStatus.Unknown,
+	WorkStatus.PendingFinalization,
+	WorkStatus.FinishedSuccessfully,
+	WorkStatus.FinishedFailed,
+	WorkStatus.Closed,
 ];
 
 export const getWorkStatusById = (workStatusId: number) => {

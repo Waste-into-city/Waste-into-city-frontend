@@ -1,14 +1,15 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { USERS_LIST_PAGE_SIZE } from '@/components/common/UsersList/constants';
 import { GET_LEADERBOARD_URI } from '@/constants/apiEndpoints';
 import { UserQueries } from '@/constants/queryKeys';
 import { ByPageResponse } from '@/types/contracts/byPageResponse';
 import { UserRating } from '@/types/contracts/userRating';
+import { PatchedQueryOptions } from '@/types/patchedQueryOptions';
 import { fetchWithAuth } from '@/utils/fetchWithAuth';
 
 export const useGetLeaderboard = (
-	options?: UseQueryOptions<ByPageResponse<UserRating>, Error>
+	options?: PatchedQueryOptions<ByPageResponse<UserRating>, Error>
 ) =>
 	useQuery<ByPageResponse<UserRating>>({
 		...options,

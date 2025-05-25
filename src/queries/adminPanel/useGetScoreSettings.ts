@@ -1,13 +1,14 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { ADMIN_PANEL_GET_ALL_DATA_URI } from '@/constants/apiEndpoints';
 import { AdminPanelQueries } from '@/constants/queryKeys';
 import { ScoreSettings } from '@/types/contracts/scoreSettings';
+import { PatchedQueryOptions } from '@/types/patchedQueryOptions';
 import { fetchWithAuth } from '@/utils/fetchWithAuth';
 import { getScoreSettingById } from '@/utils/getScoreSettingById';
 
 export const useGetScoreSettings = (
-	options?: UseQueryOptions<ScoreSettings, Error>
+	options?: PatchedQueryOptions<ScoreSettings, Error>
 ) =>
 	useQuery<ScoreSettings>({
 		...options,

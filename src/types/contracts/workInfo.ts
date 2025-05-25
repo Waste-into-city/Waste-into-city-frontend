@@ -1,11 +1,13 @@
 import { OtherUser } from './otherUser';
 
 export enum WorkStatus {
-	Pending = 'Pending',
-	Active = 'Active',
+	Available = 'Available',
+	Preparing = 'Preparing',
 	InProgress = 'InProgress',
-	Successful = 'Successful',
-	Unknown = 'Unknown',
+	PendingFinalization = 'PendingFinalization',
+	FinishedSuccessfully = 'FinishedSuccessfully',
+	FinishedFailed = 'FinishedFailed',
+	Closed = 'Closed',
 }
 
 export type WorkInfo = {

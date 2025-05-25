@@ -4,10 +4,9 @@ import { scrollbarCSS } from '@/styles/common/scrollbar';
 
 export const ReportInfoWrapper = styled.div(({ theme }) => ({
 	width: theme.widths.full,
-	height: theme.heights.full,
 	display: 'flex',
 	flexDirection: 'column',
-	gap: theme.indent.medium,
+	gap: theme.indent.large,
 	color: theme.colors.fullContrast,
 
 	'& > h2': {
@@ -16,13 +15,17 @@ export const ReportInfoWrapper = styled.div(({ theme }) => ({
 	},
 
 	'& > p': {
-		fontSize: theme.fontSizes.text,
+		fontSize: theme.fontSizes.control,
+		color: theme.colors.fullContrast,
 		wordBreak: 'break-word',
 	},
 
 	[`@media ${theme.media.phone}`]: {
 		'& > h2': {
 			fontSize: theme.fontSizes.h3,
+		},
+		'& > p': {
+			fontSize: theme.fontSizes.text,
 		},
 	},
 }));
