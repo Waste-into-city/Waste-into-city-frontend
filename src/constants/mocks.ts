@@ -16,7 +16,7 @@ export const mockWorkInfo: WorkInfo = {
 	],
 	trashTypesIds: [2, 3],
 	workComplexityTypesId: 2,
-	workStatusTypeForClient: WorkStatus.Pending,
+	workStatusTypeForClient: WorkStatus.PendingFinalization,
 	lat: 2,
 	lng: 1,
 };
@@ -53,6 +53,10 @@ export const mockReport: WorkReport = {
 		'https://vetliva.ru/upload/resize_cache/iblock/e35/630_350_2/e3538c1f941bec113d95f443c7e2ccdf.jpg',
 		'https://content.onliner.by/news/1100x5616/9f6bd04fcc79b04bedf905baf4e15ebb.jpeg',
 	],
+	workId: '2',
+	workReportResultId: '12',
+	fromUserEmail: 'user@gmail.com',
+	fromUserNickname: 'mockUser',
 };
 
 export const mockLeaders: Array<UserRating> = [

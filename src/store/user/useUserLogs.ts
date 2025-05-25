@@ -41,11 +41,8 @@ export const useUserLogs = create<UserLogsState>()(
 				}));
 			},
 			logOut: async () => {
-				try {
-					await logoutUser();
-				} finally {
-					set((prevLogs) => ({ ...prevLogs, logs: emptyUserValues }));
-				}
+				set((prevLogs) => ({ ...prevLogs, logs: emptyUserValues }));
+				await logoutUser();
 			},
 			updateLogs: (newLogs) =>
 				set((prevLogs) => ({ ...prevLogs, logs: newLogs })),

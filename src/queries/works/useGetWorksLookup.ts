@@ -1,14 +1,15 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { GET_WORKS_LOOKUP_URI } from '@/constants/apiEndpoints';
 import { WorkQueries } from '@/constants/queryKeys';
 import { WorkLookup } from '@/types/contracts/workLookup';
+import { PatchedQueryOptions } from '@/types/patchedQueryOptions';
 import { fetchWithAuth } from '@/utils/fetchWithAuth';
 
-const WORKS_REFETCH_INTERVAL = 10000;
+const WORKS_REFETCH_INTERVAL = 30000;
 
 export const useGetWorksLookup = (
-	options?: UseQueryOptions<Array<WorkLookup>, Error>
+	options?: PatchedQueryOptions<Array<WorkLookup>, Error>
 ) =>
 	useQuery<Array<WorkLookup>>({
 		...options,

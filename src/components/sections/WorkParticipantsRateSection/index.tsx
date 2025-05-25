@@ -60,7 +60,7 @@ export default function WorkParticipantsRateSection() {
 		if (data && otherParticipants.length === 0) {
 			mutate([]);
 		}
-	}, [data]);
+	}, [data, mutate, otherParticipants.length]);
 
 	const handleSubmitRatesButtonClick = async () => {
 		mutate(

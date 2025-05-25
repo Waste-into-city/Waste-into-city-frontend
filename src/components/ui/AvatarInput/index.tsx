@@ -2,11 +2,14 @@ import { ChangeEvent, useCallback, useMemo, useRef } from 'react';
 
 import { ALLOWED_IMAGE_TYPES } from '@/constants/allowedImageTypes';
 import { NO_AVATAR_ICON } from '@/constants/icons';
+import { useNotifications } from '@/store/notifications/useNotifications';
+import { NotificationTypes } from '@/types/notificationTypes';
+import { validateUserAvatarImage } from '@/utils/validators/userAvatarImage';
 
 import { PopoverOptionsWrapper } from '../PopoverOptionsWrapper';
 
 import { AvatarOption } from './AvatarOptionsPopover/types';
-import { avatarOptionNames } from './constants';
+import { avatarOptionNames, FILE_SIZE_EXCEEDED_MESSAGE } from './constants';
 import { AvatarImage } from './styled';
 import { AvatarInputProps } from './types';
 
@@ -18,12 +21,22 @@ export const AvatarInput = ({
 	setAvatarFile,
 	disabled = false,
 }: AvatarInputProps) => {
+	const { appendNotification } = useNotifications();
 	const avatarInputRef = useRef<HTMLInputElement>(null);
 
 	const handleAvatarInputChange = ({
 		target,
 	}: ChangeEvent<HTMLInputElement>) => {
 		const avatarFile = target.files?.length ? target.files[0] : null;
+
+		if (avatarFile && !validateUserAvatarImage(avatarFile)) {
+			appendNotification(
+				NotificationTypes.Error,
+				FILE_SIZE_EXCEEDED_MESSAGE
+			);
+			return;
+		}
+
 		if (avatarFile) {
 			setAvatarFile(avatarFile);
 		}

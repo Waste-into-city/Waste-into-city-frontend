@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
+import LoaderWrapper from '@/components/common/LoaderWrapper';
 import { WorkInfoForm } from '@/components/common/WorkInfoForm';
 import { ROUTES } from '@/constants/routes';
 import { useCreateWork } from '@/queries/works/useCreateWork';
@@ -15,7 +16,7 @@ export default function NewWorkSection() {
 	const navigate = useNavigate();
 	const { appendNotification } = useNotifications();
 
-	const { mutateAsync } = useCreateWork({
+	const { mutateAsync, isPending } = useCreateWork({
 		onSuccess: () => {
 			appendNotification(
 				NotificationTypes.Success,
@@ -26,9 +27,11 @@ export default function NewWorkSection() {
 	});
 
 	return (
-		<WorkInfoForm
-			initialValues={formInitialValues}
-			onSubmit={mutateAsync}
-		/>
+		<LoaderWrapper isLoaderVisible={isPending}>
+			<WorkInfoForm
+				initialValues={formInitialValues}
+				onSubmit={mutateAsync}
+			/>
+		</LoaderWrapper>
 	);
 }

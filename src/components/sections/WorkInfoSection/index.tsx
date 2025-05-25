@@ -4,9 +4,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 
 import LoaderWrapper from '@/components/common/LoaderWrapper';
+import { ParticipantsRatesList } from '@/components/common/ParticipantsRatesList';
 import { WorkInfoDisplay } from '@/components/common/WorkInfoDisplay';
 import { WorkQueries } from '@/constants/queryKeys';
 import { ROUTES } from '@/constants/routes';
+import { useGetParticipantsRates } from '@/queries/works/useGetParticiapntsRates';
 import { useGetWorkInfo } from '@/queries/works/useGetWorkInfo';
 import { useJoinWork } from '@/queries/works/useJoinWork';
 import { useLeaveWork } from '@/queries/works/useLeaveWork';
@@ -34,6 +36,10 @@ const WorkInfoSection = () => {
 	const queryClient = useQueryClient();
 
 	const { data, isLoading, error, refetch } = useGetWorkInfo(id ?? '');
+	const { data: rates, isFetching: isFetchingRates } =
+		useGetParticipantsRates(data?.id ?? '', {
+			enabled: Boolean(data?.id),
+		});
 
 	const workInfo = useMemo<WorkInfo>(
 		() => getWorkInfoFromResponse(data),
@@ -93,14 +99,22 @@ const WorkInfoSection = () => {
 		leaveWork();
 	};
 
-	const isWorkActive = workInfo.workStatusTypeForClient === WorkStatus.Active;
+	const isWorkActive =
+		workInfo.workStatusTypeForClient === WorkStatus.Available;
+	const isWorkPreparing =
+		workInfo.workStatusTypeForClient === WorkStatus.Preparing;
 	const isWorkSuccessful =
-		workInfo.workStatusTypeForClient === WorkStatus.Successful;
+		workInfo.workStatusTypeForClient === WorkStatus.FinishedSuccessfully;
 	const isWorkInProgress =
 		workInfo.workStatusTypeForClient === WorkStatus.InProgress;
 
 	const isWithoutParticipants = !workInfo.participants.length;
-	const isLoadingWork = isLoading || Boolean(error) || isJoining || isLeaving;
+	const isLoadingWork =
+		isLoading ||
+		Boolean(error) ||
+		isJoining ||
+		isLeaving ||
+		isFetchingRates;
 	const isUserJoinable =
 		highRoleName === UserRoles.User || highRoleName === UserRoles.Admin;
 
@@ -108,6 +122,7 @@ const WorkInfoSection = () => {
 		<LoaderWrapper isLoaderVisible={isLoadingWork}>
 			<WorkInfoSectionWrapper>
 				<WorkInfoDisplay workInfo={workInfo} />
+				{rates && <ParticipantsRatesList ratesList={rates} />}
 				<WorkControls>
 					{isWithoutParticipants &&
 						isWorkActive &&
@@ -116,7 +131,7 @@ const WorkInfoSection = () => {
 								onTimeChange={setSelectedStartDate}
 							/>
 						)}
-					{isWorkActive && isUserJoinable && (
+					{(isWorkPreparing || isWorkActive) && isUserJoinable && (
 						<SubmitButton
 							variant={isUserParticipant ? 'negative' : 'primary'}
 							disabled={
@@ -136,7 +151,7 @@ const WorkInfoSection = () => {
 					)}
 					{isWorkSuccessful &&
 						isUserJoinable &&
-						(isUserParticipant ? (
+						(!isUserParticipant ? (
 							<SubmitButton
 								variant='negative'
 								onClick={handleWorkReportButtonClick}
@@ -144,12 +159,14 @@ const WorkInfoSection = () => {
 								{REPORT_BUTTON_LABEL}
 							</SubmitButton>
 						) : (
-							<SubmitButton
-								variant='positive'
-								onClick={handleWorkRateButtonClick}
-							>
-								{RATE_BUTTON_LABEL}
-							</SubmitButton>
+							!rates?.length && (
+								<SubmitButton
+									variant='positive'
+									onClick={handleWorkRateButtonClick}
+								>
+									{RATE_BUTTON_LABEL}
+								</SubmitButton>
+							)
 						))}
 					{isWorkInProgress && isUserJoinable && (
 						<SubmitButton

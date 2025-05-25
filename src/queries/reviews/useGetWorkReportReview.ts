@@ -1,12 +1,13 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { GET_WORK_REPORT_URI } from '@/constants/apiEndpoints';
 import { ReviewQueries } from '@/constants/queryKeys';
 import { WorkReport } from '@/types/contracts/workReport';
+import { PatchedQueryOptions } from '@/types/patchedQueryOptions';
 import { fetchWithAuth } from '@/utils/fetchWithAuth';
 
 export const useGetWorkReportReview = (
-	options?: UseQueryOptions<WorkReport, Error>
+	options?: PatchedQueryOptions<WorkReport, Error>
 ) =>
 	useQuery<WorkReport>({
 		...options,
@@ -16,7 +17,11 @@ export const useGetWorkReportReview = (
 
 			if (response.ok) {
 				const responseData = await response.json();
-				return responseData;
+				return {
+					...responseData,
+					workId: responseData.worksId,
+					workReportResultId: responseData.workReportResultsId,
+				};
 			}
 
 			throw new Error();

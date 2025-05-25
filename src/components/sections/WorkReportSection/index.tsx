@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import LoaderWrapper from '@/components/common/LoaderWrapper';
 import { WorkImageAttachments } from '@/components/common/WorkImageAttachments';
 import { WorkImageAttachment } from '@/components/common/WorkImageAttachments/types';
 import { Input } from '@/components/ui/Input';
@@ -31,7 +32,7 @@ export default function WorkReportSection() {
 		[]
 	);
 
-	const { mutateAsync } = useReportWork(id ?? '', {
+	const { mutateAsync, isPending } = useReportWork(id ?? '', {
 		onError: () => {
 			appendNotification(
 				NotificationTypes.Error,
@@ -53,9 +54,9 @@ export default function WorkReportSection() {
 				description,
 				attachments: attachments.map(({ file }) => file),
 			});
-			navigate(ROUTES.MAIN);
+			navigate(`${ROUTES.WORK_INFO}/${id}`);
 		},
-		[attachments, navigate, mutateAsync]
+		[attachments, navigate, mutateAsync, id]
 	);
 
 	const { fields, handleFieldChange, handleFormSubmit, errors } =
@@ -66,27 +67,29 @@ export default function WorkReportSection() {
 		});
 
 	return (
-		<S.WorkReportFormWrapper onSubmit={handleFormSubmit}>
-			<h2>{REPORT_FORM_LABEL}</h2>
-			<Input
-				value={fields.title}
-				onChange={handleFieldChange('title')}
-				errorText={errors.title}
-				placeholder={REPORT_LABELS.title}
-			/>
-			<S.ReportDescriptionArea
-				value={fields.description}
-				onChange={handleFieldChange('description')}
-				errorText={errors.description}
-				placeholder={REPORT_LABELS.description}
-			/>
-			<WorkImageAttachments
-				attachments={attachments}
-				setAttachments={setAttachments}
-			/>
-			<S.SubmitButton variant='negative'>
-				{REPORT_BUTTON_LABEL}
-			</S.SubmitButton>
-		</S.WorkReportFormWrapper>
+		<LoaderWrapper isLoaderVisible={isPending}>
+			<S.WorkReportFormWrapper onSubmit={handleFormSubmit}>
+				<h2>{REPORT_FORM_LABEL}</h2>
+				<Input
+					value={fields.title}
+					onChange={handleFieldChange('title')}
+					errorText={errors.title}
+					placeholder={REPORT_LABELS.title}
+				/>
+				<S.ReportDescriptionArea
+					value={fields.description}
+					onChange={handleFieldChange('description')}
+					errorText={errors.description}
+					placeholder={REPORT_LABELS.description}
+				/>
+				<WorkImageAttachments
+					attachments={attachments}
+					setAttachments={setAttachments}
+				/>
+				<S.SubmitButton variant='negative'>
+					{REPORT_BUTTON_LABEL}
+				</S.SubmitButton>
+			</S.WorkReportFormWrapper>
+		</LoaderWrapper>
 	);
 }
