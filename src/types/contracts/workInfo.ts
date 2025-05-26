@@ -20,6 +20,7 @@ export type WorkInfo = {
 	workComplexityTypesId: number;
 	workStatusTypeForClient: WorkStatus;
 	startDateTime?: string;
+	finishDateTime?: string;
 	lat: number;
 	lng: number;
 };

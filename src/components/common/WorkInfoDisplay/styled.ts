@@ -22,8 +22,8 @@ export const WorkImagesWrapper = styled(ImagesWrapperScroll)(({ theme }) => ({
 	overflow: 'auto',
 
 	'& > img': {
+		maxWidth: '100%',
 		borderRadius: theme.borderRadius.round,
-		width: theme.widths.full,
 		height: theme.heights.workInfoImageApplication,
 		objectFit: 'cover',
 	},

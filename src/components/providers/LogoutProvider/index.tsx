@@ -33,8 +33,8 @@ export const LogoutProvider = ({ children }: { children: ReactNode }) => {
 	useEffect(() => {
 		if (highRoleName !== UserRoles.Guest) {
 			refreshToken()
-				.then(({ ok }) => {
-					if (!ok) {
+				.then((data) => {
+					if (data && !data.ok) {
 						logOutWithNotification();
 					}
 				})

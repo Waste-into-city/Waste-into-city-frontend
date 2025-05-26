@@ -6,7 +6,7 @@ import {
 
 export const ZOOM_RANGE: ZoomRange = {
 	max: 20,
-	min: 10.3,
+	min: 5.3,
 };
 
 // Is using default while no geolocation is available

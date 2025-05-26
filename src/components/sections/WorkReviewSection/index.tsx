@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import LoaderWrapper from '@/components/common/LoaderWrapper';
 import { ReviewCardPicker } from '@/components/common/ReviewCardPicker';
 import { WorkInfoDisplay } from '@/components/common/WorkInfoDisplay';
-import { ReviewQueries } from '@/constants/queryKeys';
+import { ReviewQueries, WorkQueries } from '@/constants/queryKeys';
 import { useApproveWorkReview } from '@/queries/reviews/useApproveWorkReview';
 import { useGetWorkReview } from '@/queries/reviews/useGetWorkReview';
 import { useRejectWorkReview } from '@/queries/reviews/useRejectWorkReview';
@@ -23,7 +23,7 @@ const WorkReviewSection = () => {
 	const queryClient = useQueryClient();
 
 	const { displayItem, setLocation, cancelItem } = useMapItemLocation();
-	const { data, isLoading, error } = useGetWorkReview();
+	const { data, isFetching, error, refetch } = useGetWorkReview();
 
 	const { appendNotification } = useNotifications();
 
@@ -33,6 +33,10 @@ const WorkReviewSection = () => {
 				queryClient.invalidateQueries({
 					queryKey: [ReviewQueries.WorkReview],
 				});
+				queryClient.invalidateQueries({
+					queryKey: [WorkQueries.WorksLookup],
+				});
+				refetch();
 			},
 		});
 	const { mutate: rejectReview, isPending: isRejecting } =
@@ -41,6 +45,7 @@ const WorkReviewSection = () => {
 				queryClient.invalidateQueries({
 					queryKey: [ReviewQueries.WorkReview],
 				});
+				refetch();
 			},
 		});
 
@@ -66,7 +71,7 @@ const WorkReviewSection = () => {
 		if (error) {
 			appendNotification(
 				NotificationTypes.Error,
-				FAILED_TO_GET_NEXT_WORK_REVIEW
+				error.message || FAILED_TO_GET_NEXT_WORK_REVIEW
 			);
 		}
 	}, [error, appendNotification]);
@@ -76,7 +81,7 @@ const WorkReviewSection = () => {
 	};
 
 	const isLoadingCard =
-		isLoading || isApproving || isRejecting || Boolean(error);
+		isFetching || isApproving || isRejecting || Boolean(error);
 
 	return (
 		<LoaderWrapper isLoaderVisible={isLoadingCard}>

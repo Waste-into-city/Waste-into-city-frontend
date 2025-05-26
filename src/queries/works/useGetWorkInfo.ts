@@ -36,6 +36,7 @@ export const useGetWorkInfo = (
 					),
 					trashTypesIds: responseData.trashTypesIds,
 					startDateTime: responseData.startedDatetime,
+					finishDateTime: responseData.finishDatetime,
 					lat: responseData.lat,
 					lng: responseData.lng,
 				};

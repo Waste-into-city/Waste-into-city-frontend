@@ -44,8 +44,8 @@ export const ReportImagesWrapper = styled(ImagesWrapperScroll)(({ theme }) => ({
 
 	'& > img': {
 		borderRadius: theme.borderRadius.round,
-		width: theme.widths.full,
-		height: theme.heights.full,
+		maxWidth: theme.widths.full,
+		height: theme.heights.workInfoImageApplication,
 		objectFit: 'cover',
 		userSelect: 'none',
 	},

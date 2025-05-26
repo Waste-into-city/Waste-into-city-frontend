@@ -75,7 +75,7 @@ const ReportReviewSection = () => {
 		if (error) {
 			appendNotification(
 				NotificationTypes.Error,
-				FAILED_TO_GET_NEXT_REPORT_REVIEW
+				error.message || FAILED_TO_GET_NEXT_REPORT_REVIEW
 			);
 		}
 	}, [error, appendNotification]);

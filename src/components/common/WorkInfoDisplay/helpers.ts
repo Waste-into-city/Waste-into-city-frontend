@@ -20,7 +20,7 @@ export const getComplexityColorsForId = (
 	}
 };
 
-export const getWorkStartTime = (startDateTime: string) => {
-	const startAsDate = new Date(startDateTime);
-	return `${startAsDate.getHours()}:${String(startAsDate.getMinutes()).padStart(2, '0')}`;
+export const getWorkTime = (startDateTime: string) => {
+	const startAsDate = new Date(`${startDateTime}Z`);
+	return `${startAsDate.getHours()}:${String(startAsDate.getMinutes()).padStart(2, '0')} on ${startAsDate.toLocaleDateString()}`;
 };

@@ -8,6 +8,7 @@ import { useNotifications } from '@/store/notifications/useNotifications';
 import { NotificationTypes } from '@/types/notificationTypes';
 
 import {
+	FAILED_TO_CREATE_WORK_MESSAGE,
 	formInitialValues,
 	WORK_CREATED_SUCCESSFULLY_MESSSAGE,
 } from './constants';
@@ -23,6 +24,12 @@ export default function NewWorkSection() {
 				WORK_CREATED_SUCCESSFULLY_MESSSAGE
 			);
 			navigate(ROUTES.MAIN);
+		},
+		onError: () => {
+			appendNotification(
+				NotificationTypes.Error,
+				FAILED_TO_CREATE_WORK_MESSAGE
+			);
 		},
 	});
 

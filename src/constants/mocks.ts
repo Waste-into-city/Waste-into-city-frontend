@@ -59,6 +59,39 @@ export const mockReport: WorkReport = {
 	fromUserNickname: 'mockUser',
 };
 
+export const mockUserRates: Array<UserRating> = [
+	{
+		id: '1',
+		nickname: 'Jonathan',
+		avatarLink: '',
+		ranking: 5,
+	},
+	{
+		id: '3',
+		nickname: 'Joe',
+		avatarLink: '',
+		ranking: 1,
+	},
+	{
+		id: '9',
+		nickname: 'Mike',
+		avatarLink: '',
+		ranking: 2,
+	},
+	{
+		id: '2',
+		nickname: 'Bob',
+		avatarLink: '',
+		ranking: 3,
+	},
+	{
+		id: '7',
+		nickname: 'Peter',
+		avatarLink: '',
+		ranking: 4,
+	},
+];
+
 export const mockLeaders: Array<UserRating> = [
 	{
 		id: '1',
