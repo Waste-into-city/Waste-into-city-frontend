@@ -1,0 +1,2 @@
+export const GROUP_DISPLAY_LIMIT = 100;
+export const EXCEEDED_LIMIT_LABEL = `${GROUP_DISPLAY_LIMIT}+`;

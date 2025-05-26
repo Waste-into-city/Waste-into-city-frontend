@@ -4,7 +4,7 @@ export const CommonButton = styled.button`
 	${({ theme }) => css`
 		padding: ${theme.indent.medium};
 		color: ${theme.colors.fullContrast};
-		background: ${theme.colors.background};
+		background: transparent;
 		border-radius: ${theme.borderRadius.round};
 		font-size: ${theme.fontSizes.control};
 		transition: ${theme.transitions.fast};
@@ -17,15 +17,26 @@ export const CommonButton = styled.button`
 		cursor: pointer;
 		line-height: normal;
 
-		&:hover,
-		&:focus-visible {
-			background-color: ${theme.colors.smallContrast};
-			outline: none;
+		&:enabled {
+			&:hover,
+			&:focus-visible {
+				background-color: ${theme.colors.smallContrast};
+				outline: none;
+			}
+		}
+
+		&:disabled {
+			color: ${theme.colors.smallContrast};
+			cursor: default;
+
+			img {
+				filter: ${theme.colors.iconSmallContrast};
+			}
 		}
 
 		img {
-			width: 48px;
-			height: 48px;
+			width: ${theme.widths.full};
+			height: ${theme.heights.full};
 			filter: ${theme.colors.iconContrast};
 		}
 
@@ -64,10 +75,17 @@ export const PrimaryButton = styled(CommonButton)`
 			filter: ${theme.colors.iconPrimaryContrast};
 		}
 
-		&:hover,
-		&:focus-visible {
+		&:disabled {
 			background-color: ${theme.colors.primaryHover};
-			outline: none;
+			color: ${theme.colors.primary};
+		}
+
+		&:enabled {
+			&:hover,
+			&:focus-visible {
+				background-color: ${theme.colors.primaryHover};
+				outline: none;
+			}
 		}
 	`}
 `;

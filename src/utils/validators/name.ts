@@ -5,11 +5,11 @@ import { FieldValidator } from '@/types/validator';
 const validatorValues: FieldValidator = {
 	min: {
 		value: 1,
-		message: 'Minimal length for name is 1 symbol!',
+		message: 'Minimal length is 1 symbol',
 	},
 	max: {
 		value: 45,
-		message: 'Maximum length for name is 45 symbols!',
+		message: 'Maximum length is 45 symbols',
 	},
 };
 

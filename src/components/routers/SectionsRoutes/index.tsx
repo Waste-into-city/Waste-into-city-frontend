@@ -1,10 +1,18 @@
-import { MouseEventHandler, Suspense } from 'react';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { MouseEventHandler, Suspense, useEffect, useMemo } from 'react';
+import {
+	Navigate,
+	Route,
+	Routes,
+	useLocation,
+	useNavigate,
+} from 'react-router-dom';
 
 import closeIcon from '@/assets/icons/svg/cross_icon.svg';
 import { ControlsBar } from '@/components/common/ControlsBar';
 import { MainMap } from '@/components/map/MainMap';
 import { ROUTES } from '@/constants/routes';
+import { useMapItemLocation } from '@/store/location/useMapItemLocation';
+import { useSelectedWorksGroup } from '@/store/worksGroup/useSelectedWorksGroup';
 
 import { ProtectedRoute } from '../ProtectedRoute';
 
@@ -16,8 +24,19 @@ const CLOSE_ICON_ALT = 'Close';
 
 const Sections = () => {
 	const navigate = useNavigate();
+	const { pathname } = useLocation();
+	const { clearWorksGroup } = useSelectedWorksGroup();
+	const { location, setLocation, isSelected } = useMapItemLocation();
 
 	const handleSectionClose = () => {
+		if (pathname === ROUTES.WORKS_GROUP) {
+			clearWorksGroup();
+		}
+
+		if (location) {
+			setLocation(null);
+		}
+
 		navigate(ROUTES.MAIN);
 	};
 
@@ -25,18 +44,46 @@ const Sections = () => {
 		event.stopPropagation();
 	};
 
+	useEffect(() => {
+		if (location) {
+			setLocation(null);
+		}
+	}, [pathname]);
+
+	const isSectionPaddingRequired = useMemo(
+		() =>
+			!ROUTE_SECTIONS.find(
+				({ route, isSelfPadded }) =>
+					route.includes(pathname) && isSelfPadded
+			),
+		[pathname]
+	);
+
 	return (
-		<S.SectionBlur onClick={handleSectionClose}>
+		<S.SectionBlur
+			onClick={handleSectionClose}
+			$isSectionHidden={isSelected}
+		>
 			<S.InteractionSection onClick={handleInSectionClick}>
-				<S.SectionContentContainer>
+				<S.CloseSectionButton
+					variant='common'
+					onClick={handleSectionClose}
+				>
+					<img src={closeIcon} alt={CLOSE_ICON_ALT} />
+				</S.CloseSectionButton>
+				<S.SectionContentContainer
+					$isPaddingRequired={isSectionPaddingRequired}
+				>
 					<Routes>
 						{ROUTE_SECTIONS.map(
-							({ route, section: LazySection }) => (
+							({ route, section: LazySection, allowedRoles }) => (
 								<Route
 									path={route}
 									key={route}
 									element={
-										<ProtectedRoute isAuthRoute={true}>
+										<ProtectedRoute
+											allowedRoles={allowedRoles}
+										>
 											<Suspense
 												fallback={<S.SectionLoader />}
 											>
@@ -53,12 +100,6 @@ const Sections = () => {
 						/>
 					</Routes>
 				</S.SectionContentContainer>
-				<S.CloseSectionButton
-					variant='common'
-					onClick={handleSectionClose}
-				>
-					<img src={closeIcon} alt={CLOSE_ICON_ALT} />
-				</S.CloseSectionButton>
 			</S.InteractionSection>
 		</S.SectionBlur>
 	);

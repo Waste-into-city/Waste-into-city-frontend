@@ -1,18 +1,35 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
+
+import { useMapItemLocation } from '@/store/location/useMapItemLocation';
+import { useUserLogs } from '@/store/user/useUserLogs';
+import { UserRoles } from '@/types/userRoles';
 
 import { config } from './config';
 import * as S from './styled';
 
-const { USER_ROUTES, LOG_IN_ROUTE } = config;
-
-// Add storage and tests
-const isLoggedIn = false;
+const { USER_ROUTES, LOG_IN_ROUTE, MODERATOR_ROUTES } = config;
 
 export const ControlsBar = memo(() => {
 	const { pathname } = useLocation();
+	const { isSelected } = useMapItemLocation();
+	const {
+		logs: { highRoleName },
+	} = useUserLogs();
 
-	if (!isLoggedIn) {
+	const controlRoutes = useMemo(
+		() =>
+			highRoleName === UserRoles.Moderator
+				? MODERATOR_ROUTES
+				: USER_ROUTES,
+		[highRoleName]
+	);
+
+	if (isSelected) {
+		return null;
+	}
+
+	if (highRoleName === UserRoles.Guest) {
 		return (
 			<S.LogInLink to={LOG_IN_ROUTE.path}>
 				<img src={LOG_IN_ROUTE.icon} alt={LOG_IN_ROUTE.name} />
@@ -22,7 +39,7 @@ export const ControlsBar = memo(() => {
 
 	return (
 		<S.Navigation>
-			{USER_ROUTES.map(({ name, path, icon }) => (
+			{controlRoutes.map(({ name, path, icon }) => (
 				<S.SectionLink
 					to={path}
 					key={name}

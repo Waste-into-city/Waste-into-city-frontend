@@ -5,7 +5,7 @@ import { InputProps } from '@/types/props/inputProps';
 import * as S from './styled';
 
 export const Input = memo(
-	({ label, isError, className, ...props }: InputProps) => {
+	({ label, errorText, className, ...props }: InputProps) => {
 		const [isFocused, setIsFocused] = useState(false);
 
 		const handleInputFocus: FocusEventHandler<HTMLInputElement> = (
@@ -24,17 +24,21 @@ export const Input = memo(
 
 		return (
 			<S.Container className={className}>
-				{label && (
-					<S.Label $isFocused={isFocused} $isError={Boolean(isError)}>
+				{Boolean(label) && (
+					<S.Label
+						$isFocused={isFocused}
+						$isError={Boolean(errorText)}
+					>
 						{label}
 					</S.Label>
 				)}
 				<S.Input
-					$isError={Boolean(isError)}
+					$isError={Boolean(errorText)}
 					{...props}
 					onFocus={handleInputFocus}
 					onBlur={handleInputBlur}
 				/>
+				{Boolean(errorText) && <S.ErrorText>{errorText}</S.ErrorText>}
 			</S.Container>
 		);
 	}

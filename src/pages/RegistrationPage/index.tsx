@@ -1,8 +1,12 @@
+import { useNavigate } from 'react-router-dom';
+
 import logoIcon from '@/assets/icons/svg/recycle_logo.svg';
 import backgroundImage from '@/assets/images/jpg/city.jpeg';
 import { ROUTES } from '@/constants/routes';
 import { useForm } from '@/hooks/useForm';
-import { registerUser } from '@/query/registerUser';
+import { registerUser } from '@/queries/registerUser';
+import { useNotifications } from '@/store/notifications/useNotifications';
+import { NotificationTypes } from '@/types/notificationTypes';
 
 import { config, RegistrationForm } from './config';
 import { helpers } from './helpers';
@@ -12,14 +16,20 @@ const { RegistrationSchema } = helpers;
 
 const {
 	defaultValues,
+	ALTERNATIVE_TEXT,
 	LOG_IN_LINK,
 	LOG_IN_QUESTION,
 	PLACEHOLDERS,
 	REGISTER_BUTTON_LABEL,
 	REGISTRATION_FORM_HEADING,
+	START_EXPLORING_LINK,
+	SUCCESSFUL_REGISTRATION_MESSAGE,
 } = config;
 
 export const RegistrationPage = () => {
+	const { appendNotification } = useNotifications();
+	const navigate = useNavigate();
+
 	const {
 		errors,
 		handleFieldChange,
@@ -28,7 +38,14 @@ export const RegistrationPage = () => {
 		isLoading,
 	} = useForm<RegistrationForm>({
 		defaultValues,
-		submitHandler: registerUser,
+		submitHandler: async (credentials) => {
+			await registerUser(credentials);
+			appendNotification(
+				NotificationTypes.Success,
+				SUCCESSFUL_REGISTRATION_MESSAGE
+			);
+			navigate(ROUTES.LOGIN);
+		},
 		validationSchema: RegistrationSchema,
 	});
 
@@ -44,42 +61,39 @@ export const RegistrationPage = () => {
 						placeholder={PLACEHOLDERS.name}
 						onChange={handleFieldChange('name')}
 						value={name}
-						isError={Boolean(errors.name)}
+						errorText={errors.name}
 					/>
-					<S.ErrorMessage>{errors.name}</S.ErrorMessage>
 
 					<S.TextField
 						placeholder={PLACEHOLDERS.email}
 						onChange={handleFieldChange('email')}
 						value={email}
-						isError={Boolean(errors.email)}
+						errorText={errors.email}
 					/>
-					<S.ErrorMessage>{errors.email}</S.ErrorMessage>
 
 					<S.PasswordField
 						placeholder={PLACEHOLDERS.password}
 						onChange={handleFieldChange('password')}
 						value={password}
-						isError={Boolean(errors.password)}
+						errorText={errors.password}
 					/>
-					<S.ErrorMessage>{errors.password}</S.ErrorMessage>
 
 					<S.PasswordField
 						placeholder={PLACEHOLDERS.confirmPassword}
 						onChange={handleFieldChange('confirmPassword')}
 						value={confirmPassword}
-						isError={Boolean(errors.confirmPassword)}
+						errorText={errors.confirmPassword}
 					/>
-					<S.ErrorMessage>{errors.confirmPassword}</S.ErrorMessage>
 
 					<S.RegisterButton variant='primary' disabled={isLoading}>
 						{isLoading ? <S.Loader /> : REGISTER_BUTTON_LABEL}
 					</S.RegisterButton>
-					<S.ErrorMessage>{errors.global}</S.ErrorMessage>
 
 					<S.LoginLink>
 						{LOG_IN_QUESTION}{' '}
 						<a href={ROUTES.LOGIN}>{LOG_IN_LINK}</a>
+						{ALTERNATIVE_TEXT}
+						<a href={ROUTES.MAIN}>{START_EXPLORING_LINK}</a>
 					</S.LoginLink>
 				</S.Form>
 			</S.FormContainer>

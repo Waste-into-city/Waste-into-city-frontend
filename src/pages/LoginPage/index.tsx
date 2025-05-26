@@ -2,7 +2,7 @@ import logoIcon from '@/assets/icons/svg/recycle_logo.svg';
 import woodsImage from '@/assets/images/jpg/city.jpeg';
 import { ROUTES } from '@/constants/routes';
 import { useForm } from '@/hooks/useForm';
-import { loginUser } from '@/query/loginUser';
+import { useUserLogs } from '@/store/user/useUserLogs';
 
 import { config, LoginForm } from './config';
 import { helpers } from './helpers';
@@ -11,6 +11,7 @@ import * as S from './styled';
 const { LoginFormSchema } = helpers;
 
 const {
+	ALTERNATIVE_TEXT,
 	BACKGROUND_ALT,
 	LOGO_ALT,
 	LOG_IN_BUTTON_LABEL,
@@ -18,10 +19,13 @@ const {
 	PLACEHOLDERS,
 	REGISTER_LINK,
 	REGISTER_QUESTION,
+	START_EXPLORING_LINK,
 	defaultFields,
 } = config;
 
 export const LoginPage = () => {
+	const { logIn } = useUserLogs();
+
 	const {
 		fields: { email, password },
 		errors,
@@ -30,7 +34,7 @@ export const LoginPage = () => {
 		isLoading,
 	} = useForm<LoginForm>({
 		defaultValues: defaultFields,
-		submitHandler: loginUser,
+		submitHandler: logIn,
 		validationSchema: LoginFormSchema,
 	});
 
@@ -43,24 +47,25 @@ export const LoginPage = () => {
 				<S.EmailField
 					placeholder={PLACEHOLDERS.email}
 					value={email}
-					isError={Boolean(errors.email)}
+					errorText={errors.email}
 					onChange={handleFieldChange('email')}
 				/>
-				<S.ErrorMessage>{errors.email}</S.ErrorMessage>
 				<S.PasswordField
 					placeholder={PLACEHOLDERS.password}
 					value={password}
-					isError={Boolean(errors.password)}
+					errorText={errors.password}
 					onChange={handleFieldChange('password')}
 				/>
-				<S.ErrorMessage>{errors.password}</S.ErrorMessage>
+
 				<S.LogInButton variant='primary' disabled={isLoading}>
 					{isLoading ? <S.ButtonLoader /> : LOG_IN_BUTTON_LABEL}
 				</S.LogInButton>
-				<S.ErrorMessage>{errors.global}</S.ErrorMessage>
+
 				<S.RegisterLink>
 					{REGISTER_QUESTION}{' '}
 					<a href={ROUTES.REGISTRATION}>{REGISTER_LINK}</a>
+					{ALTERNATIVE_TEXT}
+					<a href={ROUTES.MAIN}>{START_EXPLORING_LINK}</a>
 				</S.RegisterLink>
 			</S.Form>
 		</S.Main>

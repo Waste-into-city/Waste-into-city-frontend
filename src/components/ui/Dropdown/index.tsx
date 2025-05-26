@@ -8,6 +8,7 @@ import * as S from './styled';
 type DropdownProps = InputProps & {
 	items: string[];
 	handleChange?: (value: string) => void;
+	transformValue?: (value: string) => string | null;
 };
 
 export const Dropdown = memo(
@@ -16,6 +17,7 @@ export const Dropdown = memo(
 		value: initialValue,
 		handleChange,
 		className,
+		transformValue,
 		...props
 	}: DropdownProps) => {
 		const [isDropped, setIsDropped] = useState(false);
@@ -31,8 +33,15 @@ export const Dropdown = memo(
 		const handleInputChange = (
 			changeEvent: ChangeEvent<HTMLInputElement>
 		) => {
-			setInputValue(changeEvent.target.value);
-			handleChange?.call(null, changeEvent.target.value);
+			let newValue: string | null = changeEvent.target.value;
+			if (transformValue) {
+				newValue = transformValue(newValue);
+				if (newValue === null) {
+					return;
+				}
+			}
+			setInputValue(newValue);
+			handleChange?.call(null, newValue);
 		};
 
 		const handleDroppedItemClick = (item: string) => () => {

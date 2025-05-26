@@ -1,0 +1,20 @@
+export type ScoreSettings = {
+	workRankingDefaultReviewAdding: number;
+	workNegativeAddingMultiplier: number;
+	workNegativeSubstracting: number;
+	workRankingAdding: number;
+	workRankingSubstracting: number;
+	workApplicationRankingSubstracting: number;
+	workApplicationNegativeAddingMultiplier: number;
+	workApplicationRankingAdding: number;
+	workApplicationNegativeSubstracting: number;
+	userBanRankingAtLeast: number;
+	pendingFinalizationWorkRankingSubstracting: number;
+	pendingFinalizationWorkNegativeAdding: number;
+	workComplaintUserNegativeSubstracting: number;
+	workComplaintParticipantNegativeAddingMultiplier: number;
+	workComplaintUserNegativeAddingMultiplier: number;
+	workComplaintParticipantRankingSubstracting: number;
+	workComplaintUserRankingSubstracting: number;
+	workComplaintUserRankingAdding: number;
+};

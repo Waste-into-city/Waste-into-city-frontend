@@ -4,27 +4,31 @@ import { Button } from '@/components/ui/Button';
 import { loaderCSS } from '@/styles/common/loader';
 import { scrollbarCSS } from '@/styles/common/scrollbar';
 
-export const SectionBlur = styled.div`
-	${({ theme }) => css`
+export const SectionBlur = styled.div<{ $isSectionHidden: boolean }>`
+	${({ theme, $isSectionHidden }) => css`
 		width: ${theme.widths.full};
 		height: ${theme.heights.full};
 		z-index: ${theme.zIndexes.blur};
 		background-color: ${theme.colors.backgroundBlur};
 		animation: blur-background ${theme.transitions.medium};
+		display: ${$isSectionHidden ? 'none' : 'flex'};
 
 		position: absolute;
 		top: 0;
 		left: 0;
-		display: flex;
 		justify-content: center;
 		align-items: center;
 
-		@media ${theme.media.landscape} and ${theme.media.laptop} {
-			justify-content: flex-end;
+		@media ${theme.media.landscape} {
+			@media ${theme.media.laptop} {
+				justify-content: flex-end;
+				padding-right: ${theme.indent.large};
+			}
 		}
 
 		@media ${theme.media.portrait} {
 			align-items: flex-start;
+			padding-top: ${theme.indent.medium};
 		}
 
 		@keyframes blur-background {
@@ -45,17 +49,22 @@ export const InteractionSection = styled.section`
 		border-radius: ${theme.borderRadius.round};
 		animation: section-display ${theme.transitions.medium};
 		width: ${theme.widths.interactionSection};
+		display: flex;
+		flex-direction: column;
+		gap: ${theme.indent.scrollbar};
+		padding-top: ${theme.indent.medium};
 
 		position: relative;
 
 		@media ${theme.media.tablet} {
-			padding: ${theme.indent.large} ${theme.indent.medium};
+			padding: ${theme.indent.small} ${theme.indent.medium}
+				${theme.indent.medium};
 		}
 
 		@media ${theme.media.portrait} {
-			margin-top: ${theme.indent.large};
+			margin-top: ${theme.indent.medium};
 			width: ${theme.sizes.nearFull};
-			height: ${theme.sizes.interactionSectionMin};
+			height: calc(100% - 170px);
 
 			@media ${theme.media.smallHeight} {
 				height: ${theme.sizes.interactionSectionMin};
@@ -65,12 +74,13 @@ export const InteractionSection = styled.section`
 
 		@media ${theme.media.landscape} {
 			height: ${theme.sizes.nearFull};
+
 			@media ${theme.media.laptop} {
+				width: calc(100% - 189px);
 				margin-right: ${theme.indent.large};
 			}
 			@media ${theme.media.tablet} {
 				margin-right: ${theme.indent.medium};
-				width: ${theme.sizes.interactionSectionMin};
 			}
 		}
 
@@ -87,19 +97,23 @@ export const InteractionSection = styled.section`
 
 export const CloseSectionButton = styled(Button)`
 	${({ theme }) => css`
-		top: ${theme.indent.medium};
-		right: ${theme.indent.medium};
-
-		position: absolute;
+		align-self: flex-end;
+		width: ${theme.sizes.loader};
+		height: ${theme.sizes.loader};
 		padding: 0;
 	`}
 `;
 
-export const SectionContentContainer = styled.div`
-	${({ theme }) => css`
+export const SectionContentContainer = styled.div<{
+	$isPaddingRequired?: boolean;
+}>`
+	${({ theme, $isPaddingRequired }) => css`
 		width: ${theme.widths.full};
 		height: ${theme.heights.full};
-		padding: ${theme.indent.small};
+		${$isPaddingRequired &&
+		`padding: ${theme.indent.medium};
+		border: ${theme.borders.small} ${theme.colors.smallSectionContrast};
+		border-radius: ${theme.borderRadius.round};`}
 
 		position: relative;
 		overflow: auto;

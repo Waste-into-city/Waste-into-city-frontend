@@ -11,6 +11,7 @@ const defaultFields: Record<keyof LoginForm, string> = {
 };
 
 export const config = {
+	ALTERNATIVE_TEXT: ' Or ',
 	BACKGROUND_ALT: 'Forest Image',
 	LOGO_ALT: 'Recycle Logo',
 	LOG_IN_BUTTON_LABEL: 'Log In',
@@ -18,5 +19,6 @@ export const config = {
 	PLACEHOLDERS,
 	REGISTER_LINK: 'Register now!',
 	REGISTER_QUESTION: "Don't have an account?",
+	START_EXPLORING_LINK: 'start exploring!',
 	defaultFields,
 };
