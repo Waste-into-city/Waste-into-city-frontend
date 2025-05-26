@@ -53,6 +53,8 @@ export const ParticipantInfo = styled.div(({ theme }) => ({
 
 export const SingleParticipantRatesWrapper = styled.div(({ theme }) => ({
 	display: 'flex',
+	flexWrap: 'wrap',
+	justifyContent: 'center',
 	gap: theme.indent.small,
 
 	'& > img': {
@@ -60,6 +62,11 @@ export const SingleParticipantRatesWrapper = styled.div(({ theme }) => ({
 		height: theme.sizes.listedTrashType,
 		filter: theme.colors.iconWarning,
 		cursor: 'pointer',
+
+		[`@media ${theme.media.smallPhone}`]: {
+			width: theme.sizes.notificationCloseButton,
+			height: theme.sizes.notificationCloseButton,
+		},
 	},
 
 	[`@media ${theme.media.tablet}`]: {

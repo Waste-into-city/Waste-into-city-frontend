@@ -1,3 +1,4 @@
+import { HTTP_STATUSES } from '@/constants/httpStatuses';
 import { refreshToken } from '@/queries/refreshToken';
 
 import { logoutObserver } from './logoutObserver';
@@ -12,10 +13,10 @@ export const fetchWithAuth = async (
 		credentials: 'include',
 	});
 
-	if (firstResponse.status === 401) {
+	if (firstResponse.status === HTTP_STATUSES.Unauthorized) {
 		const tokenRefreshResponse = await refreshToken();
 
-		if (tokenRefreshResponse.ok) {
+		if (tokenRefreshResponse && tokenRefreshResponse.ok) {
 			const secondResponse = await fetch(input, {
 				...init,
 				credentials: 'include',
@@ -23,9 +24,14 @@ export const fetchWithAuth = async (
 			return secondResponse;
 		}
 
+		if (!tokenRefreshResponse) {
+			return firstResponse;
+		}
+
 		if (isLogoutRequired) {
 			logoutObserver.notify();
 		}
+
 		throw new Error();
 	}
 

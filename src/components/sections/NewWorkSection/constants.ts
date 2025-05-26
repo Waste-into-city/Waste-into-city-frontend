@@ -14,3 +14,4 @@ export const formInitialValues: WorkInfoFormValues = {
 
 export const WORK_CREATED_SUCCESSFULLY_MESSSAGE =
 	'Your application to create a work has been sent successfully!';
+export const FAILED_TO_CREATE_WORK_MESSAGE = 'Failed to create the work!';

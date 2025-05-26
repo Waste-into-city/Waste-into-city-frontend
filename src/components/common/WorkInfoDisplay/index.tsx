@@ -12,11 +12,16 @@ import { useUserLogs } from '@/store/user/useUserLogs';
 import { WorkInfo, WorkStatus } from '@/types/contracts/workInfo';
 import { getTrashTypeById } from '@/utils/getTrashTypeId';
 
-import { COMPLEXITY_PEOPLE_LABEL, STATUS_LABEL } from './constants';
+import {
+	COMPLEXITY_PEOPLE_LABEL,
+	FINISH_TIME_LABEL,
+	START_TIME_LABEL,
+	STATUS_LABEL,
+} from './constants';
 import {
 	getComplexityColorsForId,
 	getParticipantsLabel,
-	getWorkStartTime,
+	getWorkTime,
 } from './helpers';
 import * as S from './styled';
 
@@ -30,6 +35,7 @@ export const WorkInfoDisplay = ({
 		workComplexityTypesId,
 		workStatusTypeForClient,
 		startDateTime,
+		finishDateTime,
 	},
 	isMissingParticipants = false,
 }: {
@@ -61,8 +67,13 @@ export const WorkInfoDisplay = ({
 	);
 
 	const workStartTime = useMemo(
-		() => (startDateTime ? getWorkStartTime(startDateTime) : null),
+		() => (startDateTime ? getWorkTime(startDateTime) : null),
 		[startDateTime]
+	);
+
+	const workFinishTime = useMemo(
+		() => (finishDateTime ? getWorkTime(finishDateTime) : null),
+		[finishDateTime]
 	);
 
 	return (
@@ -99,10 +110,16 @@ export const WorkInfoDisplay = ({
 			</S.WorkComplexity>
 			{workStartTime && (
 				<S.WorkStartAt>
-					Start at <span>{workStartTime}</span>
+					{START_TIME_LABEL}
+					<span>{workStartTime}</span>
 				</S.WorkStartAt>
 			)}
-
+			{workFinishTime && (
+				<S.WorkStartAt>
+					{FINISH_TIME_LABEL}
+					<span>{workFinishTime}</span>
+				</S.WorkStartAt>
+			)}
 			<S.WorkDescription>
 				{description || NO_DESCRIPTION}
 			</S.WorkDescription>

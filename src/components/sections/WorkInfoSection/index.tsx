@@ -99,10 +99,20 @@ const WorkInfoSection = () => {
 		leaveWork();
 	};
 
+	const hasNoOtherParticipants = useMemo(
+		() =>
+			Boolean(
+				workInfo.participants.filter(({ id }) => id !== userId).length
+			),
+		[workInfo]
+	);
+
 	const isWorkActive =
 		workInfo.workStatusTypeForClient === WorkStatus.Available;
 	const isWorkPreparing =
 		workInfo.workStatusTypeForClient === WorkStatus.Preparing;
+	const isWorkFinishing =
+		workInfo.workStatusTypeForClient === WorkStatus.PendingFinalization;
 	const isWorkSuccessful =
 		workInfo.workStatusTypeForClient === WorkStatus.FinishedSuccessfully;
 	const isWorkInProgress =
@@ -159,7 +169,8 @@ const WorkInfoSection = () => {
 								{REPORT_BUTTON_LABEL}
 							</SubmitButton>
 						) : (
-							!rates?.length && (
+							!rates?.length &&
+							!hasNoOtherParticipants && (
 								<SubmitButton
 									variant='positive'
 									onClick={handleWorkRateButtonClick}
@@ -168,14 +179,16 @@ const WorkInfoSection = () => {
 								</SubmitButton>
 							)
 						))}
-					{isWorkInProgress && isUserJoinable && (
-						<SubmitButton
-							variant='positive'
-							onClick={handleWorkFinishButtonClick}
-						>
-							{FINISH_BUTTON_LABEL}
-						</SubmitButton>
-					)}
+					{(isWorkInProgress || isWorkFinishing) &&
+						isUserJoinable &&
+						isUserParticipant && (
+							<SubmitButton
+								variant='positive'
+								onClick={handleWorkFinishButtonClick}
+							>
+								{FINISH_BUTTON_LABEL}
+							</SubmitButton>
+						)}
 				</WorkControls>
 			</WorkInfoSectionWrapper>
 		</LoaderWrapper>

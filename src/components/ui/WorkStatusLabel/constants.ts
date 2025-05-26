@@ -5,7 +5,7 @@ export const WORK_STATUS_LABELS: Record<WorkStatus, string> = {
 	[WorkStatus.Available]: 'Available',
 	[WorkStatus.Preparing]: 'Preparing',
 	[WorkStatus.InProgress]: 'In Progress',
-	[WorkStatus.PendingFinalization]: 'Finishing',
+	[WorkStatus.PendingFinalization]: 'Processing',
 	[WorkStatus.FinishedSuccessfully]: 'Successful',
 	[WorkStatus.FinishedFailed]: 'Failed',
 	[WorkStatus.Closed]: 'Closed',

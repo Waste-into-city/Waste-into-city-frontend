@@ -1,0 +1,3 @@
+export const RESPONSE_CODES = {
+	TOKEN_IS_AVAILABLE: 400043,
+};

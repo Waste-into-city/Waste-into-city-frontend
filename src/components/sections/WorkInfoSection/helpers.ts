@@ -11,6 +11,7 @@ export const getWorkInfoFromResponse = (workResponse?: WorkInfo): WorkInfo => ({
 	workStatusTypeForClient:
 		workResponse?.workStatusTypeForClient || WorkStatus.FinishedFailed,
 	startDateTime: workResponse?.startDateTime,
+	finishDateTime: workResponse?.finishDateTime,
 	lat: workResponse?.lat ?? 0,
 	lng: workResponse?.lng ?? 0,
 });

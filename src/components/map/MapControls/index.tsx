@@ -3,6 +3,7 @@ import { Dispatch, memo, SetStateAction, useCallback } from 'react';
 import { LngLat } from '@yandex/ymaps3-types';
 
 import { useCurrentLocation } from '@/store/location/useCurrentLocation';
+import { useCurrentZoom } from '@/store/location/useCurrentZoom';
 import { useUserLogs } from '@/store/user/useUserLogs';
 import { UserRoles } from '@/types/userRoles';
 
@@ -26,25 +27,26 @@ const MapControlsInner = ({
 		logs: { highRoleName },
 	} = useUserLogs();
 	const { location } = useCurrentLocation();
+	const { zoom } = useCurrentZoom();
 
 	const handleZoomIn = useCallback(
 		() =>
 			setMapCenter((prevCenter) => ({
 				...prevCenter,
-				zoom: Math.min(prevCenter.zoom + 1, maxZoom),
+				zoom: Math.min(zoom + 1, maxZoom),
 				center: displayedCenter,
 			})),
-		[displayedCenter, setMapCenter]
+		[displayedCenter, setMapCenter, zoom]
 	);
 
 	const handleZoomOut = useCallback(
 		() =>
 			setMapCenter((prevCenter) => ({
 				...prevCenter,
-				zoom: Math.max(prevCenter.zoom - 1, minZoom),
+				zoom: Math.max(zoom - 1, minZoom),
 				center: displayedCenter,
 			})),
-		[displayedCenter, setMapCenter]
+		[displayedCenter, setMapCenter, zoom]
 	);
 
 	const handleUserLocate = useCallback(
