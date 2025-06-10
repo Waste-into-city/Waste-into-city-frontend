@@ -19,7 +19,7 @@ export const WorkStartTimeSelector = ({
 	onTimeChange: Dispatch<SetStateAction<Date | null>>;
 }) => {
 	const [hours, setHours] = useState(
-		new Date().getHours() + MIN_HOUR_DIFFERENCE
+		(new Date().getHours() + MIN_HOUR_DIFFERENCE) % HOURS_IN_DAY
 	);
 	const [minutes, setMinutes] = useState(new Date().getMinutes());
 	const [dayLabel, setDayLabel] = useState<string>();

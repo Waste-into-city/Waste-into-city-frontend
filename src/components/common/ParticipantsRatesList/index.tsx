@@ -13,31 +13,33 @@ export const ParticipantsRatesList = ({
 	ratesList: Array<UserRating>;
 }) => (
 	<S.ParticipantsRatesWrapper>
-		{ratesList.map(({ id, nickname, avatarLink, ranking }) => (
-			<S.ParticipantRateItem key={id}>
-				<S.ParticipantInfo>
-					<img
-						src={
-							avatarLink
-								? getImageUriByName(avatarLink)
-								: NO_AVATAR_ICON
-						}
-					/>
-					<p>{nickname}</p>
-				</S.ParticipantInfo>
-				<S.SingleParticipantRatesWrapper>
-					{RATINGS_LIST.map((index) => (
+		{ratesList.map(
+			({ id, nickname, avatarImageName: avatarLink, ranking }) => (
+				<S.ParticipantRateItem key={id}>
+					<S.ParticipantInfo>
 						<img
-							key={index}
 							src={
-								index <= ranking
-									? starIconFilled
-									: starIconOutlined
+								avatarLink
+									? getImageUriByName(avatarLink)
+									: NO_AVATAR_ICON
 							}
 						/>
-					))}
-				</S.SingleParticipantRatesWrapper>
-			</S.ParticipantRateItem>
-		))}
+						<p>{nickname}</p>
+					</S.ParticipantInfo>
+					<S.SingleParticipantRatesWrapper>
+						{RATINGS_LIST.map((index) => (
+							<img
+								key={index}
+								src={
+									index <= ranking
+										? starIconFilled
+										: starIconOutlined
+								}
+							/>
+						))}
+					</S.SingleParticipantRatesWrapper>
+				</S.ParticipantRateItem>
+			)
+		)}
 	</S.ParticipantsRatesWrapper>
 );

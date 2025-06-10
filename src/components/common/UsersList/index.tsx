@@ -15,7 +15,7 @@ export const UsersList = ({
 	getNextUsers,
 }: UsersListProps) => {
 	const {
-		logs: { id: userId },
+		logs: { id: userId, email: userEmail },
 	} = useUserLogs();
 
 	const { items, isLoading, getNextPage } = usePagination({
@@ -29,10 +29,23 @@ export const UsersList = ({
 	return (
 		<S.UserListWrapper>
 			{items.map(
-				({ id, nickname, avatarLink, ...otherFields }, index) => (
+				(
+					{
+						id,
+						nickname,
+						avatarImageName: avatarLink,
+						email,
+						...otherFields
+					},
+					index
+				) => (
 					<S.UsersListItem key={id}>
 						{isIndexed && <p>{index + 1}.</p>}
-						<S.UserInfoItem $isCurrentUser={id === userId}>
+						<S.UserInfoItem
+							$isCurrentUser={
+								id === userId || email === userEmail
+							}
+						>
 							<img
 								src={
 									avatarLink

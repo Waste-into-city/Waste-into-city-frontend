@@ -16,7 +16,7 @@ export const useGetLeaderboard = (
 		queryKey: [UserQueries.Leaderboard],
 		queryFn: async () => {
 			const response = await fetchWithAuth(
-				`${GET_LEADERBOARD_URI}?skipItems=1&size=${USERS_LIST_PAGE_SIZE}`
+				`${GET_LEADERBOARD_URI}?skipItems=0&size=${USERS_LIST_PAGE_SIZE}`
 			);
 
 			if (response.ok) {
