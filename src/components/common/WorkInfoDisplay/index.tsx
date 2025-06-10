@@ -141,7 +141,11 @@ export const WorkInfoDisplay = ({
 							$isDisplayed={areParticipantsDisplayed}
 						>
 							{participants.map(
-								({ id, avatarLink, nickname }) => (
+								({
+									id,
+									avatarImageName: avatarLink,
+									nickname,
+								}) => (
 									<S.ParticipantItem
 										key={id}
 										$isCurrentUser={id === currentUserId}

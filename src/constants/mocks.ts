@@ -63,31 +63,31 @@ export const mockUserRates: Array<UserRating> = [
 	{
 		id: '1',
 		nickname: 'Jonathan',
-		avatarLink: '',
+		avatarImageName: '',
 		ranking: 5,
 	},
 	{
 		id: '3',
 		nickname: 'Joe',
-		avatarLink: '',
+		avatarImageName: '',
 		ranking: 1,
 	},
 	{
 		id: '9',
 		nickname: 'Mike',
-		avatarLink: '',
+		avatarImageName: '',
 		ranking: 2,
 	},
 	{
 		id: '2',
 		nickname: 'Bob',
-		avatarLink: '',
+		avatarImageName: '',
 		ranking: 3,
 	},
 	{
 		id: '7',
 		nickname: 'Peter',
-		avatarLink: '',
+		avatarImageName: '',
 		ranking: 4,
 	},
 ];
@@ -96,31 +96,31 @@ export const mockLeaders: Array<UserRating> = [
 	{
 		id: '1',
 		nickname: 'Jonathan',
-		avatarLink: '',
+		avatarImageName: '',
 		ranking: 200,
 	},
 	{
 		id: '3',
 		nickname: 'Joe',
-		avatarLink: '',
+		avatarImageName: '',
 		ranking: 150,
 	},
 	{
 		id: '9',
 		nickname: 'Mike',
-		avatarLink: '',
+		avatarImageName: '',
 		ranking: 100,
 	},
 	{
 		id: '2',
 		nickname: 'Bob',
-		avatarLink: '',
+		avatarImageName: '',
 		ranking: 50,
 	},
 	{
 		id: '7',
 		nickname: 'Peter',
-		avatarLink: '',
+		avatarImageName: '',
 		ranking: 50,
 	},
 ];

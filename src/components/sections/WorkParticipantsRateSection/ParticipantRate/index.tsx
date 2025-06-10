@@ -26,7 +26,7 @@ export const ParticipantRate = ({
 	return (
 		<S.ParticipantRateWrapper>
 			<S.ParticipantInfo>
-				<img src={participant.avatarLink || NO_AVATAR_ICON} />
+				<img src={participant.avatarImageName || NO_AVATAR_ICON} />
 				<p>{participant.nickname}</p>
 			</S.ParticipantInfo>
 			<S.RateStarsWrapper>
